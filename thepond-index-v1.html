@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pond</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --text-dark: #1a1a18;
+    --text-muted: #5a5a52;
+    --text-light: #8a8a80;
+    --bg: #f5f2eb;
+    --paper: #faf8f3;
+  }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  #page-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pond-scene {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scene-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transition: opacity 1.8s ease-in-out;
+  }
+
+  .scene-layer svg {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .sky-text {
+    position: absolute;
+    top: 12%; left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  .sky-text h1 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    transition: color 2s ease-in-out;
+  }
+
+  .duck-wrapper {
+    position: absolute;
+    top: 46%; left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 10;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .duck-wrapper:hover {
+    animation-play-state: paused;
+    transform: translateX(-50%) scale(1.08);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); }
+    50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); }
+  }
+
+  .duck-svg { width: 64px; height: 64px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+
+  .click-ripple {
+    position: fixed;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    width: 10px; height: 10px;
+    margin: -5px;
+    pointer-events: none;
+    animation: clickRipple 0.8s ease-out forwards;
+    z-index: 100;
+  }
+
+  @keyframes clickRipple { to { transform: scale(12); opacity: 0; } }
+
+  #page-stories { display: none; min-height: 100vh; background: var(--paper); }
+
+  .stories-header {
+    padding: 48px 0 32px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .stories-header h1 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .back-btn {
+    position: absolute;
+    left: 40px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 13px;
+    color: var(--text-light);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    padding: 8px 0;
+    transition: color 0.2s;
+  }
+
+  .back-btn:hover { color: #2a5f7a; }
+
+  .catalog {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  .catalog-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: baseline;
+    gap: 0 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .catalog-item:hover { opacity: 0.6; }
+
+  .catalog-num {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+    padding-top: 3px;
+  }
+
+  .catalog-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+
+  .catalog-date {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-light);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+
+  #page-reader { display: none; min-height: 100vh; background: var(--paper); }
+
+  .reader-header {
+    padding: 48px 0 32px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .reader-meta {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .reader-body {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 64px 40px 120px;
+  }
+
+  .reader-num {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .reader-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--text-dark);
+  }
+
+  .reader-note {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .reader-content {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.85;
+    color: var(--text-dark);
+  }
+
+  .reader-content p { margin-bottom: 1.4em; }
+  .reader-content em { font-style: italic; }
+  .reader-content .poem-line { display: block; line-height: 1.6; }
+  .reader-content .poem-stanza { margin-bottom: 1.4em; }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 32px 40px 64px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .nav-btn {
+    background: none; border: none;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 16px;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 8px 0;
+  }
+
+  .nav-btn:hover { color: #2a5f7a; }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+  .nav-count {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page-enter { animation: fadeIn 0.4s ease-out forwards; }
+</style>
+</head>
+<body>
+
+<div id="page-home">
+  <div class="pond-scene">
+    <div class="sky-text"><h1 id="pond-title">The Pond</h1></div>
+    <div class="scene-layer" id="layer-a"></div>
+    <div class="scene-layer" id="layer-b" style="opacity:0;"></div>
+    <div class="duck-wrapper" id="duck" onclick="enterPond(event)" title="Enter">
+      <svg class="duck-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="32" cy="42" rx="20" ry="14" fill="#f5c842"/>
+        <ellipse cx="34" cy="44" rx="14" ry="9" fill="#d4a820" opacity="0.4"/>
+        <circle cx="44" cy="30" r="11" fill="#f5c842"/>
+        <ellipse cx="54.5" cy="31" rx="5" ry="3" fill="#e8890a"/>
+        <circle cx="47" cy="27" r="2.5" fill="#1a1a18"/>
+        <circle cx="47.8" cy="26.3" r="0.8" fill="white"/>
+        <ellipse cx="36" cy="35" rx="9" ry="7" fill="#f5c842"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div id="page-stories">
+  <div class="stories-header">
+    <button class="back-btn" onclick="showHome()">← pond</button>
+    <h1>The Pond</h1>
+  </div>
+  <div class="catalog" id="catalog-list"></div>
+</div>
+
+<div id="page-reader">
+  <div class="reader-header">
+    <button class="back-btn" onclick="showStories()">← all pieces</button>
+    <div class="reader-meta" id="reader-meta"></div>
+  </div>
+  <div class="reader-body">
+    <div class="reader-num" id="reader-num"></div>
+    <h1 class="reader-title" id="reader-title"></h1>
+    <div class="reader-note" id="reader-note"></div>
+    <div class="reader-content" id="reader-content"></div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← prev</button>
+    <span class="nav-count" id="nav-count"></span>
+    <button class="nav-btn" id="btn-next" onclick="navigate(1)">next →</button>
+  </div>
+</div>
+
+<script>
+function makeScene(cfg) {
+  const stars = cfg.hasStars ? `
+    <circle cx="120" cy="40" r="1.2" fill="white" opacity="0.8"/>
+    <circle cx="250" cy="20" r="0.9" fill="white" opacity="0.7"/>
+    <circle cx="400" cy="55" r="1.1" fill="white" opacity="0.9"/>
+    <circle cx="550" cy="18" r="0.8" fill="white" opacity="0.6"/>
+    <circle cx="680" cy="42" r="1.3" fill="white" opacity="0.8"/>
+    <circle cx="780" cy="25" r="1.0" fill="white" opacity="0.7"/>
+    <circle cx="900" cy="50" r="0.9" fill="white" opacity="0.85"/>
+    <circle cx="1050" cy="30" r="1.2" fill="white" opacity="0.75"/>
+    <circle cx="1150" cy="15" r="0.8" fill="white" opacity="0.6"/>
+    <circle cx="320" cy="70" r="0.7" fill="white" opacity="0.5"/>
+    <circle cx="860" cy="70" r="0.8" fill="white" opacity="0.55"/>
+    <circle cx="460" cy="35" r="0.9" fill="white" opacity="0.65"/>` : '';
+
+  const moon = cfg.hasMoon ? `
+    <circle cx="880" cy="80" r="28" fill="#f0e8c0" opacity="0.92"/>
+    <circle cx="872" cy="74" r="28" fill="${cfg.skyStops[1].color}" opacity="0.85"/>` : '';
+
+  const skyStops = cfg.skyStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
+  const waterStops = cfg.waterStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
+  const sunDefs = cfg.hasSun ? `<radialGradient id="sgg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="${cfg.sunColor}" stop-opacity="1"/>
+      <stop offset="40%" stop-color="${cfg.sunGlowColor}" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="${cfg.sunGlowColor}" stop-opacity="0"/>
+    </radialGradient>` : '';
+  const sun = cfg.hasSun ? `<ellipse cx="600" cy="${cfg.sunY}" rx="160" ry="70" fill="url(#sgg)" opacity="0.75"/>
+    <circle cx="600" cy="${cfg.sunY}" r="22" fill="${cfg.sunColor}" opacity="0.9"/>` : '';
+  const mist = cfg.mistOpacity > 0 ? `<rect x="0" y="295" width="1200" height="40" fill="white" opacity="${cfg.mistOpacity}"/>` : '';
+
+  return `<svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">${skyStops}</linearGradient>
+    <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1">${waterStops}</linearGradient>
+    ${sunDefs}
+  </defs>
+  <rect width="1200" height="600" fill="url(#sg)"/>
+  ${stars}${moon}${sun}
+  <path d="M0,290 Q80,220 160,240 Q220,255 280,225 Q340,195 400,215 Q460,235 520,205 Q580,175 640,200 Q700,225 760,210 Q820,195 880,218 Q940,240 1000,220 Q1060,200 1120,225 Q1160,238 1200,230 L1200,312 L0,312 Z" fill="${cfg.mtnFar}"/>
+  <path d="M0,300 Q60,250 130,265 Q190,278 250,252 Q310,226 370,248 Q430,268 490,245 Q550,222 610,242 Q670,262 730,248 Q790,234 850,252 Q910,270 970,255 Q1030,240 1090,258 Q1140,270 1200,260 L1200,312 L0,312 Z" fill="${cfg.mtnNear}"/>
+  <path d="M0,380 Q80,290 200,310 Q320,328 400,312 L400,600 L0,600 Z" fill="${cfg.hillLeftColor}"/>
+  <path d="M800,312 Q900,295 1020,308 Q1120,318 1200,300 L1200,600 L800,600 Z" fill="${cfg.hillRightColor}"/>
+  <path d="M0,312 Q120,295 300,308 Q400,315 480,312 L480,340 Q400,345 300,338 Q120,325 0,340 Z" fill="${cfg.bankLeft}" opacity="0.95"/>
+  <path d="M720,312 Q820,308 960,300 Q1080,294 1200,305 L1200,338 Q1080,325 960,330 Q820,338 720,340 Z" fill="${cfg.bankRight}" opacity="0.95"/>
+  <rect x="58" y="248" width="5" height="62" fill="${cfg.treeFill}"/>
+  <ellipse cx="60" cy="240" rx="18" ry="26" fill="${cfg.treeFill}"/>
+  <rect x="98" y="256" width="4" height="54" fill="${cfg.treeFill}"/>
+  <ellipse cx="100" cy="248" rx="14" ry="20" fill="${cfg.treeFill}"/>
+  <rect x="145" y="230" width="5" height="80" fill="${cfg.treeFill}"/>
+  <ellipse cx="147" cy="222" rx="16" ry="24" fill="${cfg.treeFill}"/>
+  <rect x="185" y="258" width="4" height="52" fill="${cfg.treeFill}"/>
+  <ellipse cx="187" cy="250" rx="13" ry="18" fill="${cfg.treeFill}"/>
+  <rect x="1008" y="252" width="5" height="56" fill="${cfg.treeFill}"/>
+  <ellipse cx="1010" cy="244" rx="17" ry="24" fill="${cfg.treeFill}"/>
+  <rect x="1048" y="244" width="4" height="64" fill="${cfg.treeFill}"/>
+  <ellipse cx="1050" cy="236" rx="15" ry="22" fill="${cfg.treeFill}"/>
+  <rect x="1085" y="256" width="5" height="52" fill="${cfg.treeFill}"/>
+  <ellipse cx="1087" cy="248" rx="14" ry="20" fill="${cfg.treeFill}"/>
+  <rect x="1125" y="248" width="4" height="58" fill="${cfg.treeFill}"/>
+  <ellipse cx="1127" cy="240" rx="16" ry="23" fill="${cfg.treeFill}"/>
+  <rect x="0" y="312" width="1200" height="288" fill="url(#wg)"/>
+  <line x1="300" y1="350" x2="500" y2="350" stroke="${cfg.waterShimmerColor}" stroke-width="1"/>
+  <line x1="450" y1="375" x2="750" y2="375" stroke="${cfg.waterShimmerColor}" stroke-width="1"/>
+  <line x1="620" y1="360" x2="900" y2="360" stroke="${cfg.waterShimmerColor}" stroke-width="1"/>
+  <ellipse cx="600" cy="320" rx="14" ry="4" fill="${cfg.duckReflect}" opacity="0.55"/>
+  <rect x="592" y="318" width="16" height="28" fill="${cfg.duckReflect}" opacity="0.18" rx="8"/>
+  <line x1="0" y1="312" x2="1200" y2="312" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  ${mist}
+  </svg>`;
+}
+
+const SCENES = {
+  night: makeScene({
+    skyStops: [{offset:'0%',color:'#060814'},{offset:'40%',color:'#0d1428'},{offset:'75%',color:'#141e38'},{offset:'100%',color:'#1a2440'}],
+    waterStops: [{offset:'0%',color:'#0d1828'},{offset:'100%',color:'#080e18'}],
+    hillLeftColor:'#0e1218', hillRightColor:'#0c1016', bankLeft:'#121a10', bankRight:'#101610',
+    treeFill:'#080c08', mtnFar:'rgba(20,28,50,0.45)', mtnNear:'rgba(14,20,40,0.35)', hasMoon:true, hasStars:true, hasSun:false,
+    waterShimmerColor:'rgba(200,220,255,0.08)', duckReflect:'#c8b840', mistOpacity:0, titleColor:'rgba(200,220,255,0.7)'
+  }),
+  dawn: makeScene({
+    skyStops: [{offset:'0%',color:'#1a1030'},{offset:'25%',color:'#3a1a40'},{offset:'50%',color:'#c0607a'},{offset:'70%',color:'#e8a090'},{offset:'85%',color:'#f0c8a0'},{offset:'100%',color:'#c8a880'}],
+    waterStops: [{offset:'0%',color:'#4a3858'},{offset:'50%',color:'#3a2848'},{offset:'100%',color:'#2a1c38'}],
+    hillLeftColor:'#2a1e28', hillRightColor:'#221c20', bankLeft:'#2e2820', bankRight:'#2a2420',
+    treeFill:'#160e14', mtnFar:'rgba(90,55,85,0.32)', mtnNear:'rgba(65,42,72,0.28)', hasMoon:false, hasStars:true, hasSun:true,
+    sunColor:'#f0c0a0', sunGlowColor:'#e88070', sunY:320,
+    waterShimmerColor:'rgba(240,180,160,0.15)', duckReflect:'#c8b840', mistOpacity:0.07, titleColor:'rgba(255,220,200,0.8)'
+  }),
+  day: makeScene({
+    skyStops: [{offset:'0%',color:'#2878c8'},{offset:'40%',color:'#4898e0'},{offset:'75%',color:'#78b8f0'},{offset:'100%',color:'#a8d0f0'}],
+    waterStops: [{offset:'0%',color:'#2a6a8a'},{offset:'50%',color:'#1e5070'},{offset:'100%',color:'#143858'}],
+    hillLeftColor:'#3a5228', hillRightColor:'#304820', bankLeft:'#4a6a30', bankRight:'#405e28',
+    treeFill:'#1e3410', mtnFar:'rgba(130,165,200,0.28)', mtnNear:'rgba(105,145,182,0.2)', hasMoon:false, hasStars:false, hasSun:true,
+    sunColor:'#fff8c0', sunGlowColor:'#f0e080', sunY:180,
+    waterShimmerColor:'rgba(255,255,255,0.18)', duckReflect:'#c8b020', mistOpacity:0, titleColor:'rgba(18,50,80,0.6)'
+  }),
+  sunset: makeScene({
+    skyStops: [{offset:'0%',color:'#1a1230'},{offset:'18%',color:'#4a2040'},{offset:'38%',color:'#8b3a2a'},{offset:'55%',color:'#c96a2a'},{offset:'65%',color:'#e8943a'},{offset:'74%',color:'#f2b85a'},{offset:'82%',color:'#d4c870'},{offset:'100%',color:'#8aaa80'}],
+    waterStops: [{offset:'0%',color:'#3a4050'},{offset:'50%',color:'#2a3040'},{offset:'100%',color:'#12202a'}],
+    hillLeftColor:'#3a2a1a', hillRightColor:'#2a3020', bankLeft:'#3a4a2a', bankRight:'#2e3d22',
+    treeFill:'#1a1a0a', mtnFar:'rgba(85,52,42,0.38)', mtnNear:'rgba(62,42,32,0.3)', hasMoon:false, hasStars:false, hasSun:true,
+    sunColor:'#f2d060', sunGlowColor:'#e8943a', sunY:312,
+    waterShimmerColor:'rgba(242,184,90,0.15)', duckReflect:'#d4a820', mistOpacity:0, titleColor:'rgba(255,220,160,0.7)'
+  })
+};
+
+const titleColors = { night:'rgba(200,220,255,0.7)', dawn:'rgba(255,220,200,0.8)', day:'rgba(18,50,80,0.6)', sunset:'rgba(255,220,160,0.7)' };
+
+function getSceneBlend(hour, minute) {
+  const t = hour + minute / 60;
+  const phases = [{name:'night',start:0},{name:'dawn',start:5},{name:'day',start:10},{name:'sunset',start:18},{name:'night',start:23}];
+  const trans = 1.0;
+  for (let i = 0; i < phases.length - 1; i++) {
+    const a = phases[i], b = phases[i+1];
+    if (t >= a.start && t < b.start) {
+      const segLen = b.start - a.start;
+      const elapsed = t - a.start;
+      if (elapsed > segLen - trans) {
+        const blend = (elapsed - (segLen - trans)) / trans;
+        return { sceneA: a.name, sceneB: b.name, blend: Math.min(blend, 1) };
+      }
+      return { sceneA: a.name, sceneB: a.name, blend: 0 };
+    }
+  }
+  return { sceneA: 'night', sceneB: 'night', blend: 0 };
+}
+
+function interpolateColor(c1, c2, t) {
+  const parse = h => {
+    h = h.replace(/^rgba?\(/,'').replace(/\)$/,'');
+    if (h.startsWith('#')) { const n=parseInt(h.slice(1),16); return [n>>16&255,n>>8&255,n&255,1]; }
+    const p=h.split(',').map(Number); return [p[0],p[1],p[2],p[3]??1];
+  };
+  const [r1,g1,b1,a1]=parse(c1), [r2,g2,b2,a2]=parse(c2);
+  return `rgba(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2-b1)*t)},${+(a1+(a2-a1)*t).toFixed(2)})`;
+}
+
+function applyScene() {
+  const now = new Date();
+  const { sceneA, sceneB, blend } = getSceneBlend(now.getHours(), now.getMinutes());
+  const layerA = document.getElementById('layer-a');
+  const layerB = document.getElementById('layer-b');
+  layerA.innerHTML = SCENES[sceneA];
+  layerA.style.opacity = '1';
+  if (blend === 0) {
+    layerB.style.opacity = '0';
+  } else {
+    layerB.innerHTML = SCENES[sceneB];
+    layerB.style.opacity = String(blend);
+  }
+  const titleColor = blend === 0 ? titleColors[sceneA] : interpolateColor(titleColors[sceneA], titleColors[sceneB], blend);
+  document.getElementById('pond-title').style.color = titleColor;
+}
+
+applyScene();
+setInterval(applyScene, 60000);
+
+const stories = [
+  {
+    num: "001",
+    title: "The Lemon to My Aid",
+    date: "2026",
+    type: "poem",
+    note: "",
+    content: `<div class="poem-stanza">
+      <span class="poem-line">You're the flower to my stem, the bees to my knees.</span>
+      <span class="poem-line">The puzzle to my piece, the lemon to my squeeze.</span>
+      <span class="poem-line">And when life is bitter, you are my sweet.</span>
+      <span class="poem-line">The lemon to my aid.</span>
+    </div>`
+  },
+  {
+    num: "002",
+    title: "A Prison With an Open Door",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>He heard it before he saw it. A crash. The heavy clang of cell doors swinging open, echoing off concrete like a starting gun.</p>
+    <p>He opened his eyes.</p>
+    <p>To his right, his neighbor was already gone, door wide open, man nowhere in sight. He turned left. Gerald was still sitting there, motionless, door hanging open like an invitation.</p>
+    <p>"Gerald." He grabbed the bars. "Gerald. RUN! RUN FOR IT!"</p>
+    <p>Gerald blinked. Looked at the door. Then something clicked and he was up and gone.</p>
+    <p>He listened to the footsteps fade down the corridor.</p>
+    <p>Then he sat back down on his bunk, never noticing his door was open too.</p>`
+  },
+  {
+    num: "003",
+    title: "Yearning",
+    date: "2026",
+    type: "prose",
+    note: "",
+    content: `<p>Yearning is his baseline.</p>
+    <p>A desire for a cookie, for gummies, for pleasure. Yearning is what he thinks he was made for. I never met a man more caught up in what he could have.</p>
+    <p>What made it especially annoying is that he had so much. From the beginning. And still he was rarely satisfied.</p>
+    <p>The guy yearns to be successful. But he also yearns for more. He yearns left, he yearns right, he yearns out of spite.</p>
+    <p>He sets himself back more than he moves himself forward, which is its own kind of achievement if you think about it.</p>
+    <p>And still, he yearns.</p>
+    <p>For a cookie. For gummies. For smoke.</p>
+    <p>For something he couldn't name if you asked him.</p>
+    <p>You'd feel sorry for him if it wasn't so exhausting to watch.</p>`
+  },
+  {
+    num: "004",
+    title: "The Vagus Nerve",
+    date: "2026",
+    type: "poem",
+    note: "",
+    content: `<div class="poem-stanza"><span class="poem-line">Here I am again, deeper than the last, but familiar.</span></div>
+    <div class="poem-stanza"><span class="poem-line">This time the way out wasn't the same. The obstacles differed. And the skills to overcome them I did not have.</span></div>
+    <div class="poem-stanza"><span class="poem-line">And what now? What do I fear?</span></div>
+    <div class="poem-stanza"><span class="poem-line">Myself. People seeing me not as I want them to, but as I am.</span></div>
+    <div class="poem-stanza"><span class="poem-line">Just a man with enough mental anguish that it turns physical. Fragile and shaking. With flaws and insecurities.</span></div>
+    <div class="poem-stanza"><span class="poem-line">But being so focused on the bad, I forgot all the good. The laughs created, moments shared, a life being built.</span></div>
+    <div class="poem-stanza"><span class="poem-line">Who am I, if not enough for myself?</span></div>`
+  },
+  {
+    num: "005",
+    title: "White Wine Vinaigrette",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
+  },
+  {
+    num: "006",
+    title: "The Beast",
+    date: "2026",
+    type: "poem",
+    note: "",
+    content: `<div class="poem-stanza">
+      <span class="poem-line">Gotta feed the beast.</span>
+      <span class="poem-line">The beast is always hungry.</span>
+      <span class="poem-line">The beast is picky too.</span>
+      <span class="poem-line">Sometimes the beast wants broccoli,</span>
+      <span class="poem-line">Sometimes the beast wants a potato too.</span>
+    </div>
+    <div class="poem-stanza">
+      <span class="poem-line">Sometimes the beast wants waffle cut potato fries</span>
+      <span class="poem-line">fried in peanut oil with pink Himalayan sea salt,</span>
+      <span class="poem-line">rosemary, and a twist of lemon.</span>
+    </div>
+    <div class="poem-stanza">
+      <span class="poem-line">The beast.</span>
+      <span class="poem-line">Gotta feed the beast.</span>
+      <span class="poem-line">The beast is always hungry.</span>
+      <span class="poem-line">The beast is picky too.</span>
+      <span class="poem-line">Sometimes the beast wants you.</span>
+      <span class="poem-line">You never know what the beast wants.</span>
+      <span class="poem-line">The appetite is always new.</span>
+    </div>
+    <div class="poem-stanza">
+      <span class="poem-line">But there are things the beast consistently wants.</span>
+      <span class="poem-line">Beast wants everything all at once,</span>
+      <span class="poem-line">but you never know what the beast actually wants.</span>
+    </div>
+    <div class="poem-stanza">
+      <span class="poem-line">And sometimes, you get lucky and you learn what the beast wants.</span>
+      <span class="poem-line">Then you feed the beast,</span>
+      <span class="poem-line">and you keep feeding the beast,</span>
+      <span class="poem-line">until the beast upchucks on you.</span>
+    </div>`
+  },
+  {
+    num: "007",
+    title: "The 87th Floor",
+    date: "2026",
+    type: "prose",
+    note: "",
+    content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p>
+    <p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
+  },
+  {
+    num: "008",
+    title: "The Same Building",
+    date: "2026",
+    type: "prose",
+    note: "",
+    content: `<p>He was sitting in his thinking chair, gay, reminiscing back to the time when he was walking down his hallway when he lived in Nashville. He was selling insurance at the time, not well, and living in an expensive apartment he'd gotten along with his fancy truck because he had just acquired his first proverbial bag from a previous endeavor. Having had a little success, he thought he was going to make all this money in insurance like it was no problem. Unfortunately, he wasn't. Imagine that. Honestly though, it bummed him out. He saw the trope he fell into. Egg on his face. But he still wanted to make it work. He was still naive. He was so anxious at that job, working so hard and not knowing what to do. He remembers walking down his hallway after work one day and thinking: <em>Am I gonna die tomorrow? No. Am I gonna lose my house tomorrow? No. Then I'm fine.</em> That realization stuck with him.</p>
+    <p>There's another moment like that he thought about, now off his high horse and on the couch. Since freshman year of high school, he'd been struggling, it came and went through high school and college. To be honest, he didn't have much to struggle about, and that kind of made it worse, because he felt guilty for being guilty about being guilty. You get it. But through those dark times, there were also really fun, silly times he can still remember.</p>
+    <p>Then when college ended and he got a job out West, it felt like a rebirth. He felt success. He was really happy out there.</p>
+    <p>Then he remembers being in Utah, six or seven months later, after they had moved there for the snow season. He was in his room, getting up for the day and getting ready to go shred. He got up and stood on the left side of his bed, looking out the window. And he had a thought: <em>I don't want to die anymore. I want to continue to live.</em> He knew that sounded obvious, but he was genuine when he said it. It was true this time. He thought he would die by twenty-five and here he was at 24 yearning to live a real life.</p>
+    <p>That's the shift that happened.</p>
+    <p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
+  },
+  {
+    num: "009",
+    title: "Written Communication",
+    date: "2026",
+    type: "prose",
+    note: "",
+    content: `<p>Hey, Squeeze.</p>
+    <p>Thank you for making me dinner. That was very, very sweet of you. I hope you had a great day today at work!</p>
+    <p>I understand you might need a little time tonight, and I know you're sore from yesterday. I'm sorry for talking to you and asking questions to make you look dumb. That was not my intention, but I see where you're coming from, and I appreciate you pointing that out w/ my parents. To be frank, you're probably right. In fact, it's funny you say that because that was kind of a topic of conversation w/ my therapist today. But to that point, I wanted you to feel supported. I hear where you're coming from, and I don't want our home to feel like a space where you can't be yourself. I'm sorry that I made you feel that way.</p>
+    <p>I don't think you are a loser. I don't think either of us are losers. However, I agree that I don't think we can handle more two or three hour banters either.</p>
+    <p>If I'm being frank w/ you, something that boiled up yesterday is complaining. I think that's different from talking about your problems / opinions. I get that complaining makes you feel better and is how you vent. But it can be negative. I don't get as mad about what you're saying. I understand you're not really asking me to fix it, but that's how it feels you're presenting it. That's where I get frustrated and come back w/ solutions. I know it's not always necessary, and sometimes I just need to listen. But I also don't think complaining is good.</p>
+    <p>I desperately don't want you to think that your thoughts, fears, and opinions aren't valid. I want you to be able to share those. But it seems like the complaining is the problem to me. I 100% understand that part of it could be from work. We both have pressure without a doubt. But I want to be there for you. I want us to be able to come home and not feel on edge or like something is wrong. That's not fair to you or me. I love you. Your support does a lot for me. In and out of work. I couldn't do a lot of what I do without you. I'm very appreciative of that. It's not unrecognized. I know this isn't E.O.W stuff, but I think it's important. I think our relationship is important. And you show up willing to do the work. I love you for that. But I wanted to be honest too.</p>
+    <p>Love,</p>
+    <p style="font-size:14px; color: var(--text-light); margin-top: 8px; font-style: italic;">E.O.W. = End of World</p>`
+  },
+  {
+    num: "010",
+    title: "Joan",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p>
+    <p>Then I heard her.</p>
+    <p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p>
+    <p>But I followed. God help me, I followed.</p>
+    <p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p>
+    <p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p>
+    <p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
+  }
+];
+
+let currentStoryIndex = 0;
+
+function buildCatalog() {
+  const list = document.getElementById('catalog-list');
+  list.innerHTML = stories.map((s, i) => `
+    <div class="catalog-item" onclick="showReader(${i})">
+      <span class="catalog-num">${s.num}</span>
+      <span class="catalog-title">${s.title}</span>
+      <span class="catalog-date">${s.date}</span>
+    </div>
+  `).join('');
+}
+
+function enterPond(e) {
+  const ripple = document.createElement('div');
+  ripple.className = 'click-ripple';
+  ripple.style.left = e.clientX + 'px';
+  ripple.style.top = e.clientY + 'px';
+  document.body.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 800);
+  setTimeout(() => {
+    document.getElementById('page-home').style.display = 'none';
+    const p = document.getElementById('page-stories');
+    p.style.display = 'block';
+    p.classList.add('page-enter');
+    buildCatalog();
+  }, 200);
+}
+
+function showHome() {
+  document.getElementById('page-stories').style.display = 'none';
+  document.getElementById('page-reader').style.display = 'none';
+  document.getElementById('page-home').style.display = 'flex';
+}
+
+function showStories() {
+  document.getElementById('page-reader').style.display = 'none';
+  const p = document.getElementById('page-stories');
+  p.style.display = 'block';
+  p.classList.add('page-enter');
+}
+
+function showReader(i) {
+  currentStoryIndex = i;
+  const s = stories[i];
+  document.getElementById('reader-meta').textContent = s.type + ' · ' + s.date;
+  document.getElementById('reader-num').textContent = s.num;
+  document.getElementById('reader-title').textContent = s.title;
+  const noteEl = document.getElementById('reader-note');
+  noteEl.style.display = s.note ? 'block' : 'none';
+  if (s.note) noteEl.textContent = s.note;
+  document.getElementById('reader-content').innerHTML = s.content;
+  document.getElementById('nav-count').textContent = (i + 1) + ' / ' + stories.length;
+  document.getElementById('btn-prev').disabled = i === 0;
+  document.getElementById('btn-next').disabled = i === stories.length - 1;
+  document.getElementById('page-stories').style.display = 'none';
+  const p = document.getElementById('page-reader');
+  p.style.display = 'block';
+  p.classList.add('page-enter');
+  window.scrollTo(0, 0);
+}
+
+function navigate(dir) {
+  const next = currentStoryIndex + dir;
+  if (next >= 0 && next < stories.length) showReader(next);
+}
+</script>
+</body>
+</html>
