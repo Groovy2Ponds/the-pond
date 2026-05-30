@@ -6,9 +6,9 @@
 <title>The Pond</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   :root {
     --text-dark: #1a1a18;
     --text-muted: #5a5a52;
@@ -16,7 +16,7 @@
     --bg: #f5f2eb;
     --paper: #faf8f3;
   }
-
+ 
   body {
     font-family: 'EB Garamond', Georgia, serif;
     background: var(--bg);
@@ -24,7 +24,7 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
+ 
   #page-home {
     display: flex;
     flex-direction: column;
@@ -34,27 +34,27 @@
     position: relative;
     overflow: hidden;
   }
-
+ 
   .pond-scene {
     width: 100%;
     height: 100vh;
     position: relative;
     overflow: hidden;
   }
-
+ 
   .scene-layer {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     transition: opacity 1.8s ease-in-out;
   }
-
+ 
   .scene-layer svg {
     width: 100%; height: 100%;
     position: absolute;
     top: 0; left: 0;
   }
-
+ 
   .sky-text {
     position: absolute;
     top: 12%; left: 50%;
@@ -63,7 +63,7 @@
     pointer-events: none;
     z-index: 20;
   }
-
+ 
   .sky-text h1 {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 13px;
@@ -72,7 +72,7 @@
     text-transform: uppercase;
     transition: color 2s ease-in-out;
   }
-
+ 
   .duck-wrapper {
     position: absolute;
     top: 46%; left: 50%;
@@ -81,19 +81,19 @@
     z-index: 10;
     animation: float 4s ease-in-out infinite;
   }
-
+ 
   .duck-wrapper:hover {
     animation-play-state: paused;
     transform: translateX(-50%) scale(1.08);
   }
-
+ 
   @keyframes float {
     0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); }
     50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); }
   }
-
+ 
   .duck-svg { width: 64px; height: 64px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
-
+ 
   .click-ripple {
     position: fixed;
     border-radius: 50%;
@@ -104,18 +104,27 @@
     animation: clickRipple 0.8s ease-out forwards;
     z-index: 100;
   }
-
+ 
   @keyframes clickRipple { to { transform: scale(12); opacity: 0; } }
-
+ 
   #page-stories { display: none; min-height: 100vh; background: var(--paper); }
-
+ 
   .stories-header {
     padding: 48px 0 32px;
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0,0.08);
     position: relative;
   }
-
+ 
+  .stories-tagline {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-light);
+    margin-top: 10px;
+    letter-spacing: 0.02em;
+  }
+ 
   .stories-header h1 {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 13px;
@@ -124,7 +133,7 @@
     color: var(--text-muted);
     text-transform: uppercase;
   }
-
+ 
   .back-btn {
     position: absolute;
     left: 40px; top: 50%;
@@ -138,15 +147,15 @@
     padding: 8px 0;
     transition: color 0.2s;
   }
-
+ 
   .back-btn:hover { color: #2a5f7a; }
-
+ 
   .catalog {
     max-width: 640px;
     margin: 0 auto;
     padding: 0 40px 80px;
   }
-
+ 
   .catalog-item {
     display: grid;
     grid-template-columns: 48px 1fr auto;
@@ -157,9 +166,9 @@
     cursor: pointer;
     transition: opacity 0.2s;
   }
-
+ 
   .catalog-item:hover { opacity: 0.6; }
-
+ 
   .catalog-num {
     font-family: 'Courier Prime', 'Courier New', monospace;
     font-size: 12px;
@@ -167,7 +176,7 @@
     letter-spacing: 0.05em;
     padding-top: 3px;
   }
-
+ 
   .catalog-title {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 22px;
@@ -175,7 +184,7 @@
     color: var(--text-dark);
     line-height: 1.3;
   }
-
+ 
   .catalog-date {
     font-family: 'Courier Prime', 'Courier New', monospace;
     font-size: 11px;
@@ -183,16 +192,16 @@
     white-space: nowrap;
     letter-spacing: 0.05em;
   }
-
+ 
   #page-reader { display: none; min-height: 100vh; background: var(--paper); }
-
+ 
   .reader-header {
     padding: 48px 0 32px;
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0,0.08);
     position: relative;
   }
-
+ 
   .reader-meta {
     font-family: 'Courier Prime', 'Courier New', monospace;
     font-size: 11px;
@@ -200,13 +209,13 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
-
+ 
   .reader-body {
     max-width: 580px;
     margin: 0 auto;
     padding: 64px 40px 120px;
   }
-
+ 
   .reader-num {
     font-family: 'Courier Prime', 'Courier New', monospace;
     font-size: 12px;
@@ -214,7 +223,7 @@
     letter-spacing: 0.1em;
     margin-bottom: 20px;
   }
-
+ 
   .reader-title {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 36px;
@@ -223,7 +232,7 @@
     margin-bottom: 16px;
     color: var(--text-dark);
   }
-
+ 
   .reader-note {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 17px;
@@ -234,19 +243,19 @@
     padding-bottom: 32px;
     border-bottom: 1px solid rgba(0,0,0,0.08);
   }
-
+ 
   .reader-content {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 19px;
     line-height: 1.85;
     color: var(--text-dark);
   }
-
+ 
   .reader-content p { margin-bottom: 1.4em; }
   .reader-content em { font-style: italic; }
   .reader-content .poem-line { display: block; line-height: 1.6; }
   .reader-content .poem-stanza { margin-bottom: 1.4em; }
-
+ 
   .nav-row {
     display: flex;
     justify-content: space-between;
@@ -256,7 +265,7 @@
     padding: 32px 40px 64px;
     border-top: 1px solid rgba(0,0,0,0.06);
   }
-
+ 
   .nav-btn {
     background: none; border: none;
     font-family: 'EB Garamond', Georgia, serif;
@@ -266,17 +275,17 @@
     transition: color 0.2s;
     padding: 8px 0;
   }
-
+ 
   .nav-btn:hover { color: #2a5f7a; }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
-
+ 
   .nav-count {
     font-family: 'Courier Prime', 'Courier New', monospace;
     font-size: 11px;
     color: var(--text-light);
     letter-spacing: 0.1em;
   }
-
+ 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -285,7 +294,7 @@
 </style>
 </head>
 <body>
-
+ 
 <div id="page-home">
   <div class="pond-scene">
     <div class="sky-text"><h1 id="pond-title">The Pond</h1></div>
@@ -304,15 +313,16 @@
     </div>
   </div>
 </div>
-
+ 
 <div id="page-stories">
   <div class="stories-header">
     <button class="back-btn" onclick="showHome()">← pond</button>
     <h1>The Pond</h1>
+    <p class="stories-tagline">Everything here is made up. Some of it happened.</p>
   </div>
   <div class="catalog" id="catalog-list"></div>
 </div>
-
+ 
 <div id="page-reader">
   <div class="reader-header">
     <button class="back-btn" onclick="showStories()">← all pieces</button>
@@ -330,7 +340,7 @@
     <button class="nav-btn" id="btn-next" onclick="navigate(1)">next →</button>
   </div>
 </div>
-
+ 
 <script>
 function makeScene(cfg) {
   const stars = cfg.hasStars ? `
@@ -346,11 +356,11 @@ function makeScene(cfg) {
     <circle cx="320" cy="70" r="0.7" fill="white" opacity="0.5"/>
     <circle cx="860" cy="70" r="0.8" fill="white" opacity="0.55"/>
     <circle cx="460" cy="35" r="0.9" fill="white" opacity="0.65"/>` : '';
-
+ 
   const moon = cfg.hasMoon ? `
     <circle cx="880" cy="80" r="28" fill="#f0e8c0" opacity="0.92"/>
     <circle cx="872" cy="74" r="28" fill="${cfg.skyStops[1].color}" opacity="0.85"/>` : '';
-
+ 
   const skyStops = cfg.skyStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
   const waterStops = cfg.waterStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
   const sunDefs = cfg.hasSun ? `<radialGradient id="sgg" cx="50%" cy="50%" r="50%">
@@ -361,7 +371,7 @@ function makeScene(cfg) {
   const sun = cfg.hasSun ? `<ellipse cx="600" cy="${cfg.sunY}" rx="160" ry="70" fill="url(#sgg)" opacity="0.75"/>
     <circle cx="600" cy="${cfg.sunY}" r="22" fill="${cfg.sunColor}" opacity="0.9"/>` : '';
   const mist = cfg.mistOpacity > 0 ? `<rect x="0" y="295" width="1200" height="40" fill="white" opacity="${cfg.mistOpacity}"/>` : '';
-
+ 
   return `<svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">${skyStops}</linearGradient>
@@ -402,7 +412,7 @@ function makeScene(cfg) {
   ${mist}
   </svg>`;
 }
-
+ 
 const SCENES = {
   night: makeScene({
     skyStops: [{offset:'0%',color:'#060814'},{offset:'40%',color:'#0d1428'},{offset:'75%',color:'#141e38'},{offset:'100%',color:'#1a2440'}],
@@ -436,9 +446,9 @@ const SCENES = {
     waterShimmerColor:'rgba(242,184,90,0.15)', duckReflect:'#d4a820', mistOpacity:0, titleColor:'rgba(255,220,160,0.7)'
   })
 };
-
+ 
 const titleColors = { night:'rgba(200,220,255,0.7)', dawn:'rgba(255,220,200,0.8)', day:'rgba(18,50,80,0.6)', sunset:'rgba(255,220,160,0.7)' };
-
+ 
 function getSceneBlend(hour, minute) {
   const t = hour + minute / 60;
   const phases = [{name:'night',start:0},{name:'dawn',start:5},{name:'day',start:10},{name:'sunset',start:18},{name:'night',start:23}];
@@ -457,7 +467,7 @@ function getSceneBlend(hour, minute) {
   }
   return { sceneA: 'night', sceneB: 'night', blend: 0 };
 }
-
+ 
 function interpolateColor(c1, c2, t) {
   const parse = h => {
     h = h.replace(/^rgba?\(/,'').replace(/\)$/,'');
@@ -467,7 +477,7 @@ function interpolateColor(c1, c2, t) {
   const [r1,g1,b1,a1]=parse(c1), [r2,g2,b2,a2]=parse(c2);
   return `rgba(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2-b1)*t)},${+(a1+(a2-a1)*t).toFixed(2)})`;
 }
-
+ 
 function applyScene() {
   const now = new Date();
   const { sceneA, sceneB, blend } = getSceneBlend(now.getHours(), now.getMinutes());
@@ -484,10 +494,10 @@ function applyScene() {
   const titleColor = blend === 0 ? titleColors[sceneA] : interpolateColor(titleColors[sceneA], titleColors[sceneB], blend);
   document.getElementById('pond-title').style.color = titleColor;
 }
-
+ 
 applyScene();
 setInterval(applyScene, 60000);
-
+ 
 const stories = [
   {
     num: "001",
@@ -502,6 +512,8 @@ const stories = [
       <span class="poem-line">The lemon to my aid.</span>
     </div>`
   },
+ 
+ 
   {
     num: "002",
     title: "A Prison With an Open Door",
@@ -516,8 +528,52 @@ const stories = [
     <p>He listened to the footsteps fade down the corridor.</p>
     <p>Then he sat back down on his bunk, never noticing his door was open too.</p>`
   },
+ 
+ 
   {
     num: "003",
+    title: "White Wine Vinaigrette",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
+  },
+ 
+ 
+  {
+    num: "004",
+    title: "Joan",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p>
+    <p>Then I heard her.</p>
+    <p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p>
+    <p>But I followed. God help me, I followed.</p>
+    <p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p>
+    <p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p>
+    <p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
+  },
+ 
+ 
+  {
+    num: "005",
+    title: "The Vagus Nerve",
+    date: "2026",
+    type: "poem",
+    note: "",
+    content: `<div class="poem-stanza"><span class="poem-line">Here I am again, deeper than the last, but familiar.</span></div>
+    <div class="poem-stanza"><span class="poem-line">This time the way out wasn't the same. The obstacles differed. And the skills to overcome them I did not have.</span></div>
+    <div class="poem-stanza"><span class="poem-line">And what now? What do I fear?</span></div>
+    <div class="poem-stanza"><span class="poem-line">Myself. People seeing me not as I want them to, but as I am.</span></div>
+    <div class="poem-stanza"><span class="poem-line">Just a man with enough mental anguish that it turns physical. Fragile and shaking. With flaws and insecurities.</span></div>
+    <div class="poem-stanza"><span class="poem-line">But being so focused on the bad, I forgot all the good. The laughs created, moments shared, a life being built.</span></div>
+    <div class="poem-stanza"><span class="poem-line">Who am I, if not enough for myself?</span></div>`
+  },
+ 
+ 
+  {
+    num: "006",
     title: "Yearning",
     date: "2026",
     type: "prose",
@@ -532,30 +588,10 @@ const stories = [
     <p>For something he couldn't name if you asked him.</p>
     <p>You'd feel sorry for him if it wasn't so exhausting to watch.</p>`
   },
+ 
+ 
   {
-    num: "004",
-    title: "The Vagus Nerve",
-    date: "2026",
-    type: "poem",
-    note: "",
-    content: `<div class="poem-stanza"><span class="poem-line">Here I am again, deeper than the last, but familiar.</span></div>
-    <div class="poem-stanza"><span class="poem-line">This time the way out wasn't the same. The obstacles differed. And the skills to overcome them I did not have.</span></div>
-    <div class="poem-stanza"><span class="poem-line">And what now? What do I fear?</span></div>
-    <div class="poem-stanza"><span class="poem-line">Myself. People seeing me not as I want them to, but as I am.</span></div>
-    <div class="poem-stanza"><span class="poem-line">Just a man with enough mental anguish that it turns physical. Fragile and shaking. With flaws and insecurities.</span></div>
-    <div class="poem-stanza"><span class="poem-line">But being so focused on the bad, I forgot all the good. The laughs created, moments shared, a life being built.</span></div>
-    <div class="poem-stanza"><span class="poem-line">Who am I, if not enough for myself?</span></div>`
-  },
-  {
-    num: "005",
-    title: "White Wine Vinaigrette",
-    date: "2026",
-    type: "story",
-    note: "",
-    content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
-  },
-  {
-    num: "006",
+    num: "007",
     title: "The Beast",
     date: "2026",
     type: "poem",
@@ -593,8 +629,10 @@ const stories = [
       <span class="poem-line">until the beast upchucks on you.</span>
     </div>`
   },
+ 
+ 
   {
-    num: "007",
+    num: "008",
     title: "The 87th Floor",
     date: "2026",
     type: "prose",
@@ -602,8 +640,10 @@ const stories = [
     content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p>
     <p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
   },
+ 
+ 
   {
-    num: "008",
+    num: "009",
     title: "The Same Building",
     date: "2026",
     type: "prose",
@@ -615,39 +655,55 @@ const stories = [
     <p>That's the shift that happened.</p>
     <p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
   },
-  {
-    num: "009",
-    title: "Written Communication",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>Hey, Squeeze.</p>
-    <p>Thank you for making me dinner. That was very, very sweet of you. I hope you had a great day today at work!</p>
-    <p>I understand you might need a little time tonight, and I know you're sore from yesterday. I'm sorry for talking to you and asking questions to make you look dumb. That was not my intention, but I see where you're coming from, and I appreciate you pointing that out w/ my parents. To be frank, you're probably right. In fact, it's funny you say that because that was kind of a topic of conversation w/ my therapist today. But to that point, I wanted you to feel supported. I hear where you're coming from, and I don't want our home to feel like a space where you can't be yourself. I'm sorry that I made you feel that way.</p>
-    <p>I don't think you are a loser. I don't think either of us are losers. However, I agree that I don't think we can handle more two or three hour banters either.</p>
-    <p>If I'm being frank w/ you, something that boiled up yesterday is complaining. I think that's different from talking about your problems / opinions. I get that complaining makes you feel better and is how you vent. But it can be negative. I don't get as mad about what you're saying. I understand you're not really asking me to fix it, but that's how it feels you're presenting it. That's where I get frustrated and come back w/ solutions. I know it's not always necessary, and sometimes I just need to listen. But I also don't think complaining is good.</p>
-    <p>I desperately don't want you to think that your thoughts, fears, and opinions aren't valid. I want you to be able to share those. But it seems like the complaining is the problem to me. I 100% understand that part of it could be from work. We both have pressure without a doubt. But I want to be there for you. I want us to be able to come home and not feel on edge or like something is wrong. That's not fair to you or me. I love you. Your support does a lot for me. In and out of work. I couldn't do a lot of what I do without you. I'm very appreciative of that. It's not unrecognized. I know this isn't E.O.W stuff, but I think it's important. I think our relationship is important. And you show up willing to do the work. I love you for that. But I wanted to be honest too.</p>
-    <p>Love,</p>
-    <p style="font-size:14px; color: var(--text-light); margin-top: 8px; font-style: italic;">E.O.W. = End of World</p>`
-  },
+ 
   {
     num: "010",
-    title: "Joan",
+    title: "Silks and Monkeys",
     date: "2026",
     type: "story",
     note: "",
-    content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p>
-    <p>Then I heard her.</p>
-    <p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p>
-    <p>But I followed. God help me, I followed.</p>
-    <p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p>
-    <p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p>
-    <p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
-  }
-];
-
+    content: `<p>The official's chambers smelled of cedar and perfume. Mehmed spread the dasta of fabric across the low table with the care of a man who knew its worth — a deep crimson silk from Lyon, the kind that caught light like hot volcanic rock inside. The weave alone cost him three months of careful negotiation with his European contacts.</p>
+    <p>"You see how it moves," Mehmed said, letting the silk ripple under his fingers. "This is what the Sultan's wives wear in Venice. This is popular in the great houses."</p>
+    <p>The court official Kadir Bey, whose name Mehmed had learned meant little beyond a man with enough coin and enough access to matter, leaned forward. His fingers were soft, uncalloused. A bureaucrat's hands that were as soft as the silk he was going to purchase for his wife.</p>
+    <p>"The Sultan has no shortage of wives, or concubines, these days," Kadir Bey said, not quite a smile at the smallest corner of his mouth. "Have you heard? Some say he has one hundred children. One hundred. The man spends more time in the harem than in the throne room."</p>
+    <p>Mehmed laughed. The kind of laugh a merchant makes when a client says something that borders on criticism but hasn't quite crossed the line or worth throwing the sale for. "The Sultan has many duties. The harem is... one of them."</p>
+    <p>"One of them." Kadir Bey picked up the silk, held it to the light streaming through the latticed window. "My wife would love this. What do you want for it?"</p>
+    <p>They haggled as men had haggled in this city for centuries. The price came down, then up, then settled somewhere in the middle where Mehmed knew that Kadir felt he'd won. Mehmed wrapped the fabric in linen while Kadir Bey counted out 300 akçe.</p>
+    <p>"There is talk," Kadir Bey said as Mehmed packed the bolt and checked the payment briefly as not to offend, "that the religious men grow restless. The molla Abdülkerim has been preaching in the mosques. Speaking about corruption. About European influence poisoning the city."</p>
+    <p>Mehmed's gut tensed for just a moment. "Religious men always preach about corruption."</p>
+    <p>"Yes. But this one has the Sultan's ear. Or so they say." Kadir Bey smiled, thin, knowing and off-putting. "Be careful with your European silks, merchant. The mood is changing."</p>
+    <p>The streets were crowded as Mehmed made his way back through the market, the sale weighing pleasantly in his purse. The sun was high. He had made good akçe today. The silk had been admired. Kadir Bey's wife would be beautiful in it, and Kadir Bey would come back for more silks.</p>
+    <p>He was thinking about which contacts to reach out to for the next shipment when he noticed the running. Just a few people at first, moving with purpose through the crowd. Then more. Shouting. Not the shouting of the market — something different, it sounded like aggressive prayer. It brought Mehmed back to hearing his father pray when his brother died at 8 from drowning. But this was different.</p>
+    <p>Mehmed slowed his pace, observing his surroundings. A woman rushed past him, her veil askew. A young man carrying rope. What seemed like hundreds of pieces of rope. More than anyone needed for normal business.</p>
+    <p>Then he saw it: a figure hanging from a branch of the old fig tree near the fountain. Small. Struggling. Screeching.</p>
+    <p>A monkey.</p>
+    <p>Mehmed stopped walking entirely. Why would they hang a monkey? The thought was absurd enough that he almost laughed. But the look on the faces of the people around him — fervent, righteous, violent — told him this was conviction.</p>
+    <p>He continued down the street, telling himself it was nothing, just some local matter that didn't concern a silk merchant. But then he saw another. And another. From tree to tree, branch to branch, the monkeys hung. Some were already still. Others thrashed and screamed, their cries cutting through the noise of the crowd like something unholy.</p>
+    <p>The energy of the street had changed entirely. What had been the normal chaos of the market had become something darker. A mob that moved with a single purpose. The crowd wasn't thinking. It was acting.</p>
+    <p>People ran past shifting from prayer to shouting about the Europeans, about corruption, about wickedness and pleasure and sin. Mehmed caught fragments: "...their abominable purposes..." "...poison our city..." "...the Sultan's counselor commands it..."</p>
+    <p>His stomach tightened. This was about the Europeans. And immediately he thought about his business. About his clients. About his family. About the silk trade that was making him wealthy.</p>
+    <p>He stopped when he saw a man with rope, fashioning a noose with practiced hands. The face was familiar. Ismail. A textile trader, humble goods. Mehmed had seen him a hundred times in the market, nodded at him perhaps a dozen. Just another man making an honest living.</p>
+    <p>Another man standing close to Ismail held a screaming monkey against a wall, the animal's claws raking the air. They moved together like they had done this before. Swiftly Ismail prepared a noose and tightened the rope around the monkey's neck as it screamed. The monkey's shriek became something else.</p>
+    <p>Something that didn't sound like an animal at all.</p>
+    <p>Mehmed found himself stepping forward before he meant to.</p>
+    <p>"Ismail?" he called out. The word came out uncertain, questioning.</p>
+    <p>Ismail turned to him, rope still in his hands, eyes bright with something Mehmed couldn't name. Rage. Faith. Madness. Like he was under a spell.</p>
+    <p>For a moment there was no recognition. Then something shifted in his expression.</p>
+    <p>"Mehmed," Ismail said. It wasn't a greeting. It was a statement of fact, the way one might name a thing in passing.</p>
+    <p>"Why are you doing this?" Mehmed asked. "Why are you hanging these creatures?"</p>
+    <p>Ismail looked back at the rope in his hands as if he had forgotten it was there. "You still don't know?" he said quietly.</p>
+    <p>"The Europeans brought these creatures for abominable purposes. Unspeakable sins. They use them for... for things no Muslim should witness or dwell upon, even for a moment."</p>
+    <p>Mehmed felt something cold move through his chest. This was Ismail. A man he passed in the market. A man with a family.</p>
+    <p>"I don't understand," Mehmed said, though he was beginning to.</p>
+    <p>"The Europeans who come to our city, they bring these monkeys to satisfy their depravities. Their bestiality. They corrupt our streets, our people, our faith." The man's voice rose with each word, feeding a passion larger than his own. "The Sultan's own counselor, Molla Abdülkerim, declared it from the mosque. These creatures are instruments of European wickedness. They must be purged. Every one of them."</p>
+    <p>The monkey screamed again and again, each sound more faint than the last. The man turned back to his work.</p>
+    <p>Mehmed stood frozen. The akçe in his purse suddenly felt very heavy. His European contacts, his profitable relationships, his entire livelihood — all of it was being hung from the trees of Istanbul in the name of religious purity.</p>
+    <p>"This will not end with the monkeys," Mehmed heard himself say.</p>
+    <p>The man didn't even look at him. "No," he agreed. "It won't."</p>`
+  }];
+ 
 let currentStoryIndex = 0;
-
+ 
 function buildCatalog() {
   const list = document.getElementById('catalog-list');
   list.innerHTML = stories.map((s, i) => `
@@ -658,7 +714,7 @@ function buildCatalog() {
     </div>
   `).join('');
 }
-
+ 
 function enterPond(e) {
   const ripple = document.createElement('div');
   ripple.className = 'click-ripple';
@@ -674,20 +730,20 @@ function enterPond(e) {
     buildCatalog();
   }, 200);
 }
-
+ 
 function showHome() {
   document.getElementById('page-stories').style.display = 'none';
   document.getElementById('page-reader').style.display = 'none';
   document.getElementById('page-home').style.display = 'flex';
 }
-
+ 
 function showStories() {
   document.getElementById('page-reader').style.display = 'none';
   const p = document.getElementById('page-stories');
   p.style.display = 'block';
   p.classList.add('page-enter');
 }
-
+ 
 function showReader(i) {
   currentStoryIndex = i;
   const s = stories[i];
@@ -707,7 +763,7 @@ function showReader(i) {
   p.classList.add('page-enter');
   window.scrollTo(0, 0);
 }
-
+ 
 function navigate(dir) {
   const next = currentStoryIndex + dir;
   if (next >= 0 && next < stories.length) showReader(next);
