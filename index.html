@@ -6,295 +6,96 @@
 <title>The Pond</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
- 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --text-dark: #1a1a18; --text-muted: #5a5a52; --text-light: #8a8a80; --bg: #f5f2eb; --paper: #faf8f3; }
+  body { font-family: 'EB Garamond', Georgia, serif; background: var(--bg); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; }
  
-  :root {
-    --text-dark: #1a1a18;
-    --text-muted: #5a5a52;
-    --text-light: #8a8a80;
-    --bg: #f5f2eb;
-    --paper: #faf8f3;
-  }
- 
-  body {
-    font-family: 'EB Garamond', Georgia, serif;
-    background: var(--bg);
-    color: var(--text-dark);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
- 
-  #page-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-  }
- 
-  .pond-scene {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-  }
- 
-  .scene-layer {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    transition: opacity 1.8s ease-in-out;
-  }
- 
-  .scene-layer svg {
-    width: 100%; height: 100%;
-    position: absolute;
-    top: 0; left: 0;
-  }
- 
-  .sky-text {
-    position: absolute;
-    top: 12%; left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    pointer-events: none;
-    z-index: 20;
-  }
- 
-  .sky-text h1 {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    transition: color 2s ease-in-out;
-  }
- 
-  .duck-wrapper {
-    position: absolute;
-    top: 46%; left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    z-index: 10;
-    animation: float 4s ease-in-out infinite;
-  }
- 
-  .duck-wrapper:hover {
-    animation-play-state: paused;
-    transform: translateX(-50%) scale(1.08);
-  }
- 
-  @keyframes float {
-    0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); }
-    50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); }
-  }
- 
+  /* HOME */
+  #page-home { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 100vh; position: relative; overflow: hidden; }
+  .pond-scene { width: 100%; height: 100vh; position: relative; overflow: hidden; }
+  .scene-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1.8s ease-in-out; }
+  .scene-layer svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+  .sky-text { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: none; z-index: 20; }
+  .sky-text h1 { font-family: 'EB Garamond', Georgia, serif; font-size: 13px; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; transition: color 2s ease-in-out; }
+  .duck-wrapper { position: absolute; top: 46%; left: 50%; transform: translateX(-50%); cursor: pointer; z-index: 10; animation: float 4s ease-in-out infinite; }
+  .duck-wrapper:hover { animation-play-state: paused; transform: translateX(-50%) scale(1.08); }
+  @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); } 50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); } }
   .duck-svg { width: 64px; height: 64px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
- 
-  .click-ripple {
-    position: fixed;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.5);
-    width: 10px; height: 10px;
-    margin: -5px;
-    pointer-events: none;
-    animation: clickRipple 0.8s ease-out forwards;
-    z-index: 100;
-  }
- 
+  .click-ripple { position: fixed; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); width: 10px; height: 10px; margin: -5px; pointer-events: none; animation: clickRipple 0.8s ease-out forwards; z-index: 100; }
   @keyframes clickRipple { to { transform: scale(12); opacity: 0; } }
  
+  /* STORIES */
   #page-stories { display: none; min-height: 100vh; background: var(--paper); }
- 
-  .stories-header {
-    padding: 48px 0 32px;
-    text-align: center;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    position: relative;
-  }
- 
-  .stories-tagline {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 15px;
-    font-style: italic;
-    color: var(--text-light);
-    margin-top: 10px;
-    letter-spacing: 0.02em;
-  }
- 
-  .stories-header h1 {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.4em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
- 
-  .back-btn {
-    position: absolute;
-    left: 40px; top: 50%;
-    transform: translateY(-50%);
-    background: none; border: none;
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 13px;
-    color: var(--text-light);
-    cursor: pointer;
-    letter-spacing: 0.1em;
-    padding: 8px 0;
-    transition: color 0.2s;
-  }
- 
+  .stories-header { padding: 48px 0 32px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.08); position: relative; }
+  .stories-header h1 { font-family: 'EB Garamond', Georgia, serif; font-size: 13px; font-weight: 400; letter-spacing: 0.4em; color: var(--text-muted); text-transform: uppercase; }
+  .stories-tagline { font-family: 'EB Garamond', Georgia, serif; font-size: 15px; font-style: italic; color: var(--text-light); margin-top: 10px; letter-spacing: 0.02em; }
+  .guestbook-link { background: none; border: none; font-family: 'Courier Prime', monospace; font-size: 11px; color: var(--text-light); cursor: pointer; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 12px; display: block; transition: color 0.2s; width: 100%; text-align: center; }
+  .guestbook-link:hover { color: var(--text-muted); }
+  .back-btn { position: absolute; left: 40px; top: 50%; transform: translateY(-50%); background: none; border: none; font-family: 'EB Garamond', Georgia, serif; font-size: 13px; color: var(--text-light); cursor: pointer; letter-spacing: 0.1em; padding: 8px 0; transition: color 0.2s; }
   .back-btn:hover { color: #2a5f7a; }
- 
-  .catalog {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 40px 80px;
-  }
- 
-  .catalog-item {
-    display: grid;
-    grid-template-columns: 48px 1fr auto;
-    align-items: baseline;
-    gap: 0 20px;
-    padding: 28px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    cursor: pointer;
-    transition: opacity 0.2s;
-  }
- 
+  .catalog { max-width: 640px; margin: 0 auto; padding: 0 40px 80px; }
+  .catalog-item { display: grid; grid-template-columns: 48px 1fr auto; align-items: baseline; gap: 0 20px; padding: 28px 0; border-bottom: 1px solid rgba(0,0,0,0.06); cursor: pointer; transition: opacity 0.2s; }
   .catalog-item:hover { opacity: 0.6; }
+  .catalog-num { font-family: 'Courier Prime', 'Courier New', monospace; font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; padding-top: 3px; }
+  .catalog-title { font-family: 'EB Garamond', Georgia, serif; font-size: 22px; font-weight: 400; color: var(--text-dark); line-height: 1.3; }
+  .catalog-date { font-family: 'Courier Prime', 'Courier New', monospace; font-size: 11px; color: var(--text-light); white-space: nowrap; letter-spacing: 0.05em; }
+  .stamp-duck { font-size: 12px; opacity: 0.15; margin-left: 5px; transition: opacity 0.3s; }
+  .stamp-duck.stamped { opacity: 0.85; }
  
-  .catalog-num {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 12px;
-    color: var(--text-light);
-    letter-spacing: 0.05em;
-    padding-top: 3px;
-  }
- 
-  .catalog-title {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--text-dark);
-    line-height: 1.3;
-  }
- 
-  .catalog-date {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 11px;
-    color: var(--text-light);
-    white-space: nowrap;
-    letter-spacing: 0.05em;
-  }
- 
+  /* READER */
   #page-reader { display: none; min-height: 100vh; background: var(--paper); }
- 
-  .reader-header {
-    padding: 48px 0 32px;
-    text-align: center;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    position: relative;
-  }
- 
-  .reader-meta {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 11px;
-    color: var(--text-light);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
- 
-  .reader-body {
-    max-width: 580px;
-    margin: 0 auto;
-    padding: 64px 40px 120px;
-  }
- 
-  .reader-num {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 12px;
-    color: var(--text-light);
-    letter-spacing: 0.1em;
-    margin-bottom: 20px;
-  }
- 
-  .reader-title {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    color: var(--text-dark);
-  }
- 
-  .reader-note {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 17px;
-    font-style: italic;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 48px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-  }
- 
-  .reader-content {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 19px;
-    line-height: 1.85;
-    color: var(--text-dark);
-  }
- 
+  .reader-header { padding: 48px 0 32px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.08); position: relative; }
+  .reader-meta { font-family: 'Courier Prime', 'Courier New', monospace; font-size: 11px; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; }
+  .reader-body { max-width: 580px; margin: 0 auto; padding: 64px 40px 120px; }
+  .reader-num { font-family: 'Courier Prime', 'Courier New', monospace; font-size: 12px; color: var(--text-light); letter-spacing: 0.1em; margin-bottom: 20px; }
+  .reader-title { font-family: 'EB Garamond', Georgia, serif; font-size: 36px; font-weight: 400; line-height: 1.2; margin-bottom: 16px; color: var(--text-dark); }
+  .reader-note { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; font-style: italic; color: var(--text-muted); line-height: 1.7; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .reader-content { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; color: var(--text-dark); }
   .reader-content p { margin-bottom: 1.4em; }
   .reader-content em { font-style: italic; }
   .reader-content .poem-line { display: block; line-height: 1.6; }
   .reader-content .poem-stanza { margin-bottom: 1.4em; }
- 
-  .nav-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 580px;
-    margin: 0 auto;
-    padding: 32px 40px 64px;
-    border-top: 1px solid rgba(0,0,0,0.06);
-  }
- 
-  .nav-btn {
-    background: none; border: none;
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 16px;
-    color: var(--text-light);
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 8px 0;
-  }
- 
+  .nav-row { display: flex; justify-content: space-between; align-items: center; max-width: 580px; margin: 0 auto; padding: 32px 40px 16px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .nav-btn { background: none; border: none; font-family: 'EB Garamond', Georgia, serif; font-size: 16px; color: var(--text-light); cursor: pointer; transition: color 0.2s; padding: 8px 0; }
   .nav-btn:hover { color: #2a5f7a; }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .nav-count { font-family: 'Courier Prime', 'Courier New', monospace; font-size: 11px; color: var(--text-light); letter-spacing: 0.1em; }
  
-  .nav-count {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    font-size: 11px;
-    color: var(--text-light);
-    letter-spacing: 0.1em;
-  }
+  /* LIKE + STAMP ROW */
+  .like-row { display: flex; align-items: center; gap: 12px; max-width: 580px; margin: 0 auto; padding: 16px 40px 64px; }
+  .like-btn { background: none; border: 1px solid rgba(192,57,43,0.35); border-radius: 20px; font-family: 'EB Garamond', Georgia, serif; font-size: 15px; color: rgba(192,57,43,0.5); cursor: pointer; padding: 6px 16px; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+  .like-btn:hover { border-color: rgba(192,57,43,0.6); color: rgba(192,57,43,0.8); }
+  .like-btn.liked { border-color: #c0392b; color: #c0392b; }
+  .read-stamp { font-size: 16px; opacity: 0.15; transition: opacity 0.3s; }
+  .read-stamp.stamped { opacity: 1; }
  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* FLIN MAP */
+  .flin-map { margin: 48px 0 24px; border-radius: 8px; overflow: hidden; }
+  .flin-map svg { width: 100%; height: auto; display: block; }
+  .map-caption { font-family: 'Courier Prime', monospace; font-size: 11px; color: var(--text-light); letter-spacing: 0.1em; text-align: center; margin-top: 8px; margin-bottom: 0; }
+ 
+  /* GUESTBOOK */
+  #page-guestbook { display: none; min-height: 100vh; background: var(--paper); }
+  .guestbook-body { max-width: 580px; margin: 0 auto; padding: 64px 40px 120px; }
+  .guestbook-form input, .guestbook-form textarea { width: 100%; font-family: 'EB Garamond', Georgia, serif; font-size: 17px; color: var(--text-dark); background: transparent; border: none; border-bottom: 1px solid rgba(0,0,0,0.12); padding: 10px 0; margin-bottom: 24px; outline: none; resize: none; transition: border-color 0.2s; }
+  .guestbook-form input:focus, .guestbook-form textarea:focus { border-bottom-color: rgba(0,0,0,0.35); }
+  .guestbook-form input::placeholder, .guestbook-form textarea::placeholder { color: var(--text-light); }
+  .guestbook-char { font-family: 'Courier Prime', monospace; font-size: 11px; color: var(--text-light); text-align: right; margin-top: -16px; margin-bottom: 24px; }
+  .guestbook-submit { background: none; border: 1px solid rgba(0,0,0,0.2); border-radius: 20px; font-family: 'EB Garamond', Georgia, serif; font-size: 15px; color: var(--text-muted); cursor: pointer; padding: 8px 24px; transition: all 0.2s; }
+  .guestbook-submit:hover { border-color: rgba(0,0,0,0.4); color: var(--text-dark); }
+  .guestbook-entries { border-top: 1px solid rgba(0,0,0,0.08); padding-top: 48px; margin-top: 48px; }
+  .guestbook-entry { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .entry-name { font-family: 'EB Garamond', Georgia, serif; font-size: 15px; font-weight: 500; color: var(--text-dark); margin-bottom: 6px; }
+  .entry-text { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.7; color: var(--text-muted); }
+  .entry-date { font-family: 'Courier Prime', monospace; font-size: 11px; color: var(--text-light); margin-top: 8px; }
+ 
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .page-enter { animation: fadeIn 0.4s ease-out forwards; }
 </style>
 </head>
 <body>
  
+<!-- HOME -->
 <div id="page-home">
   <div class="pond-scene">
     <div class="sky-text"><h1 id="pond-title">The Pond</h1></div>
@@ -314,15 +115,18 @@
   </div>
 </div>
  
+<!-- STORIES -->
 <div id="page-stories">
   <div class="stories-header">
     <button class="back-btn" onclick="showHome()">← pond</button>
     <h1>The Pond</h1>
     <p class="stories-tagline">Everything here is made up. Some of it happened.</p>
+    <button class="guestbook-link" onclick="showGuestbook()">guestbook</button>
   </div>
   <div class="catalog" id="catalog-list"></div>
 </div>
  
+<!-- READER -->
 <div id="page-reader">
   <div class="reader-header">
     <button class="back-btn" onclick="showStories()">← all pieces</button>
@@ -338,6 +142,32 @@
     <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← prev</button>
     <span class="nav-count" id="nav-count"></span>
     <button class="nav-btn" id="btn-next" onclick="navigate(1)">next →</button>
+  </div>
+  <div class="like-row">
+    <button class="like-btn" id="like-btn" onclick="toggleLike()">
+      <span id="like-heart">♡</span>
+      <span id="like-count">0</span>
+    </button>
+    <span style="flex:1;"></span>
+    <span class="read-stamp" id="read-stamp" title="back to the pond" onclick="showHome()" style="cursor:pointer;">🦆</span>
+  </div>
+</div>
+ 
+<!-- GUESTBOOK -->
+<div id="page-guestbook">
+  <div class="stories-header">
+    <button class="back-btn" onclick="showStories()">← all pieces</button>
+    <h1>The Pond</h1>
+    <p class="stories-tagline">Leave something behind.</p>
+  </div>
+  <div class="guestbook-body">
+    <div class="guestbook-form">
+      <input type="text" id="gb-name" placeholder="your name" maxlength="60"/>
+      <textarea id="gb-text" placeholder="say something..." maxlength="300" rows="4" oninput="updateChar()"></textarea>
+      <div class="guestbook-char"><span id="gb-char">300</span> left</div>
+      <button class="guestbook-submit" onclick="submitEntry()">leave a note</button>
+    </div>
+    <div class="guestbook-entries" id="gb-entries"></div>
   </div>
 </div>
  
@@ -498,6 +328,79 @@ function applyScene() {
 applyScene();
 setInterval(applyScene, 60000);
  
+// ── STORAGE HELPERS ──
+function getRead() { try { return JSON.parse(localStorage.getItem('pond_read') || '{}'); } catch(e) { return {}; } }
+function saveRead(r) { try { localStorage.setItem('pond_read', JSON.stringify(r)); } catch(e) {} }
+function markRead(i) { const r = getRead(); r['s'+i] = true; saveRead(r); }
+function isRead(i) { return !!getRead()['s'+i]; }
+ 
+function getLikes() { try { return JSON.parse(localStorage.getItem('pond_likes') || '{}'); } catch(e) { return {}; } }
+function saveLikes(l) { try { localStorage.setItem('pond_likes', JSON.stringify(l)); } catch(e) {} }
+ 
+function getEntries() { try { return JSON.parse(localStorage.getItem('pond_guestbook') || '[]'); } catch(e) { return []; } }
+function saveEntries(e) { try { localStorage.setItem('pond_guestbook', JSON.stringify(e)); } catch(e) {} }
+ 
+// ── LIKE ──
+function toggleLike() {
+  const likes = getLikes();
+  const k = 's' + currentStoryIndex;
+  if (!likes[k]) likes[k] = { count: 0, liked: false };
+  likes[k].liked = !likes[k].liked;
+  likes[k].count = Math.max(0, likes[k].count + (likes[k].liked ? 1 : -1));
+  saveLikes(likes);
+  updateLikeUI();
+}
+ 
+function updateLikeUI() {
+  const likes = getLikes();
+  const k = 's' + currentStoryIndex;
+  const liked = likes[k] && likes[k].liked;
+  const count = likes[k] ? likes[k].count : 0;
+  const btn = document.getElementById('like-btn');
+  const heart = document.getElementById('like-heart');
+  const countEl = document.getElementById('like-count');
+  if (btn) btn.classList.toggle('liked', liked);
+  if (heart) heart.textContent = liked ? '♥' : '♡';
+  if (countEl) countEl.textContent = count;
+}
+ 
+// ── READ STAMP ──
+function updateStampUI() {
+  const stamp = document.getElementById('read-stamp');
+  if (stamp) stamp.classList.toggle('stamped', isRead(currentStoryIndex));
+}
+ 
+// ── GUESTBOOK ──
+function updateChar() {
+  const ta = document.getElementById('gb-text');
+  const el = document.getElementById('gb-char');
+  if (ta && el) el.textContent = 300 - ta.value.length;
+}
+ 
+function submitEntry() {
+  const name = (document.getElementById('gb-name').value || '').trim();
+  const text = (document.getElementById('gb-text').value || '').trim();
+  if (!name || !text) return;
+  const entries = getEntries();
+  entries.unshift({ name, text, date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) });
+  saveEntries(entries);
+  document.getElementById('gb-name').value = '';
+  document.getElementById('gb-text').value = '';
+  updateChar();
+  renderEntries();
+}
+ 
+function renderEntries() {
+  const el = document.getElementById('gb-entries');
+  if (!el) return;
+  const entries = getEntries();
+  if (!entries.length) { el.innerHTML = '<p style="font-family:serif;font-size:17px;font-style:italic;color:var(--text-light);">Nothing yet. Be the first.</p>'; return; }
+  el.innerHTML = entries.map(e => `<div class="guestbook-entry"><div class="entry-name">${e.name}</div><div class="entry-text">${e.text}</div><div class="entry-date">${e.date}</div></div>`).join('');
+}
+ 
+// ── NAV ──
+let currentStoryIndex = 0;
+ 
 const stories = [
   {
     num: "001",
@@ -512,6 +415,8 @@ const stories = [
       <span class="poem-line">The lemon to my aid.</span>
     </div>`
   },
+ 
+ 
  
  
  
@@ -536,6 +441,8 @@ const stories = [
  
  
  
+ 
+ 
   {
     num: "003",
     title: "White Wine Vinaigrette",
@@ -544,6 +451,8 @@ const stories = [
     note: "",
     content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
   },
+ 
+ 
  
  
  
@@ -563,6 +472,8 @@ const stories = [
     <p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p>
     <p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
   },
+ 
+ 
   {
     num: "005",
     title: "Space",
@@ -573,6 +484,8 @@ const stories = [
     <p>But, is that actually true?</p>
     <p>Or do the scientists at NASA just nod along like, "Okay dumbass, you can keep believing that... we'll worry about space."</p>`
   },
+ 
+ 
  
  
  
@@ -622,6 +535,8 @@ const stories = [
  
  
  
+ 
+ 
   {
     num: "007",
     title: "The 87th Floor",
@@ -631,6 +546,8 @@ const stories = [
     content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p>
     <p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
   },
+ 
+ 
  
  
  
@@ -649,6 +566,8 @@ const stories = [
     <p>That's the shift that happened.</p>
     <p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
   },
+ 
+ 
  
  
  
@@ -697,9 +616,82 @@ const stories = [
     <p>Mehmed stood frozen. The akçe in his purse suddenly felt very heavy. His European contacts, his profitable relationships, his entire livelihood — all of it was being hung from the trees of Istanbul in the name of religious purity.</p>
     <p>"This will not end with the monkeys," Mehmed heard himself say.</p>
     <p>The man didn't even look at him. "No," he agreed. "It won't."</p>`
-  }];
+  },
  
-let currentStoryIndex = 0;
+  {
+    num: "010",
+    title: "Part 1: Ballad from the Badlands",
+    date: "2026",
+    type: "story",
+    note: "",
+    content: `<p>Flin had not planned on stopping in Gillette or at its Golden Arches. He had not planned much of anything, which was, as far as he was concerned, the whole point of the prolonged siesta. He did know what he wanted to accomplish. He wanted to go from the east coast to the west coast of The United States of America.</p>
+    <p>He was making pretty good time on his journey west and had semi-recently stepped foot into The Badlands as of 52 hours ago. The place had an effect on him like nothing back home had. These formations were older than Stonehenge and had more magic to them. He wasn't sure if it was made up or real but he felt it. He wasn't the kind of person who reached for words like spiritual, but he had stood at the edge of one of those formations on the second morning, and felt something he couldn't articulate even to himself. He was lighter. He stood there until his legs were stiff and the colors of the sky had settled in for the day. A fat family arrived and ruined the moment slightly by their unbothered presence. He went back to the Red Roof Inn of Wall, which he was enjoying far more than its Illinois counterpart. A place he had abandoned in 30 minutes on account of the crust in his room.</p>
+    <p>Breakfast the next morning was at one of the five places in Wall, South Dakota where a person could eat breakfast. It had eggs and bacon. It had black coffee that arrived before the water. That was fantastic.</p>
+    <p>A couple found him somewhere in the middle of chewing his food and taking a sip of his diner Folgers. They were friendly in the way that made Flin's shoulders rise toward his ears. That particular American midwest slight scary friendliness that came at you full speed with no warm up. They had no real reason to speak other than to speak.</p>
+    <p>They were heading west and told Flin all about it. More information than he knew could fit into 1 min and 47 seconds. He was watching the clock on the wall more than he was listening.</p>
+    <p>They let him know they had a great route. They had listened to a podcast about the route. They asked Flin if he had heard of their friend's podcast?</p>
+    <p>He answered "no, I have not heard of the Roadtrips to Glory: A Christian's Guide to the Western United States podcast."</p>
+    <p>"He should hear it." They said to each other, practically making out with their eyes. He could tell they were performing for him and for each other simultaneously, which was its own kind of exhausting to be the audience for.</p>
+    <p>He could caravan with them, they said, until their paths split somewhere in Wyoming or maybe further, they were flexible, it was totally up to him.</p>
+    <p>And Flin looked into the saucer sized pupils of the terrifyingly nice people, and said no.</p>
+    <p>He said it plainly. Not I'm not going that way. Not I actually think I'm staying here another day. Not some elaborate fiction he would have constructed 52 hours ago about something complicated and convoluted about a family situation and or an illness.</p>
+    <p>Just, no.</p>
+    <p>He had other plans, he said, which was true because he just came up with them. He was planning to drive west until something stopped him. And he wanted to save his time dollars today. Other people had historically been very good at stealing his time dollars.</p>
+    <p>He paid his bill with regular dollars and carried his night bag back to the Yaris and sat behind the wheel for a moment. The 'no' felt good. The familiar weight of unwanted obligations and niceties lifted. He felt like he'd got away with something big.</p>
+    <p>Happy as a clam, he took 90 west.</p>
+    <p>As he approached the border of the Coyote State and thought back to the east side of it. He had decided, this state was beautiful in a way he had never seen. Starting in the east it's flat and wide and full of sky like Texas. He appreciated the grandness of it as an adult who briefly remembered how to be a child. The hills began to roll up and down and the road began to cut through the earth instead of just lying across it, and Flin found himself sitting up straighter in his seat the further west he went until he got to the Badlands. Then he had to get out.</p>
+    <p>As he drew closer to the border he pulled off on a side road. He hoped no one found this part of the world, he thought, taking in the view. He hoped it stayed like this. Unknown and a little inconvenient to get to. He prayed it didn't end up as a TV show.</p>
+    <p>He got back in his car and drove to cross the border into Wyoming. 15 minutes into Wyoming he had a realization in the car.</p>
+    <p>He had not eaten at a McDonald's yet.</p>
+    <p>Thirteen burgers, by his count. A smash place in Chicago on the 5th day driving across America that had made him understand Americans for the first time. A diner in Iowa where the patty was so thick he'd had to eat it with a fork and knife. He felt judged for doing so and he was correct in his assessment of the situation.</p>
+    <p>He had good ones and okay ones and one in Nebraska that he was trying to forget after peeling the bun back and seeing more hair than condiments on his grey patty.</p>
+    <p>He had not, however, had a McDonald's American Big Mac in America, which he understood intellectually was likely more or less than every other Big Mac he had had but for some reason he felt strongly it couldn't possibly be the same. At 12:37 in the afternoon in Gillette, Wyoming, he decided that this was as good a time as any.</p>
+    <p>He pulled into the Exxon first. Filled the tank of the Yaris, which he loved unreasonably as a rental and was seriously contemplating buying when he got home. However, it was a ridiculous car for these roads in America let alone out west. It could get blown at any moment a foot depending on how the wind felt. And every car that passed him looked like it could fit his car in it. But it was peppy and got extraordinary gas mileage. He had developed an affection for it the way you develop affection for someone you got through a trial of life with.</p>
+    <p>While he was filling up, he pulled the trash from the past day off the floor of the passenger seat. A receipt, a gas station bag and the wrapper from a thing he'd bought in a moment of curiosity, ate half of, and decided was not food.</p>
+    <p>He got back in his car with a full tank and drove over to the Golden Arches of Gillette. He considered the drive-through at McDonald's. It was right there.</p>
+    <p>"It would be an experience" he thought.</p>
+    <p>But the Exxon bathroom had made a strong case against itself, and he suspected the McDonald's bathroom might represent an improvement. He parked, grabbed his wallet and went in.</p>
+    <p>The restaurant was cleaner than he expected. His expectations had been low to be fair but this was a nice surprise. The floors had been mopped at some point today. Nothing was visibly broken, and all the people in the store were acting like human beings. He ordered at the large white iPad, which he found slightly incredible that Gillette, Wyoming, had touchscreen tech. He touched the Big Mac, the fries, the Coke. And because this was America, he made it all large.</p>
+    <p>He found the bathroom after taking his printed ticket to claim his food. He entered, took care of business, washed his hands, and pushed the bathroom door open. The blinding light that hit him was not the neon lights of the McDonald's Golden Arches in Gillette, Wyoming.</p>
+    <div class="flin-map">
+      <svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="background:#ede8df;">
+        <rect x="0" y="0" width="580" height="220" fill="#ede8df"/>
+        <line x1="200" y1="0" x2="200" y2="170" stroke="#d4cfc6" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="290" y1="0" x2="290" y2="170" stroke="#d4cfc6" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="360" y1="0" x2="360" y2="170" stroke="#d4cfc6" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <line x1="420" y1="0" x2="420" y2="170" stroke="#d4cfc6" stroke-width="0.5" stroke-dasharray="3,4"/>
+        <polyline points="540,115 470,108 400,108 355,115 310,112 275,104 245,92 215,95" fill="none" stroke="#c8a87a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="215,95 180,90 140,85 100,80 60,76" fill="none" stroke="#c8a87a" stroke-width="2" stroke-dasharray="5,5" stroke-linecap="round" opacity="0.4"/>
+        <circle cx="540" cy="115" r="4" fill="#2a5f7a"/>
+        <text x="514" y="109" font-family="Georgia,serif" font-size="9" fill="#5a5a52">New York</text>
+        <circle cx="470" cy="108" r="3" fill="#8a8a80"/>
+        <text x="474" y="102" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Chicago</text>
+        <circle cx="400" cy="108" r="3" fill="#8a8a80"/>
+        <text x="404" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Iowa</text>
+        <circle cx="355" cy="115" r="3" fill="#8a8a80"/>
+        <text x="359" y="110" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Nebraska</text>
+        <circle cx="295" cy="108" r="3" fill="#8a8a80"/>
+        <text x="299" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Badlands</text>
+        <circle cx="245" cy="92" r="5" fill="#c96a2a"/>
+        <text x="218" y="82" font-family="Georgia,serif" font-size="9" fill="#c96a2a" font-weight="bold">Gillette, WY</text>
+        <!-- Yaris silhouette -->
+        <g transform="translate(232,82)">
+          <rect x="0" y="8" width="26" height="8" rx="2" fill="#c96a2a"/>
+          <path d="M4,8 Q5,2 8,1 L18,1 Q21,2 22,8 Z" fill="#c96a2a"/>
+          <rect x="1" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/>
+          <rect x="19" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/>
+          <rect x="6" y="3" width="14" height="5" rx="1" fill="#a8d0e8" opacity="0.7"/>
+        </g>
+        <circle cx="60" cy="76" r="4" fill="#c8a87a" opacity="0.3"/>
+        <text x="40" y="70" font-family="Georgia,serif" font-size="9" fill="#c8a87a" opacity="0.4">west coast</text>
+        <text x="16" y="210" font-family="Courier New,monospace" font-size="9" fill="#8a8a80" letter-spacing="0.08em">FLIN — PART 1</text>
+        <circle cx="390" cy="205" r="4" fill="#c96a2a"/>
+        <text x="398" y="209" font-family="Courier New,monospace" font-size="9" fill="#c96a2a">current position</text>
+      </svg>
+    </div>
+    <p class="map-caption">the route so far</p>`
+  }
+];
  
 function buildCatalog() {
   const list = document.getElementById('catalog-list');
@@ -729,16 +721,24 @@ function enterPond(e) {
 }
  
 function showHome() {
-  document.getElementById('page-stories').style.display = 'none';
-  document.getElementById('page-reader').style.display = 'none';
+  ['page-stories','page-reader','page-guestbook'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById('page-home').style.display = 'flex';
 }
  
 function showStories() {
-  document.getElementById('page-reader').style.display = 'none';
+  ['page-reader','page-guestbook'].forEach(id => document.getElementById(id).style.display = 'none');
   const p = document.getElementById('page-stories');
   p.style.display = 'block';
   p.classList.add('page-enter');
+  buildCatalog();
+}
+ 
+function showGuestbook() {
+  document.getElementById('page-stories').style.display = 'none';
+  const p = document.getElementById('page-guestbook');
+  p.style.display = 'block';
+  p.classList.add('page-enter');
+  renderEntries();
 }
  
 function showReader(i) {
@@ -754,11 +754,14 @@ function showReader(i) {
   document.getElementById('nav-count').textContent = (i + 1) + ' / ' + stories.length;
   document.getElementById('btn-prev').disabled = i === 0;
   document.getElementById('btn-next').disabled = i === stories.length - 1;
-  document.getElementById('page-stories').style.display = 'none';
+  ['page-stories','page-guestbook'].forEach(id => document.getElementById(id).style.display = 'none');
   const p = document.getElementById('page-reader');
   p.style.display = 'block';
   p.classList.add('page-enter');
   window.scrollTo(0, 0);
+  markRead(i);
+  updateLikeUI();
+  updateStampUI();
 }
  
 function navigate(dir) {
@@ -768,4 +771,3 @@ function navigate(dir) {
 </script>
 </body>
 </html>
- 
