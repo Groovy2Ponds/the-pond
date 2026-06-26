@@ -120,7 +120,7 @@
   .page-enter { animation: fadeIn 0.4s ease-out forwards; }
 
   /* LANDING PAGE */
-  #page-course-landing { display: none; min-height: 100vh; background: var(--paper); }
+  #page-course-landing { display: none; min-height: 100vh; background: var(--paper); position: relative; z-index: 1; }
   .lp-wrap { max-width: 640px; margin: 0 auto; padding: 0 40px 120px; }
   .lp-hero { padding: 80px 0 64px; border-bottom: 1px solid rgba(0,0,0,0.08); }
   .lp-hero-inner { }
@@ -159,8 +159,8 @@
   .lp-faq-a { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; font-style: italic; color: var(--text-muted); }
   .lp-final { text-align: center; border-bottom: none; }
   .lp-final-line { font-family: 'EB Garamond', Georgia, serif; font-size: 20px; font-style: italic; color: var(--text-muted); margin-bottom: 8px; }
-  .lp-exit-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-  .lp-exit-overlay.active { display: flex; }
+  .lp-exit-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; pointer-events: none; }
+  .lp-exit-overlay.active { display: flex; pointer-events: all; }
   .lp-exit-box { background: var(--paper); max-width: 480px; width: 90%; padding: 48px 40px; text-align: center; }
   .lp-exit-heading { font-family: 'EB Garamond', Georgia, serif; font-size: 32px; color: var(--text-dark); margin-bottom: 16px; }
   .lp-exit-cta { display: inline-block; margin: 20px 0 12px; }
@@ -1029,15 +1029,20 @@ function showCourseLanding() {
   p.classList.add('page-enter');
   window.scrollTo(0, 0);
   startLandingPageTimer();
-  exitIntentFired = false;
-  document.addEventListener('mouseleave', handleExitIntent);
+  if (window.innerWidth < 700) {
+    exitIntentFired = false;
+    document.addEventListener('mouseleave', handleExitIntent);
+  }
 }
 
 function cleanupExitIntent() {
   document.removeEventListener('mouseleave', handleExitIntent);
   exitIntentFired = false;
   var overlay = document.getElementById('lp-exit-overlay');
-  if (overlay) overlay.classList.remove('active');
+  if (overlay) {
+    overlay.classList.remove('active');
+    overlay.style.display = 'none';
+  }
 }
 
 function showProjects() {
@@ -1072,7 +1077,10 @@ function handleExitIntent(e) {
   if (e.clientY <= 0) {
     exitIntentFired = true;
     var overlay = document.getElementById('lp-exit-overlay');
-    if (overlay) overlay.classList.add('active');
+    if (overlay) {
+      overlay.classList.add('active');
+      overlay.style.display = 'flex';
+    }
     document.removeEventListener('mouseleave', handleExitIntent);
   }
 }
