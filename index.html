@@ -22,28 +22,10 @@
   .duck-wrapper:hover { animation-play-state: paused; transform: translateX(-50%) scale(1.08); }
   @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); } 50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); } }
   .duck-svg { width: 64px; height: 64px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
-  .duck-ripple {
-    position: absolute;
-    bottom: -8px; left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    z-index: 9;
-  }
-
-  .duck-ripple ellipse {
-    transform-origin: 60px 20px;
-    animation: duckRipple 3.5s ease-out infinite;
-    opacity: 0;
-  }
-
+  .duck-ripple { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); pointer-events: none; z-index: 9; }
+  .duck-ripple ellipse { transform-origin: 60px 20px; animation: duckRipple 3.5s ease-out infinite; opacity: 0; }
   .duck-ripple ellipse:nth-child(2) { animation-delay: 1.75s; }
-
-  @keyframes duckRipple {
-    0% { transform: scale(0.4); opacity: 0; }
-    15% { opacity: 0.3; }
-    100% { transform: scale(1); opacity: 0; }
-  }
-
+  @keyframes duckRipple { 0% { transform: scale(0.4); opacity: 0; } 15% { opacity: 0.3; } 100% { transform: scale(1); opacity: 0; } }
   .click-ripple { position: fixed; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); width: 10px; height: 10px; margin: -5px; pointer-events: none; animation: clickRipple 0.8s ease-out forwards; z-index: 100; }
   @keyframes clickRipple { to { transform: scale(12); opacity: 0; } }
 
@@ -131,19 +113,57 @@
   .project-card-footer { font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 0.15em; color: #C8A04A; opacity: 0.6; margin-top: 24px; }
   .project-card:hover .project-card-footer { opacity: 1; }
 
-  .copyright {
-    max-width: 580px;
-    margin: 0 auto;
-    padding: 0 40px 40px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 10px;
-    color: var(--text-light);
-    letter-spacing: 0.08em;
-    opacity: 0.5;
-  }
+  .copyright { max-width: 580px; margin: 0 auto; padding: 0 40px 40px; font-family: 'Courier Prime', monospace; font-size: 10px; color: var(--text-light); letter-spacing: 0.08em; opacity: 0.5; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .page-enter { animation: fadeIn 0.4s ease-out forwards; }
+
+  /* LANDING PAGE */
+  #page-course-landing { display: none; min-height: 100vh; background: var(--paper); }
+  .lp-wrap { max-width: 640px; margin: 0 auto; padding: 0 40px 120px; }
+  .lp-hero { padding: 80px 0 64px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .lp-hero-inner { }
+  .lp-headline { font-family: 'EB Garamond', Georgia, serif; font-size: 28px; font-weight: 400; line-height: 1.25; color: var(--text-dark); margin-bottom: 32px; }
+  .lp-hello { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; font-style: italic; color: var(--text-muted); margin-bottom: 16px; }
+  .lp-section { padding: 64px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .lp-alt { background: transparent; }
+  .lp-section-heading { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; font-weight: 400; color: var(--text-dark); margin-bottom: 20px; line-height: 1.3; }
+  .lp-sub-heading { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; font-style: italic; color: var(--text-muted); margin-bottom: 20px; }
+  .lp-body { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; line-height: 1.85; color: var(--text-dark); margin-bottom: 16px; }
+  .lp-cta { display: inline-block; background: #1a1a18; color: #f5f2eb; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.15em; padding: 16px 36px; border: none; cursor: pointer; margin: 20px 0; text-decoration: none; transition: background 0.2s; }
+  .lp-cta:hover { background: #2a5f7a; }
+  .lp-course-list { margin: 24px 0; }
+  .lp-course-item { padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .lp-course-title { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; font-style: italic; color: var(--text-dark); margin-bottom: 6px; }
+  .lp-testimonial { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .lp-stars { font-size: 14px; margin-bottom: 8px; }
+  .lp-quote { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 8px; }
+  .lp-reviewer { font-family: 'Courier Prime', monospace; font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; }
+  .lp-offer-item { padding: 24px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .lp-offer-title { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; color: var(--text-dark); margin-bottom: 8px; }
+  .lp-value { font-family: 'EB Garamond', Georgia, serif; font-size: 16px; font-style: italic; color: var(--text-light); margin-top: 6px; }
+  .lp-total { padding-top: 24px; }
+  .lp-total-value { font-family: 'EB Garamond', Georgia, serif; font-size: 18px; color: var(--text-muted); margin-bottom: 6px; }
+  .lp-today { font-family: 'EB Garamond', Georgia, serif; font-size: 28px; font-weight: 500; color: var(--text-dark); }
+  .lp-timer-section { text-align: center; }
+  .lp-timer { font-family: 'Courier Prime', monospace; font-size: 48px; color: var(--text-dark); letter-spacing: 0.1em; margin-bottom: 16px; }
+  .lp-timer-note { font-family: 'EB Garamond', Georgia, serif; font-size: 16px; font-style: italic; color: var(--text-light); }
+  .lp-price-block { margin: 20px 0; }
+  .lp-strike { font-family: 'EB Garamond', Georgia, serif; font-size: 22px; color: var(--text-light); text-decoration: line-through; margin-right: 16px; }
+  .lp-price { font-family: 'EB Garamond', Georgia, serif; font-size: 42px; font-weight: 500; color: var(--text-dark); }
+  .lp-guarantee { font-family: 'EB Garamond', Georgia, serif; font-size: 16px; font-style: italic; color: var(--text-light); margin-bottom: 8px; }
+  .lp-fine { font-family: 'EB Garamond', Georgia, serif; font-size: 14px; font-style: italic; color: var(--text-light); margin-top: 8px; }
+  .lp-faq-item { padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .lp-faq-q { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; color: var(--text-dark); margin-bottom: 6px; }
+  .lp-faq-a { font-family: 'EB Garamond', Georgia, serif; font-size: 19px; font-style: italic; color: var(--text-muted); }
+  .lp-final { text-align: center; border-bottom: none; }
+  .lp-final-line { font-family: 'EB Garamond', Georgia, serif; font-size: 20px; font-style: italic; color: var(--text-muted); margin-bottom: 8px; }
+  .lp-exit-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+  .lp-exit-overlay.active { display: flex; }
+  .lp-exit-box { background: var(--paper); max-width: 480px; width: 90%; padding: 48px 40px; text-align: center; }
+  .lp-exit-heading { font-family: 'EB Garamond', Georgia, serif; font-size: 32px; color: var(--text-dark); margin-bottom: 16px; }
+  .lp-exit-cta { display: inline-block; margin: 20px 0 12px; }
+  .lp-exit-close { background: none; border: none; font-family: 'EB Garamond', Georgia, serif; font-size: 14px; font-style: italic; color: var(--text-light); cursor: pointer; display: block; margin: 0 auto; }
 </style>
 </head>
 <body>
@@ -221,6 +241,22 @@
     <p class="stories-tagline">Things built, not just written.</p>
   </div>
   <div class="projects-grid" id="projects-grid">
+
+    <!-- COURSE CARD -->
+    <div class="project-card" onclick="showCourseLanding()">
+      <div class="project-card-inner" style="background: linear-gradient(135deg, #0D0D0D 0%, #1a1a0a 60%, #2a2a0a 100%);">
+        <div class="project-card-top">
+          <span class="project-tag">Course</span>
+        </div>
+        <div class="project-card-body">
+          <h2 class="project-title">How To Sell A Course About Selling Courses</h2>
+          <p class="project-sub">A Step By Step Course For People Who Buy Step By Step Courses About Selling Courses</p>
+        </div>
+        <div class="project-card-footer">start →</div>
+      </div>
+    </div>
+
+    <!-- OTTOMAN CARD -->
     <div class="project-card" onclick="showOttoman()">
       <div class="project-card-inner" style="background: linear-gradient(135deg, #1A1510 0%, #2a1a0a 60%, #3a1a08 100%);">
         <div class="project-card-top">
@@ -233,6 +269,7 @@
         <div class="project-card-footer">explore →</div>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -243,6 +280,178 @@
     <h1>The Ottoman Empire</h1>
   </div>
   <div id="ottoman-content"></div>
+</div>
+
+<!-- COURSE LANDING PAGE -->
+<div id="page-course-landing">
+  <div class="stories-header">
+    <button class="back-btn" onclick="showProjects()">← projects</button>
+    <h1>The Pond</h1>
+  </div>
+  <div class="lp-wrap">
+
+    <div class="lp-hero">
+      <h1 class="lp-headline">How To Sell A Course About Selling Courses: A Step By Step Course For People Who Buy Step By Step Courses About Selling Courses.</h1>
+      <p class="lp-hello"><em>Hello!</em></p>
+      <p class="lp-body">You've tried everything. You've bought the courses. You've watched the webinars. You've followed the gurus. And yet here you are — on another landing page — reading another promise.</p>
+      <p class="lp-body">That's not a coincidence. That's the system working exactly as designed.</p>
+      <p class="lp-body">Want in?</p>
+      <button class="lp-cta" onclick="document.getElementById('lp-buy').scrollIntoView({behavior:'smooth'})">YES, I WANT IN</button>
+    </div>
+
+    <div class="lp-section">
+      <h2 class="lp-section-heading">Meet Saint.</h2>
+      <p class="lp-sub-heading"><em>Also known, in certain circles, as The Southern Tomato.</em></p>
+      <p class="lp-body">I came from money. Not the kind people talk about — the kind people don't have to.</p>
+      <p class="lp-body">At twenty one I told my parents I was leaving. They didn't approve. I left the following morning. For the better part of a decade I worked ranches in Montana, guided fishing trips in the Gulf, and walked trails as a park ranger in places most people only see on calendars. My address, for nine years and eleven months, was my car.</p>
+      <p class="lp-body"><em>Mostly.</em></p>
+      <p class="lp-body">I was thirty one when I came back.</p>
+      <p class="lp-body">My father was sick. The business — one of the last movie rental stores in the country, kept alive by a man too proud to let a good thing die quietly — was gone. My mother was holding what was left of it the way you hold water in your hands. Carefully. Hopelessly. With the best intentions.</p>
+      <p class="lp-body">I stood in the driveway for a long time.</p>
+      <p class="lp-body">Then I went inside.</p>
+      <p class="lp-body">I was motivated, guilty, and jealous of men my age who had already built something.</p>
+      <p class="lp-body">So I did what any son of the South with something to prove and a wifi connection would do.</p>
+      <p class="lp-body"><strong>I built a course.</strong></p>
+    </div>
+
+    <div class="lp-section lp-alt">
+      <h2 class="lp-section-heading">Before I taught you how to sell a course, I sold courses. A lot of them. To real people. With real money.</h2>
+      <div class="lp-course-list">
+        <div class="lp-course-item">
+          <p class="lp-course-title"><em>How To Use An Inflatable Mattress As A White Water Raft</em></p>
+          <p class="lp-body">4 students. $847 in revenue. Zero refunds. One concerned email.</p>
+        </div>
+        <div class="lp-course-item">
+          <p class="lp-course-title"><em>How To Break A Lease When You Know You're Wrong But Have To Act Like You're Not</em></p>
+          <p class="lp-body">12 students. $1,204 in revenue. Two of them actually needed it. I don't ask questions.</p>
+        </div>
+        <div class="lp-course-item">
+          <p class="lp-course-title"><em>How To Get Unstuck From A Ditch That Didn't Even Look That Big</em></p>
+          <p class="lp-body">31 students. $2,100 in revenue. My best seller until now.</p>
+        </div>
+        <div class="lp-course-item">
+          <p class="lp-course-title"><em>Why Subarus Are Masculine And Why Every Man Should Own One</em></p>
+          <p class="lp-body">7 students. $630 in revenue. Three of them already owned Subarus. One bought a second one.</p>
+        </div>
+        <div class="lp-course-item">
+          <p class="lp-course-title"><em>How To Read Summer Storms On The Gulf Of Mexico</em></p>
+          <p class="lp-body">2 students. One was a meteorologist.</p>
+        </div>
+      </div>
+      <p class="lp-body">Combined across all courses I've generated nearly $5,000 in revenue, a number I describe as 'life changing' and 'proof that the system works' without further elaboration.</p>
+      <p class="lp-body">I have since retired those courses.</p>
+      <p class="lp-body"><strong>This is the only one left.</strong></p>
+    </div>
+
+    <div class="lp-section">
+      <h2 class="lp-section-heading">Trying. Not going all the way. Failing.</h2>
+      <p class="lp-sub-heading"><em>Sound familiar?</em></p>
+      <p class="lp-body">You've tried the dropshipping course or the BRRRR method masterclass or at least one thing about trading something you still don't fully understand. You even considered joining The Real World.</p>
+      <p class="lp-body"><em>Audible gasp.</em></p>
+      <p class="lp-body">Something came up, as things tend to do. You filed it away, moved on. You're pretty good at that.</p>
+      <p class="lp-body">And even so, you still have a notes app that knows more about your ambitions than your closest friends and a YouTube watch later playlist that holds what you believe to be your way out.</p>
+      <p class="lp-body">But you know you're meant for more. The gap between what you think you can do and what you have accomplished until now has been, historically, not insignificant... In your opinion.</p>
+      <p class="lp-body"><strong>So here you are again. What now?</strong></p>
+    </div>
+
+    <div class="lp-section lp-alt">
+      <div class="lp-testimonial">
+        <div class="lp-stars">⭐⭐⭐⭐⭐</div>
+        <p class="lp-quote"><em>"$3,267 profited from my course on How To Sell A Gator In 10 Days. Saint showed me how."</em></p>
+        <p class="lp-reviewer">— Cane Blaze, Hooker Road University</p>
+      </div>
+      <div class="lp-testimonial">
+        <div class="lp-stars">⭐⭐⭐⭐⭐</div>
+        <p class="lp-quote"><em>"Almost didn't believe what I was reading till I bought the f***ing course. Never looked back."</em></p>
+        <p class="lp-reviewer">— Quinn O'Malley</p>
+      </div>
+      <div class="lp-testimonial">
+        <div class="lp-stars">⭐⭐⭐⭐⭐</div>
+        <p class="lp-quote"><em>"This course found me as I was. Shout out Pio. Man shit."</em></p>
+        <p class="lp-reviewer">— Lhai SaBeouf</p>
+      </div>
+    </div>
+
+    <div class="lp-section">
+      <h2 class="lp-section-heading">Here's Everything You Get:</h2>
+      <div class="lp-offer-item">
+        <p class="lp-offer-title"><strong>How To Sell A Course About Selling Courses</strong></p>
+        <p class="lp-body">The most important course you will purchase this year. A complete breakdown of the system that the most successful course sellers in the world don't want you to understand. Everything you need. Nothing you don't.</p>
+        <p class="lp-value"><em>Value: $497</em></p>
+      </div>
+      <div class="lp-offer-item">
+        <p class="lp-offer-title"><strong>BONUS 1: How To Get Unstuck From A Ditch That Didn't Even Look That Big</strong></p>
+        <p class="lp-body">A step by step extraction framework for when the situation is not as straightforward as it initially appeared. Field tested. Applicable across multiple terrains.</p>
+        <p class="lp-value"><em>Value: $197 — Currently in development.</em></p>
+      </div>
+      <div class="lp-offer-item">
+        <p class="lp-offer-title"><strong>BONUS 2: How To Break A Lease When You Know You're Wrong But Have To Act Like You're Not</strong></p>
+        <p class="lp-body">A practical guide to navigating early lease termination with confidence, composure, and minimal paper trail.</p>
+        <p class="lp-value"><em>Value: $147 — Currently in development.</em></p>
+      </div>
+      <div class="lp-offer-item">
+        <p class="lp-offer-title"><strong>BONUS 3: Why Subarus Are Masculine And Why Every Man Should Own One</strong></p>
+        <p class="lp-body">A definitive case for the most underestimated vehicle in the masculine canon. Evidence based. Personally tested. Saint Approved.</p>
+        <p class="lp-value"><em>Value: $97 — Currently in development.</em></p>
+      </div>
+      <div class="lp-total">
+        <p class="lp-total-value">Total Value: $938</p>
+        <p class="lp-today">Today: $97</p>
+      </div>
+    </div>
+
+    <div class="lp-section lp-alt lp-timer-section">
+      <div class="lp-timer" id="lp-countdown">00:00:00</div>
+      <p class="lp-timer-note"><em>This timer is here because it works. I respect you enough to tell you that. Not enough to tell you if I'm actually going to change the price.</em></p>
+    </div>
+
+    <div class="lp-section" id="lp-buy">
+      <h2 class="lp-section-heading">Everything you need to understand the system. Nothing you don't.</h2>
+      <div class="lp-price-block">
+        <span class="lp-strike">$197</span>
+        <span class="lp-price">$97</span>
+      </div>
+      <p class="lp-guarantee"><em>30 Day Money Back Guarantee. I won't make it weird if you won't.</em></p>
+      <a href="https://course.thepond.live" target="_blank" class="lp-cta">WANT IN? — $97</a>
+      <p class="lp-fine"><em>I may or may not change this price. Not even the timer knows.</em></p>
+    </div>
+
+    <div class="lp-section lp-alt">
+      <h2 class="lp-section-heading">FAQ</h2>
+      <div class="lp-faq-item">
+        <p class="lp-faq-q"><strong>Who is this for?</strong></p>
+        <p class="lp-faq-a">You.</p>
+      </div>
+      <div class="lp-faq-item">
+        <p class="lp-faq-q"><strong>What exactly do I get?</strong></p>
+        <p class="lp-faq-a">Pay your money, take your chances.</p>
+      </div>
+      <div class="lp-faq-item">
+        <p class="lp-faq-q"><strong>How long does it take?</strong></p>
+        <p class="lp-faq-a">That's up to you.</p>
+      </div>
+      <div class="lp-faq-item">
+        <p class="lp-faq-q"><strong>Is this legitimate?</strong></p>
+        <p class="lp-faq-a">...yeah.</p>
+      </div>
+    </div>
+
+    <div class="lp-section lp-final">
+      <p class="lp-final-line"><em>Every course you ever saw or bought has led you here. You know enough. The rest is inside.</em></p>
+      <a href="https://course.thepond.live" target="_blank" class="lp-cta">WANT IN? — $97</a>
+    </div>
+
+  </div>
+
+  <div class="lp-exit-overlay" id="lp-exit-overlay">
+    <div class="lp-exit-box">
+      <p class="lp-exit-heading"><strong>Wait.</strong></p>
+      <p class="lp-body">I noticed you leaving.</p>
+      <p class="lp-body">I'm not offended. I'm offering you $47 for the course instead.</p>
+      <a href="https://course.thepond.live" target="_blank" class="lp-cta lp-exit-cta">FINE. I'LL STAY — $47</a>
+      <button class="lp-exit-close" onclick="document.getElementById('lp-exit-overlay').style.display='none'">no thanks</button>
+    </div>
+  </div>
 </div>
 
 <!-- GUESTBOOK -->
@@ -420,19 +629,15 @@ function applyScene() {
 applyScene();
 setInterval(applyScene, 60000);
 
-// ── STORAGE HELPERS ──
 function getRead() { try { return JSON.parse(localStorage.getItem('pond_read') || '{}'); } catch(e) { return {}; } }
 function saveRead(r) { try { localStorage.setItem('pond_read', JSON.stringify(r)); } catch(e) {} }
 function markRead(i) { const r = getRead(); r['s'+i] = true; saveRead(r); }
 function isRead(i) { return !!getRead()['s'+i]; }
-
 function getLikes() { try { return JSON.parse(localStorage.getItem('pond_likes') || '{}'); } catch(e) { return {}; } }
 function saveLikes(l) { try { localStorage.setItem('pond_likes', JSON.stringify(l)); } catch(e) {} }
-
 function getEntries() { try { return JSON.parse(localStorage.getItem('pond_guestbook') || '[]'); } catch(e) { return []; } }
 function saveEntries(e) { try { localStorage.setItem('pond_guestbook', JSON.stringify(e)); } catch(e) {} }
 
-// ── LIKE ──
 function toggleLike() {
   const likes = getLikes();
   const k = 's' + currentStoryIndex;
@@ -456,13 +661,11 @@ function updateLikeUI() {
   if (countEl) countEl.textContent = count;
 }
 
-// ── READ STAMP ──
 function updateStampUI() {
   const stamp = document.getElementById('read-stamp');
   if (stamp) stamp.classList.toggle('stamped', isRead(currentStoryIndex));
 }
 
-// ── GUESTBOOK ──
 function updateChar() {
   const ta = document.getElementById('gb-text');
   const el = document.getElementById('gb-char');
@@ -490,299 +693,56 @@ function renderEntries() {
   el.innerHTML = entries.map(e => `<div class="guestbook-entry"><div class="entry-name">${e.name}</div><div class="entry-text">${e.text}</div><div class="entry-date">${e.date}</div></div>`).join('');
 }
 
-// ── NAV ──
 let currentStoryIndex = 0;
 
 const stories = [
   {
-    num: "001",
-    title: "The Lemon to My Aid",
-    date: "2026",
-    type: "poem",
-    note: "",
-    content: `<div class="poem-stanza">
-      <span class="poem-line">You're the flower to my stem, the bees to my knees.</span>
-      <span class="poem-line">The puzzle to my piece, the lemon to my squeeze.</span>
-      <span class="poem-line">And when life is bitter, you are my sweet.</span>
-      <span class="poem-line">The lemon to my aid.</span>
-    </div>`
+    num: "001", title: "The Lemon to My Aid", date: "2026", type: "poem", note: "",
+    content: `<div class="poem-stanza"><span class="poem-line">You're the flower to my stem, the bees to my knees.</span><span class="poem-line">The puzzle to my piece, the lemon to my squeeze.</span><span class="poem-line">And when life is bitter, you are my sweet.</span><span class="poem-line">The lemon to my aid.</span></div>`
   },
-
-
-
-
-
-
-
-
-
   {
-    num: "002",
-    title: "A Prison With an Open Door",
-    date: "2026",
-    type: "story",
-    note: "",
-    content: `<p>He heard it before he saw it. A crash. The heavy clang of cell doors swinging open, echoing off concrete like a starting gun.</p>
-    <p>He opened his eyes.</p>
-    <p>To his right, his neighbor was already gone, door wide open, man nowhere in sight. He turned left. Gerald was still sitting there, motionless, door hanging open like an invitation.</p>
-    <p>"Gerald." He grabbed the bars. "Gerald. RUN! RUN FOR IT!"</p>
-    <p>Gerald blinked. Looked at the door. Then something clicked and he was up and gone.</p>
-    <p>He listened to the footsteps fade down the corridor.</p>
-    <p>Then he sat back down on his bunk, never noticing his door was open too.</p>`
+    num: "002", title: "A Prison With an Open Door", date: "2026", type: "story", note: "",
+    content: `<p>He heard it before he saw it. A crash. The heavy clang of cell doors swinging open, echoing off concrete like a starting gun.</p><p>He opened his eyes.</p><p>To his right, his neighbor was already gone, door wide open, man nowhere in sight. He turned left. Gerald was still sitting there, motionless, door hanging open like an invitation.</p><p>"Gerald." He grabbed the bars. "Gerald. RUN! RUN FOR IT!"</p><p>Gerald blinked. Looked at the door. Then something clicked and he was up and gone.</p><p>He listened to the footsteps fade down the corridor.</p><p>Then he sat back down on his bunk, never noticing his door was open too.</p>`
   },
-
-
-
-
-
-
-
-
-
   {
-    num: "003",
-    title: "White Wine Vinaigrette",
-    date: "2026",
-    type: "story",
-    note: "",
+    num: "003", title: "White Wine Vinaigrette", date: "2026", type: "story", note: "",
     content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
   },
-
-
-
-
-
-
-
-
-
   {
-    num: "004",
-    title: "Joan",
-    date: "2026",
-    type: "story",
-    note: "",
-    content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p>
-    <p>Then I heard her.</p>
-    <p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p>
-    <p>But I followed. God help me, I followed.</p>
-    <p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p>
-    <p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p>
-    <p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
-  },
-
-
-
-
-  {
-    num: "005",
-    title: "Space",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>They say exploring the sea floor is as hard as space exploration.</p>
-    <p>But, is that actually true?</p>
-    <p>Or do the scientists at NASA just nod along like, "Okay dumbass, you can keep believing that... we'll worry about space."</p>`
-  },
-
-  {
-    num: "006",
-    title: "Presence",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>There are times in this world where you take pause and feel space moving around you without guilt or worry. No haste or thought of obligation.</p>
-    <p>It is lawful unavailability. The world has invited you to its communion. You seized it for yourself.</p>
-    <p>And so it comes to an end.</p>`
-  },
-
-
-
-
-
-
-
-
-
-  {
-    num: "007",
-    title: "The Beast",
-    date: "2026",
-    type: "poem",
-    note: "",
-    content: `<div class="poem-stanza">
-      <span class="poem-line">Gotta feed the beast.</span>
-      <span class="poem-line">The beast is always hungry.</span>
-      <span class="poem-line">The beast is picky too.</span>
-      <span class="poem-line">Sometimes the beast wants broccoli,</span>
-      <span class="poem-line">Sometimes the beast wants a potato too.</span>
-    </div>
-    <div class="poem-stanza">
-      <span class="poem-line">Sometimes the beast wants waffle cut potato fries</span>
-      <span class="poem-line">fried in peanut oil with pink Himalayan sea salt,</span>
-      <span class="poem-line">rosemary, and a twist of lemon.</span>
-    </div>
-    <div class="poem-stanza">
-      <span class="poem-line">The beast.</span>
-      <span class="poem-line">Gotta feed the beast.</span>
-      <span class="poem-line">The beast is always hungry.</span>
-      <span class="poem-line">The beast is picky too.</span>
-      <span class="poem-line">Sometimes the beast wants you.</span>
-      <span class="poem-line">You never know what the beast wants.</span>
-      <span class="poem-line">The appetite is always new.</span>
-    </div>
-    <div class="poem-stanza">
-      <span class="poem-line">But there are things the beast consistently wants.</span>
-      <span class="poem-line">Beast wants everything all at once,</span>
-      <span class="poem-line">but you never know what the beast actually wants.</span>
-    </div>
-    <div class="poem-stanza">
-      <span class="poem-line">And sometimes, you get lucky and you learn what the beast wants.</span>
-      <span class="poem-line">Then you feed the beast,</span>
-      <span class="poem-line">and you keep feeding the beast,</span>
-      <span class="poem-line">until the beast upchucks on you.</span>
-    </div>`
+    num: "004", title: "Joan", date: "2026", type: "story", note: "",
+    content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p><p>Then I heard her.</p><p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p><p>But I followed. God help me, I followed.</p><p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p><p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p><p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
   },
   {
-    num: "008",
-    title: "Luck",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>And then Cade said, "I believe in luck. However, I don't believe luck is a reaction to inaction. I believe luck is a reaction to action. And so I find that the harder I work, the luckier I get."</p>
-    <p>Which, frankly, is yet another truth that has been passed down for centuries that he simply refused to understand until he failed badly enough he figured it out. A folly of this man, some may say. But I suppose it is better to learn from one's mistakes than to remain a fool.</p>`
+    num: "005", title: "Space", date: "2026", type: "prose", note: "",
+    content: `<p>They say exploring the sea floor is as hard as space exploration.</p><p>But, is that actually true?</p><p>Or do the scientists at NASA just nod along like, "Okay dumbass, you can keep believing that... we'll worry about space."</p>`
   },
-
-
-
-
-
-
-
-
-
   {
-    num: "009",
-    title: "The 87th Floor",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p>
-    <p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
+    num: "006", title: "Presence", date: "2026", type: "prose", note: "",
+    content: `<p>There are times in this world where you take pause and feel space moving around you without guilt or worry. No haste or thought of obligation.</p><p>It is lawful unavailability. The world has invited you to its communion. You seized it for yourself.</p><p>And so it comes to an end.</p>`
   },
-
-
-
-
-
-
-
-
   {
-    num: "010",
-    title: "Silks and Monkeys",
-    date: "2026",
-    type: "story",
-    note: "",
-    content: `<p>The official's chambers smelled of cedar and perfume. Mehmed spread the dasta of fabric across the low table with the care of a man who knew its worth — a deep crimson silk from Lyon, the kind that caught light like hot volcanic rock inside. The weave alone cost him three months of careful negotiation with his European contacts.</p>
-    <p>"You see how it moves," Mehmed said, letting the silk ripple under his fingers. "This is what the Sultan's wives wear in Venice. This is popular in the great houses."</p>
-    <p>The court official Kadir Bey, whose name Mehmed had learned meant little beyond a man with enough coin and enough access to matter, leaned forward. His fingers were soft, uncalloused. A bureaucrat's hands that were as soft as the silk he was going to purchase for his wife.</p>
-    <p>"The Sultan has no shortage of wives, or concubines, these days," Kadir Bey said, not quite a smile at the smallest corner of his mouth. "Have you heard? Some say he has one hundred children. One hundred. The man spends more time in the harem than in the throne room."</p>
-    <p>Mehmed laughed. The kind of laugh a merchant makes when a client says something that borders on criticism but hasn't quite crossed the line or worth throwing the sale for. "The Sultan has many duties. The harem is... one of them."</p>
-    <p>"One of them." Kadir Bey picked up the silk, held it to the light streaming through the latticed window. "My wife would love this. What do you want for it?"</p>
-    <p>They haggled as men had haggled in this city for centuries. The price came down, then up, then settled somewhere in the middle where Mehmed knew that Kadir felt he'd won. Mehmed wrapped the fabric in linen while Kadir Bey counted out 300 akçe.</p>
-    <p>"There is talk," Kadir Bey said as Mehmed packed the bolt and checked the payment briefly as not to offend, "that the religious men grow restless. The molla Abdülkerim has been preaching in the mosques. Speaking about corruption. About European influence poisoning the city."</p>
-    <p>Mehmed's gut tensed for just a moment. "Religious men always preach about corruption."</p>
-    <p>"Yes. But this one has the Sultan's ear. Or so they say." Kadir Bey smiled, thin, knowing and off-putting. "Be careful with your European silks, merchant. The mood is changing."</p>
-    <p>The streets were crowded as Mehmed made his way back through the market, the sale weighing pleasantly in his purse. The sun was high. He had made good akçe today. The silk had been admired. Kadir Bey's wife would be beautiful in it, and Kadir Bey would come back for more silks.</p>
-    <p>He was thinking about which contacts to reach out to for the next shipment when he noticed the running. Just a few people at first, moving with purpose through the crowd. Then more. Shouting. Not the shouting of the market, something different, it sounded like aggressive prayer. It brought Mehmed back to hearing his father pray when his brother died at 8 from drowning. But this was different.</p>
-    <p>Mehmed slowed his pace, observing his surroundings. A woman rushed past him, her veil askew. A young man carrying rope. What seemed like hundreds of pieces of rope. More than anyone needed for normal business.</p>
-    <p>Then he saw it: a figure hanging from a branch of the old fig tree near the fountain. Small. Struggling. Screeching.</p>
-    <p>A monkey.</p>
-    <p>Mehmed stopped walking entirely. Why would they hang a monkey? The thought was absurd enough that he almost laughed. But the look on the faces of the people around him — fervent, righteous, violent, told him this was conviction.</p>
-    <p>He continued down the street, telling himself it was nothing, just some local matter that didn't concern a silk merchant. But then he saw another. And another. From tree to tree, branch to branch, the monkeys hung. Some were already still. Others thrashed and screamed, their cries cutting through the noise of the crowd like something unholy.</p>
-    <p>The energy of the street had changed entirely. What had been the normal chaos of the market had become something darker. A mob that moved with a single purpose. The crowd wasn't thinking. It was acting.</p>
-    <p>People ran past shifting from prayer to shouting about the Europeans, about corruption, about wickedness and pleasure and sin. Mehmed caught fragments: "...their abominable purposes..." "...poison our city..." "...the Sultan's counselor commands it..."</p>
-    <p>His stomach tightened. This was about the Europeans. And immediately he thought about his business. About his clients. About his family. About the silk trade that was making him wealthy.</p>
-    <p>He stopped when he saw a man with rope, fashioning a noose with practiced hands. The face was familiar. Ismail. A textile trader, humble goods. Mehmed had seen him a hundred times in the market, nodded at him perhaps a dozen. Just another man making an honest living.</p>
-    <p>Another man standing close to Ismail held a screaming monkey against a wall, the animal's claws raking the air. They moved together like they had done this before. Swiftly Ismail prepared a noose and tightened the rope around the monkey's neck as it screamed. The monkey's shriek became something else.</p>
-    <p>Something that didn't sound like an animal at all.</p>
-    <p>Mehmed found himself stepping forward before he meant to.</p>
-    <p>"Ismail?" he called out. The word came out uncertain, questioning.</p>
-    <p>Ismail turned to him, rope still in his hands, eyes bright with something Mehmed couldn't name. Rage. Faith. Madness. Like he was under a spell.</p>
-    <p>For a moment there was no recognition. Then something shifted in his expression.</p>
-    <p>"Mehmed," Ismail said. It wasn't a greeting. It was a statement of fact, the way one might name a thing in passing.</p>
-    <p>"Why are you doing this?" Mehmed asked. "Why are you hanging these creatures?"</p>
-    <p>Ismail looked back at the rope in his hands as if he had forgotten it was there. "You still don't know?" he said quietly.</p>
-    <p>"The Europeans brought these creatures for abominable purposes. Unspeakable sins. They use them for... for things no Muslim should witness or dwell upon, even for a moment."</p>
-    <p>Mehmed felt something cold move through his chest. This was Ismail. A man he passed in the market. A man with a family.</p>
-    <p>"I don't understand," Mehmed said, though he was beginning to.</p>
-    <p>"The Europeans who come to our city, they bring these monkeys to satisfy their depravities. Their bestiality. They corrupt our streets, our people, our faith." The man's voice rose with each word, feeding a passion larger than his own. "The Sultan's own counselor, Molla Abdülkerim, declared it from the mosque. These creatures are instruments of European wickedness. They must be purged. Every one of them."</p>
-    <p>The monkey screamed again and again, each sound more faint than the last. The man turned back to his work.</p>
-    <p>Mehmed stood frozen. The akçe in his purse suddenly felt very heavy. His European contacts, his profitable relationships, his entire livelihood, all of it was being hung from the trees of Istanbul in the name of religious purity.</p>
-    <p>"This will not end with the monkeys," Mehmed heard himself say.</p>
-    <p>The man didn't even look at him. "No," he agreed. "It won't."</p>`
+    num: "007", title: "The Beast", date: "2026", type: "poem", note: "",
+    content: `<div class="poem-stanza"><span class="poem-line">Gotta feed the beast.</span><span class="poem-line">The beast is always hungry.</span><span class="poem-line">The beast is picky too.</span><span class="poem-line">Sometimes the beast wants broccoli,</span><span class="poem-line">Sometimes the beast wants a potato too.</span></div><div class="poem-stanza"><span class="poem-line">Sometimes the beast wants waffle cut potato fries</span><span class="poem-line">fried in peanut oil with pink Himalayan sea salt,</span><span class="poem-line">rosemary, and a twist of lemon.</span></div><div class="poem-stanza"><span class="poem-line">The beast.</span><span class="poem-line">Gotta feed the beast.</span><span class="poem-line">The beast is always hungry.</span><span class="poem-line">The beast is picky too.</span><span class="poem-line">Sometimes the beast wants you.</span><span class="poem-line">You never know what the beast wants.</span><span class="poem-line">The appetite is always new.</span></div><div class="poem-stanza"><span class="poem-line">But there are things the beast consistently wants.</span><span class="poem-line">Beast wants everything all at once,</span><span class="poem-line">but you never know what the beast actually wants.</span></div><div class="poem-stanza"><span class="poem-line">And sometimes, you get lucky and you learn what the beast wants.</span><span class="poem-line">Then you feed the beast,</span><span class="poem-line">and you keep feeding the beast,</span><span class="poem-line">until the beast upchucks on you.</span></div>`
   },
-
-
-
-
-
-
-
-
-
   {
-    num: "011",
-    title: "The Same Building",
-    date: "2026",
-    type: "prose",
-    note: "",
-    content: `<p>He was sitting in his thinking chair, okay man relax, reminiscing back to the time when he was walking down his hallway when he lived in Nashville. He was selling insurance at the time, not well, and living in an expensive apartment he'd gotten along with his fancy truck because he had just acquired his first proverbial bag from a previous endeavor. Having had a little success, he thought he was going to make all this money in insurance like it was no problem. Unfortunately, he wasn't. Imagine that. Honestly though, it bummed him out. He saw the trope he fell into. Egg on his face. But he still wanted to make it work. He was still naive. He was so anxious at that job, working so hard and not knowing what to do. He remembers walking down his hallway after work one day and thinking: <em>Am I gonna die tomorrow? No. Am I gonna lose my house tomorrow? No. Then I'm fine.</em> That realization stuck with him.</p>
-    <p>There's another moment like that he thought about, now off his high horse and on the couch. Since freshman year of high school, he'd been struggling, it came and went through high school and college. To be honest, he didn't have much to struggle about, and that kind of made it worse, because he felt guilty for being guilty about being guilty. You get it. But through those dark times, there were also really fun, silly times he can still remember.</p>
-    <p>Then when college ended and he got a job out West, it felt like a rebirth. He felt success. He was really happy out there.</p>
-    <p>Then he remembers being in Utah, six or seven months later, after they had moved there for the snow season. He was in his room, getting up for the day and getting ready to go shred. He got up and stood on the left side of his bed, looking out the window. And he had a thought: <em>I don't want to die anymore. I want to continue to live.</em> He knew that sounded obvious, but he was genuine when he said it. It was true this time. He thought he would die by twenty-five and here he was at 24 yearning to live a real life.</p>
-    <p>That's the shift that happened.</p>
-    <p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
+    num: "008", title: "Luck", date: "2026", type: "prose", note: "",
+    content: `<p>And then Cade said, "I believe in luck. However, I don't believe luck is a reaction to inaction. I believe luck is a reaction to action. And so I find that the harder I work, the luckier I get."</p><p>Which, frankly, is yet another truth that has been passed down for centuries that he simply refused to understand until he failed badly enough he figured it out. A folly of this man, some may say. But I suppose it is better to learn from one's mistakes than to remain a fool.</p>`
   },
-
-
-
   {
-    num: "012",
-    title: "Part 1: Ballad from the Badlands",
-    date: "2026",
-    type: "story",
-    note: "",
-    content: `<p>Flin had not planned on stopping in Gillette or at its Golden Arches. He had not planned much of anything, which was, as far as he was concerned, the whole point of the prolonged siesta. He did know what he wanted to accomplish. He wanted to go from the east coast to the west coast of The United States of America.</p>
-    <p>He was making pretty good time on his journey west and had semi-recently stepped foot into The Badlands as of 52 hours ago. The place had an effect on him like nothing back home had. These formations were older than Stonehenge and had more magic to them. He wasn't sure if it was made up or real but he felt it. He wasn't the kind of person who reached for words like spiritual, but he had stood at the edge of one of those formations on the second morning, and felt something he couldn't articulate even to himself. He was lighter. He stood there until his legs were stiff and the colors of the sky had settled in for the day. A fat family arrived and ruined the moment slightly by their unbothered presence. He went back to the Red Roof Inn in Wall, A place he had abandoned in 30 minutes on account of the crust in his room.</p>
-    <p>Breakfast the next morning was at one of the five places in Wall, South Dakota where a person could eat breakfast. It had eggs and bacon. It had black coffee that arrived before the water. It was fantastic.</p>
-    <p>A couple found him somewhere in the middle of chewing his food and taking a sip of his diner Folgers. They were friendly in the way that made Flin's shoulders rise toward his ears. That particular American midwest slight scary friendliness that came at you full speed with no warm up. They had no real reason to speak other than to speak.</p>
-    <p>They were heading west and told Flin all about it. More information than he knew could fit into 1 min and 47 seconds. He was watching the clock on the wall more than he was listening.</p>
-    <p>They let him know they had a great route. They had listened to a podcast about the route. They asked Flin if he had heard of their friend's podcast?</p>
-    <p>He answered "no, I have not heard of the Roadtrips to Glory: A Christian's Guide to the Western United States podcast."</p>
-    <p>"He should hear it." They said to each other, practically making out with their eyes. He could tell they were performing for him and for each other simultaneously, which was its own kind of exhausting to be the audience for.</p>
-    <p>He could caravan with them, they said, until their paths split somewhere in Wyoming or maybe further, they were flexible, it was totally up to him.</p>
-    <p>And Flin looked into the saucer sized pupils of the terrifyingly nice people, and said no.</p>
-    <p>He said it plainly. Not I'm not going that way. Not I actually think I'm staying here another day. Not some elaborate fiction he would have constructed 52 hours ago about something complicated and convoluted like a family situation and / or an illness.</p>
-    <p>Just, no.</p>
-    <p>He had other plans, he said, which was true because he just came up with them. He was planning to drive west until something stopped him. And he wanted to save his time dollars today. Other people had historically been very good at stealing his time dollars.</p>
-    <p>He paid his bill with regular dollars and carried his night bag back to the Yaris and sat behind the wheel for a moment. The 'no' felt good. The familiar weight of unwanted obligations and niceties lifted. He felt like he'd got away with something big.</p>
-    <p>Happy as a clam, he took 90 west.</p>
-    <p>As he approached the border of the Coyote State and thought back to the east side of it. He had decided, this state was beautiful in a way he had never seen. Starting in the east it's flat and wide and full of sky like Texas. He appreciated the grandness of it as an adult who briefly remembered how to be a child. The hills began to roll up and down and the road began to cut through the earth instead of just lying across it, and Flin found himself sitting up straighter in his seat the further west he went until he got to the Badlands. Then he had to get out.</p>
-    <p>As he drew closer to the border he pulled off on a side road. He hoped no one found this part of the world, he thought, taking in the view. He hoped it stayed like this. Unknown and a little inconvenient to get to. He prayed it didn't end up as a TV show.</p>
-    <p>He got back in his car and drove to cross the border into Wyoming. 15 minutes into Wyoming he had a realization in the car.</p>
-    <p>He had not eaten at a McDonald's yet.</p>
-    <p>Thirteen burgers, by his count. A smash place in Chicago on the 5th day driving across America that had made him understand Americans for the first time. A diner in Iowa where the patty was so thick he'd had to eat it with a fork and knife. He felt judged for doing so and he was correct in his assessment of the situation.</p>
-    <p>He had good ones and okay ones and one in Nebraska that he was trying to forget after peeling the bun back and seeing more hair than condiments on his grey patty.</p>
-    <p>He had not, however, had a McDonald's American Big Mac in America. He understood intellectually the McDonald's American Big Mac is likely more or less the same as every other Big Mac he has had. But, for some reason he felt strongly it couldn't possibly be the same. So at 12:37 in the afternoon in Gillette, Wyoming, he decided that this was as good a time as any.</p>
-    <p>He pulled into the Exxon first. Filled the tank of the Yaris, which he loved unreasonably as a rental and was seriously contemplating buying when he got home. However, it was a ridiculous car for these roads in America let alone out west. At any moment the wind could remind him exactly how small the car was. And every car that passed him looked like it could fit his car in it. But it was peppy and got extraordinary gas mileage. He had developed an affection for it the way you develop affection for someone you go through a trial of life with.</p>
-    <p>While he was filling up, he pulled the trash from the past day off the floor of the passenger seat. A receipt, a gas station bag and the wrapper from a thing he'd bought in a moment of curiosity, ate half of, and decided was not food.</p>
-    <p>He got back in his car with a full tank and drove over to the Golden Arches of Gillette. He considered the drive-through at McDonald's. It was right there.</p>
-    <p>"It would be an experience" he thought.</p>
-    <p>But the Exxon bathroom had made a strong case against itself, and he suspected the McDonald's bathroom might represent an improvement. He parked, grabbed his wallet and went in.</p>
-    <p>The restaurant was cleaner than he expected. His expectations had been low to be fair but this was a nice surprise. The floors had been mopped at some point today. Nothing was visibly broken, and all the people in the store were acting like human beings. He ordered at the large white iPad, which he found slightly incredible that Gillette, Wyoming, had touchscreen tech. He touched the Big Mac, the fries, the Coke. And because this was America, he made it all large.</p>
-    <p>He found the bathroom after taking his printed ticket to claim his food. He entered, took care of business, washed his hands, and pushed the bathroom door open. The blinding light that hit him was not the neon lights of the McDonald's Golden Arches in Gillette, Wyoming.</p>
+    num: "009", title: "The 87th Floor", date: "2026", type: "prose", note: "",
+    content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p><p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
+  },
+  {
+    num: "010", title: "Silks and Monkeys", date: "2026", type: "story", note: "",
+    content: `<p>The official's chambers smelled of cedar and perfume. Mehmed spread the dasta of fabric across the low table with the care of a man who knew its worth — a deep crimson silk from Lyon, the kind that caught light like hot volcanic rock inside. The weave alone cost him three months of careful negotiation with his European contacts.</p><p>"You see how it moves," Mehmed said, letting the silk ripple under his fingers. "This is what the Sultan's wives wear in Venice. This is popular in the great houses."</p><p>The court official Kadir Bey, whose name Mehmed had learned meant little beyond a man with enough coin and enough access to matter, leaned forward. His fingers were soft, uncalloused. A bureaucrat's hands that were as soft as the silk he was going to purchase for his wife.</p><p>"The Sultan has no shortage of wives, or concubines, these days," Kadir Bey said, not quite a smile at the smallest corner of his mouth. "Have you heard? Some say he has one hundred children. One hundred. The man spends more time in the harem than in the throne room."</p><p>Mehmed laughed. The kind of laugh a merchant makes when a client says something that borders on criticism but hasn't quite crossed the line or worth throwing the sale for. "The Sultan has many duties. The harem is... one of them."</p><p>"One of them." Kadir Bey picked up the silk, held it to the light streaming through the latticed window. "My wife would love this. What do you want for it?"</p><p>They haggled as men had haggled in this city for centuries. The price came down, then up, then settled somewhere in the middle where Mehmed knew that Kadir felt he'd won. Mehmed wrapped the fabric in linen while Kadir Bey counted out 300 akçe.</p><p>"There is talk," Kadir Bey said as Mehmed packed the bolt and checked the payment briefly as not to offend, "that the religious men grow restless. The molla Abdülkerim has been preaching in the mosques. Speaking about corruption. About European influence poisoning the city."</p><p>Mehmed's gut tensed for just a moment. "Religious men always preach about corruption."</p><p>"Yes. But this one has the Sultan's ear. Or so they say." Kadir Bey smiled, thin, knowing and off-putting. "Be careful with your European silks, merchant. The mood is changing."</p><p>The streets were crowded as Mehmed made his way back through the market, the sale weighing pleasantly in his purse. The sun was high. He had made good akçe today. The silk had been admired. Kadir Bey's wife would be beautiful in it, and Kadir Bey would come back for more silks.</p><p>He was thinking about which contacts to reach out to for the next shipment when he noticed the running. Just a few people at first, moving with purpose through the crowd. Then more. Shouting. Not the shouting of the market, something different, it sounded like aggressive prayer. It brought Mehmed back to hearing his father pray when his brother died at 8 from drowning. But this was different.</p><p>Mehmed slowed his pace, observing his surroundings. A woman rushed past him, her veil askew. A young man carrying rope. What seemed like hundreds of pieces of rope. More than anyone needed for normal business.</p><p>Then he saw it: a figure hanging from a branch of the old fig tree near the fountain. Small. Struggling. Screeching.</p><p>A monkey.</p><p>Mehmed stopped walking entirely. Why would they hang a monkey? The thought was absurd enough that he almost laughed. But the look on the faces of the people around him — fervent, righteous, violent, told him this was conviction.</p><p>He continued down the street, telling himself it was nothing, just some local matter that didn't concern a silk merchant. But then he saw another. And another. From tree to tree, branch to branch, the monkeys hung. Some were already still. Others thrashed and screamed, their cries cutting through the noise of the crowd like something unholy.</p><p>The energy of the street had changed entirely. What had been the normal chaos of the market had become something darker. A mob that moved with a single purpose. The crowd wasn't thinking. It was acting.</p><p>People ran past shifting from prayer to shouting about the Europeans, about corruption, about wickedness and pleasure and sin. Mehmed caught fragments: "...their abominable purposes..." "...poison our city..." "...the Sultan's counselor commands it..."</p><p>His stomach tightened. This was about the Europeans. And immediately he thought about his business. About his clients. About his family. About the silk trade that was making him wealthy.</p><p>He stopped when he saw a man with rope, fashioning a noose with practiced hands. The face was familiar. Ismail. A textile trader, humble goods. Mehmed had seen him a hundred times in the market, nodded at him perhaps a dozen. Just another man making an honest living.</p><p>Another man standing close to Ismail held a screaming monkey against a wall, the animal's claws raking the air. They moved together like they had done this before. Swiftly Ismail prepared a noose and tightened the rope around the monkey's neck as it screamed. The monkey's shriek became something else.</p><p>Something that didn't sound like an animal at all.</p><p>Mehmed found himself stepping forward before he meant to.</p><p>"Ismail?" he called out. The word came out uncertain, questioning.</p><p>Ismail turned to him, rope still in his hands, eyes bright with something Mehmed couldn't name. Rage. Faith. Madness. Like he was under a spell.</p><p>For a moment there was no recognition. Then something shifted in his expression.</p><p>"Mehmed," Ismail said. It wasn't a greeting. It was a statement of fact, the way one might name a thing in passing.</p><p>"Why are you doing this?" Mehmed asked. "Why are you hanging these creatures?"</p><p>Ismail looked back at the rope in his hands as if he had forgotten it was there. "You still don't know?" he said quietly.</p><p>"The Europeans brought these creatures for abominable purposes. Unspeakable sins. They use them for... for things no Muslim should witness or dwell upon, even for a moment."</p><p>Mehmed felt something cold move through his chest. This was Ismail. A man he passed in the market. A man with a family.</p><p>"I don't understand," Mehmed said, though he was beginning to.</p><p>"The Europeans who come to our city, they bring these monkeys to satisfy their depravities. Their bestiality. They corrupt our streets, our people, our faith." The man's voice rose with each word, feeding a passion larger than his own. "The Sultan's own counselor, Molla Abdülkerim, declared it from the mosque. These creatures are instruments of European wickedness. They must be purged. Every one of them."</p><p>The monkey screamed again and again, each sound more faint than the last. The man turned back to his work.</p><p>Mehmed stood frozen. The akçe in his purse suddenly felt very heavy. His European contacts, his profitable relationships, his entire livelihood, all of it was being hung from the trees of Istanbul in the name of religious purity.</p><p>"This will not end with the monkeys," Mehmed heard himself say.</p><p>The man didn't even look at him. "No," he agreed. "It won't."</p>`
+  },
+  {
+    num: "011", title: "The Same Building", date: "2026", type: "prose", note: "",
+    content: `<p>He was sitting in his thinking chair, okay man relax, reminiscing back to the time when he was walking down his hallway when he lived in Nashville. He was selling insurance at the time, not well, and living in an expensive apartment he'd gotten along with his fancy truck because he had just acquired his first proverbial bag from a previous endeavor. Having had a little success, he thought he was going to make all this money in insurance like it was no problem. Unfortunately, he wasn't. Imagine that. Honestly though, it bummed him out. He saw the trope he fell into. Egg on his face. But he still wanted to make it work. He was still naive. He was so anxious at that job, working so hard and not knowing what to do. He remembers walking down his hallway after work one day and thinking: <em>Am I gonna die tomorrow? No. Am I gonna lose my house tomorrow? No. Then I'm fine.</em> That realization stuck with him.</p><p>There's another moment like that he thought about, now off his high horse and on the couch. Since freshman year of high school, he'd been struggling, it came and went through high school and college. To be honest, he didn't have much to struggle about, and that kind of made it worse, because he felt guilty for being guilty about being guilty. You get it. But through those dark times, there were also really fun, silly times he can still remember.</p><p>Then when college ended and he got a job out West, it felt like a rebirth. He felt success. He was really happy out there.</p><p>Then he remembers being in Utah, six or seven months later, after they had moved there for the snow season. He was in his room, getting up for the day and getting ready to go shred. He got up and stood on the left side of his bed, looking out the window. And he had a thought: <em>I don't want to die anymore. I want to continue to live.</em> He knew that sounded obvious, but he was genuine when he said it. It was true this time. He thought he would die by twenty-five and here he was at 24 yearning to live a real life.</p><p>That's the shift that happened.</p><p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
+  },
+  {
+    num: "012", title: "Part 1: Ballad from the Badlands", date: "2026", type: "story", note: "",
+    content: `<p>Flin had not planned on stopping in Gillette or at its Golden Arches. He had not planned much of anything, which was, as far as he was concerned, the whole point of the prolonged siesta. He did know what he wanted to accomplish. He wanted to go from the east coast to the west coast of The United States of America.</p><p>He was making pretty good time on his journey west and had semi-recently stepped foot into The Badlands as of 52 hours ago. The place had an effect on him like nothing back home had. These formations were older than Stonehenge and had more magic to them. He wasn't sure if it was made up or real but he felt it. He wasn't the kind of person who reached for words like spiritual, but he had stood at the edge of one of those formations on the second morning, and felt something he couldn't articulate even to himself. He was lighter. He stood there until his legs were stiff and the colors of the sky had settled in for the day. A fat family arrived and ruined the moment slightly by their unbothered presence. He went back to the Red Roof Inn in Wall, A place he had abandoned in 30 minutes on account of the crust in his room.</p><p>Breakfast the next morning was at one of the five places in Wall, South Dakota where a person could eat breakfast. It had eggs and bacon. It had black coffee that arrived before the water. It was fantastic.</p><p>A couple found him somewhere in the middle of chewing his food and taking a sip of his diner Folgers. They were friendly in the way that made Flin's shoulders rise toward his ears. That particular American midwest slight scary friendliness that came at you full speed with no warm up. They had no real reason to speak other than to speak.</p><p>They were heading west and told Flin all about it. More information than he knew could fit into 1 min and 47 seconds. He was watching the clock on the wall more than he was listening.</p><p>They let him know they had a great route. They had listened to a podcast about the route. They asked Flin if he had heard of their friend's podcast?</p><p>He answered "no, I have not heard of the Roadtrips to Glory: A Christian's Guide to the Western United States podcast."</p><p>"He should hear it." They said to each other, practically making out with their eyes. He could tell they were performing for him and for each other simultaneously, which was its own kind of exhausting to be the audience for.</p><p>He could caravan with them, they said, until their paths split somewhere in Wyoming or maybe further, they were flexible, it was totally up to him.</p><p>And Flin looked into the saucer sized pupils of the terrifyingly nice people, and said no.</p><p>He said it plainly. Not I'm not going that way. Not I actually think I'm staying here another day. Not some elaborate fiction he would have constructed 52 hours ago about something complicated and convoluted like a family situation and / or an illness.</p><p>Just, no.</p><p>He had other plans, he said, which was true because he just came up with them. He was planning to drive west until something stopped him. And he wanted to save his time dollars today. Other people had historically been very good at stealing his time dollars.</p><p>He paid his bill with regular dollars and carried his night bag back to the Yaris and sat behind the wheel for a moment. The 'no' felt good. The familiar weight of unwanted obligations and niceties lifted. He felt like he'd got away with something big.</p><p>Happy as a clam, he took 90 west.</p><p>As he approached the border of the Coyote State and thought back to the east side of it. He had decided, this state was beautiful in a way he had never seen. Starting in the east it's flat and wide and full of sky like Texas. He appreciated the grandness of it as an adult who briefly remembered how to be a child. The hills began to roll up and down and the road began to cut through the earth instead of just lying across it, and Flin found himself sitting up straighter in his seat the further west he went until he got to the Badlands. Then he had to get out.</p><p>As he drew closer to the border he pulled off on a side road. He hoped no one found this part of the world, he thought, taking in the view. He hoped it stayed like this. Unknown and a little inconvenient to get to. He prayed it didn't end up as a TV show.</p><p>He got back in his car and drove to cross the border into Wyoming. 15 minutes into Wyoming he had a realization in the car.</p><p>He had not eaten at a McDonald's yet.</p><p>Thirteen burgers, by his count. A smash place in Chicago on the 5th day driving across America that had made him understand Americans for the first time. A diner in Iowa where the patty was so thick he'd had to eat it with a fork and knife. He felt judged for doing so and he was correct in his assessment of the situation.</p><p>He had good ones and okay ones and one in Nebraska that he was trying to forget after peeling the bun back and seeing more hair than condiments on his grey patty.</p><p>He had not, however, had a McDonald's American Big Mac in America. He understood intellectually the McDonald's American Big Mac is likely more or less the same as every other Big Mac he has had. But, for some reason he felt strongly it couldn't possibly be the same. So at 12:37 in the afternoon in Gillette, Wyoming, he decided that this was as good a time as any.</p><p>He pulled into the Exxon first. Filled the tank of the Yaris, which he loved unreasonably as a rental and was seriously contemplating buying when he got home. However, it was a ridiculous car for these roads in America let alone out west. At any moment the wind could remind him exactly how small the car was. And every car that passed him looked like it could fit his car in it. But it was peppy and got extraordinary gas mileage. He had developed an affection for it the way you develop affection for someone you go through a trial of life with.</p><p>While he was filling up, he pulled the trash from the past day off the floor of the passenger seat. A receipt, a gas station bag and the wrapper from a thing he'd bought in a moment of curiosity, ate half of, and decided was not food.</p><p>He got back in his car with a full tank and drove over to the Golden Arches of Gillette. He considered the drive-through at McDonald's. It was right there.</p><p>"It would be an experience" he thought.</p><p>But the Exxon bathroom had made a strong case against itself, and he suspected the McDonald's bathroom might represent an improvement. He parked, grabbed his wallet and went in.</p><p>The restaurant was cleaner than he expected. His expectations had been low to be fair but this was a nice surprise. The floors had been mopped at some point today. Nothing was visibly broken, and all the people in the store were acting like human beings. He ordered at the large white iPad, which he found slightly incredible that Gillette, Wyoming, had touchscreen tech. He touched the Big Mac, the fries, the Coke. And because this was America, he made it all large.</p><p>He found the bathroom after taking his printed ticket to claim his food. He entered, took care of business, washed his hands, and pushed the bathroom door open. The blinding light that hit him was not the neon lights of the McDonald's Golden Arches in Gillette, Wyoming.</p>
     <div class="flin-map">
       <svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="background:#ede8df;">
         <rect x="0" y="0" width="580" height="220" fill="#ede8df"/>
@@ -804,7 +764,6 @@ const stories = [
         <text x="299" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Badlands</text>
         <circle cx="245" cy="92" r="5" fill="#c96a2a"/>
         <text x="218" y="82" font-family="Georgia,serif" font-size="9" fill="#c96a2a" font-weight="bold">Gillette, WY</text>
-        <!-- Yaris silhouette -->
         <g transform="translate(232,82)">
           <rect x="0" y="8" width="26" height="8" rx="2" fill="#c96a2a"/>
           <path d="M4,8 Q5,2 8,1 L18,1 Q21,2 22,8 Z" fill="#c96a2a"/>
@@ -820,7 +779,8 @@ const stories = [
       </svg>
     </div>
     <p class="map-caption">the route so far</p>`
-  }];
+  }
+];
 
 function buildCatalog() {
   const list = document.getElementById('catalog-list');
@@ -850,7 +810,7 @@ function enterPond(e) {
 }
 
 function showHome() {
-  ['page-stories','page-reader','page-guestbook','page-projects','page-ottoman'].forEach(id => document.getElementById(id).style.display = 'none');
+  ['page-stories','page-reader','page-guestbook','page-projects','page-ottoman','page-course-landing'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById('page-home').style.display = 'flex';
 }
 
@@ -898,7 +858,6 @@ function navigate(dir) {
   if (next >= 0 && next < stories.length) showReader(next);
 }
 
-// ── OTTOMAN EMPIRE ────────────────────────────────────────────
 var ottomanStyles = `
 <style>
 *{box-sizing:border-box;}
@@ -912,9 +871,6 @@ var ottomanStyles = `
 .ot-home-overlay p{font-size:11px;color:rgba(245,237,214,.55);letter-spacing:.15em;text-transform:uppercase;}
 .ot-home-overlay .arrow{margin-top:1.2rem;font-size:10px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;}
 .ot-home-hero:hover .ot-home-overlay h2{color:var(--gold);}
-
-
-
 .ot-tl-page{background:var(--dark);padding:3rem 1.5rem;}
 .ot-tl-header{text-align:center;margin-bottom:2.5rem;}
 .ot-eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
@@ -985,9 +941,8 @@ var ottomanHTML = `
 
 function initOttoman() {
   var el = document.getElementById('ottoman-content');
-  if (el.innerHTML.trim()) return; // already initialized
+  if (el.innerHTML.trim()) return;
   el.innerHTML = ottomanStyles + ottomanHTML;
-
   var otEvents=[
     {year:"1285",era:"rise",title:"It Begins with a Footnote",desc:"Osman I becomes sultan of a small Turkish tribal confederation in Anatolia. Nobody at the time would have predicted this particular group outlasting the Roman Empire, the Mongols, and every European power that tried to dislodge it. They were wrong to be complacent."},
     {year:"1326",era:"rise",title:"First Capital, Immediate Death",desc:"After a long siege of Bursa in northwest Turkey, Osman I finally captures the city and makes it the empire's first capital. He then dies the same year, leaving his son Orhan to actually enjoy it. The empire keeps moving west."},
@@ -1049,7 +1004,7 @@ function enterProjects(e) {
 }
 
 function showProjects() {
-  ['page-ottoman','page-stories','page-reader','page-guestbook'].forEach(function(id){
+  ['page-ottoman','page-stories','page-reader','page-guestbook','page-course-landing'].forEach(function(id){
     document.getElementById(id).style.display = 'none';
   });
   var p = document.getElementById('page-projects');
@@ -1064,6 +1019,44 @@ function showOttoman() {
   p.classList.add('page-enter');
   window.scrollTo(0, 0);
   initOttoman();
+}
+function showCourseLanding() {
+  document.getElementById('page-projects').style.display = 'none';
+  var p = document.getElementById('page-course-landing');
+  p.style.display = 'block';
+  p.classList.add('page-enter');
+  window.scrollTo(0, 0);
+  startLandingPageTimer();
+  startExitIntent();
+}
+
+function startLandingPageTimer() {
+  var end = Date.now() + (20 * 60 * 1000);
+  function tick() {
+    var remaining = Math.max(0, end - Date.now());
+    var m = Math.floor(remaining / 60000);
+    var s = Math.floor((remaining % 60000) / 1000);
+    var el = document.getElementById('lp-countdown');
+    if (el) el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ':00';
+    if (remaining > 0) setTimeout(tick, 1000);
+  }
+  tick();
+}
+
+var exitIntentFired = false;
+function startExitIntent() {
+  exitIntentFired = false;
+  document.addEventListener('mouseleave', handleExitIntent);
+}
+
+function handleExitIntent(e) {
+  if (exitIntentFired) return;
+  if (e.clientY <= 0) {
+    exitIntentFired = true;
+    var overlay = document.getElementById('lp-exit-overlay');
+    if (overlay) overlay.classList.add('active');
+    document.removeEventListener('mouseleave', handleExitIntent);
+  }
 }
 </script>
 </body>
