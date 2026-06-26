@@ -811,6 +811,7 @@ function enterPond(e) {
 }
 
 function showHome() {
+  cleanupExitIntent();
   ['page-stories','page-reader','page-guestbook','page-projects','page-ottoman','page-course-landing'].forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById('page-home').style.display = 'flex';
 }
@@ -1028,7 +1029,25 @@ function showCourseLanding() {
   p.classList.add('page-enter');
   window.scrollTo(0, 0);
   startLandingPageTimer();
-  startExitIntent();
+  exitIntentFired = false;
+  document.addEventListener('mouseleave', handleExitIntent);
+}
+
+function cleanupExitIntent() {
+  document.removeEventListener('mouseleave', handleExitIntent);
+  exitIntentFired = false;
+  var overlay = document.getElementById('lp-exit-overlay');
+  if (overlay) overlay.classList.remove('active');
+}
+
+function showProjects() {
+  cleanupExitIntent();
+  ['page-ottoman','page-stories','page-reader','page-guestbook','page-course-landing'].forEach(function(id){
+    document.getElementById(id).style.display = 'none';
+  });
+  var p = document.getElementById('page-projects');
+  p.style.display = 'block';
+  p.classList.add('page-enter');
 }
 
 function startLandingPageTimer() {
@@ -1045,13 +1064,11 @@ function startLandingPageTimer() {
 }
 
 var exitIntentFired = false;
-function startExitIntent() {
-  exitIntentFired = false;
-  document.addEventListener('mouseleave', handleExitIntent);
-}
 
 function handleExitIntent(e) {
   if (exitIntentFired) return;
+  var landingVisible = document.getElementById('page-course-landing').style.display !== 'none';
+  if (!landingVisible) { cleanupExitIntent(); return; }
   if (e.clientY <= 0) {
     exitIntentFired = true;
     var overlay = document.getElementById('lp-exit-overlay');
