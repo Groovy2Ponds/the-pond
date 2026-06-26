@@ -17,7 +17,8 @@
   .scene-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 1.8s ease-in-out; }
   .scene-layer svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
   .sky-text { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); text-align: center; pointer-events: auto; z-index: 20; }
-  .sky-text h1 { font-family: 'EB Garamond', Georgia, serif; font-size: 13px; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; transition: color 2s ease-in-out; }
+  .sky-text h1 { font-family: 'EB Garamond', Georgia, serif; font-size: 13px; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; transition: color 2s ease-in-out; animation: titlePulse 7s ease-in-out infinite; }
+  @keyframes titlePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
   .duck-wrapper { position: absolute; top: 46%; left: 50%; transform: translateX(-50%); cursor: pointer; z-index: 10; animation: float 4s ease-in-out infinite; }
   .duck-wrapper:hover { animation-play-state: paused; transform: translateX(-50%) scale(1.08); }
   @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0px) rotate(-0.3deg); } 50% { transform: translateX(-50%) translateY(-1.5px) rotate(0.3deg); } }
@@ -105,7 +106,7 @@
   .projects-grid { max-width: 700px; margin: 48px auto; padding: 0 40px 80px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
   .project-card { cursor: pointer; border-radius: 10px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
   .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
-  .project-card-inner { padding: 28px 24px 24px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(200,160,74,0.15); border-radius: 10px; }
+  .project-card-inner { padding: 28px 24px 24px; min-height: 260px; height: 260px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(200,160,74,0.15); border-radius: 10px; }
   .project-card-top { margin-bottom: 16px; }
   .project-tag { font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #C8A04A; opacity: 0.7; }
   .project-title { font-family: 'EB Garamond', Georgia, serif; font-size: 26px; font-weight: 400; color: #F5EDD6; line-height: 1.2; margin-bottom: 8px; }
@@ -302,20 +303,20 @@
     <div class="lp-section">
       <h2 class="lp-section-heading">Meet Saint.</h2>
       <p class="lp-sub-heading"><em>Also known, in certain circles, as The Southern Tomato.</em></p>
-      <p class="lp-body">I came from money. Not the kind people talk about — the kind people don't have to.</p>
-      <p class="lp-body">At twenty one I told my parents I was leaving. They didn't approve. I left the following morning. For the better part of a decade I worked ranches in Montana, guided fishing trips in the Gulf, and walked trails as a park ranger in places most people only see on calendars. My address, for nine years and eleven months, was my car.</p>
+      <p class="lp-body">Saint came from money. Not the kind people talk about. The kind people don't have to.</p>
+      <p class="lp-body">At twenty one he told his parents he was leaving. They didn't approve. He left the following morning. For the better part of a decade he worked ranches in Montana, guided fishing trips in the Gulf, and walked trails as a park ranger in places most people only see on calendars. His address, for nine years and eleven months, was his car.</p>
       <p class="lp-body"><em>Mostly.</em></p>
-      <p class="lp-body">I was thirty one when I came back.</p>
-      <p class="lp-body">My father was sick. The business — one of the last movie rental stores in the country, kept alive by a man too proud to let a good thing die quietly — was gone. My mother was holding what was left of it the way you hold water in your hands. Carefully. Hopelessly. With the best intentions.</p>
-      <p class="lp-body">I stood in the driveway for a long time.</p>
-      <p class="lp-body">Then I went inside.</p>
-      <p class="lp-body">I was motivated, guilty, and jealous of men my age who had already built something.</p>
-      <p class="lp-body">So I did what any son of the South with something to prove and a wifi connection would do.</p>
-      <p class="lp-body"><strong>I built a course.</strong></p>
+      <p class="lp-body">He was thirty one when he came back.</p>
+      <p class="lp-body">His father was sick. The business, one of the last movie rental stores in the country, kept alive by a man too proud to let a good thing die quietly, was gone. His mother was holding what was left of it the way you hold water in your hands. Carefully. Hopelessly. With the best intentions.</p>
+      <p class="lp-body">Saint stood in the driveway for a long time.</p>
+      <p class="lp-body">Then he went inside.</p>
+      <p class="lp-body">He was motivated, guilty, and jealous of men his age who had already built something.</p>
+      <p class="lp-body">So Saint did what any son of the South with something to prove and a wifi connection would do.</p>
+      <p class="lp-body"><strong>He built a course.</strong></p>
     </div>
 
     <div class="lp-section lp-alt">
-      <h2 class="lp-section-heading">Before I taught you how to sell a course, I sold courses. A lot of them. To real people. With real money.</h2>
+      <h2 class="lp-section-heading">Before Saint taught you how to sell a course, he sold courses. A lot of them. To real people. With real money.</h2>
       <div class="lp-course-list">
         <div class="lp-course-item">
           <p class="lp-course-title"><em>How To Use An Inflatable Mattress As A White Water Raft</em></p>
@@ -323,11 +324,11 @@
         </div>
         <div class="lp-course-item">
           <p class="lp-course-title"><em>How To Break A Lease When You Know You're Wrong But Have To Act Like You're Not</em></p>
-          <p class="lp-body">12 students. $1,204 in revenue. Two of them actually needed it. I don't ask questions.</p>
+          <p class="lp-body">12 students. $1,204 in revenue. Two of them actually needed it. Saint does not ask questions.</p>
         </div>
         <div class="lp-course-item">
           <p class="lp-course-title"><em>How To Get Unstuck From A Ditch That Didn't Even Look That Big</em></p>
-          <p class="lp-body">31 students. $2,100 in revenue. My best seller until now.</p>
+          <p class="lp-body">31 students. $2,100 in revenue. His best seller until now.</p>
         </div>
         <div class="lp-course-item">
           <p class="lp-course-title"><em>Why Subarus Are Masculine And Why Every Man Should Own One</em></p>
@@ -338,8 +339,8 @@
           <p class="lp-body">2 students. One was a meteorologist.</p>
         </div>
       </div>
-      <p class="lp-body">Combined across all courses I've generated nearly $5,000 in revenue, a number I describe as 'life changing' and 'proof that the system works' without further elaboration.</p>
-      <p class="lp-body">I have since retired those courses.</p>
+      <p class="lp-body">Combined across all courses Saint has generated nearly $5,000 in revenue, a number he describes as 'life changing' and 'proof that the system works' without further elaboration.</p>
+      <p class="lp-body">He has since retired those courses.</p>
       <p class="lp-body"><strong>This is the only one left.</strong></p>
     </div>
 
@@ -402,7 +403,7 @@
 
     <div class="lp-section lp-alt lp-timer-section">
       <div class="lp-timer" id="lp-countdown">00:00:00</div>
-      <p class="lp-timer-note"><em>This timer is here because it works. I respect you enough to tell you that. Not enough to tell you if I'm actually going to change the price.</em></p>
+      <p class="lp-timer-note"><em>This timer is here because it works. Saint respects you enough to tell you that. Not enough to tell you if he's actually going to change the price.</em></p>
     </div>
 
     <div class="lp-section" id="lp-buy">
@@ -411,9 +412,9 @@
         <span class="lp-strike">$197</span>
         <span class="lp-price">$97</span>
       </div>
-      <p class="lp-guarantee"><em>30 Day Money Back Guarantee. I won't make it weird if you won't.</em></p>
+      <p class="lp-guarantee"><em>30 Day Money Back Guarantee. Saint won't make it weird if you won't.</em></p>
       <a href="https://course.thepond.live" target="_blank" class="lp-cta">WANT IN? — $97</a>
-      <p class="lp-fine"><em>I may or may not change this price. Not even the timer knows.</em></p>
+      <p class="lp-fine"><em>Saint may or may not change this price. Not even the timer knows.</em></p>
     </div>
 
     <div class="lp-section lp-alt">
@@ -446,8 +447,8 @@
   <div class="lp-exit-overlay" id="lp-exit-overlay">
     <div class="lp-exit-box">
       <p class="lp-exit-heading"><strong>Wait.</strong></p>
-      <p class="lp-body">I noticed you leaving.</p>
-      <p class="lp-body">I'm not offended. I'm offering you $47 for the course instead.</p>
+      <p class="lp-body">Saint noticed you leaving.</p>
+      <p class="lp-body">He's not offended. He's offering you $47 for the course instead.</p>
       <a href="https://course.thepond.live" target="_blank" class="lp-cta lp-exit-cta">FINE. I'LL STAY — $47</a>
       <button class="lp-exit-close" onclick="document.getElementById('lp-exit-overlay').style.display='none'">no thanks</button>
     </div>
