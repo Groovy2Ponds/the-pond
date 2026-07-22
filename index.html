@@ -488,11 +488,9 @@ function makeScene(cfg) {
     <circle cx="320" cy="70" r="0.7" fill="white" opacity="0.5"/>
     <circle cx="860" cy="70" r="0.8" fill="white" opacity="0.55"/>
     <circle cx="460" cy="35" r="0.9" fill="white" opacity="0.65"/>` : '';
-
   const moon = cfg.hasMoon ? `
     <circle cx="880" cy="80" r="28" fill="#f0e8c0" opacity="0.92"/>
     <circle cx="872" cy="74" r="28" fill="${cfg.skyStops[1].color}" opacity="0.85"/>` : '';
-
   const skyStops = cfg.skyStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
   const waterStops = cfg.waterStops.map(s => `<stop offset="${s.offset}" stop-color="${s.color}"/>`).join('');
   const sunDefs = cfg.hasSun ? `<radialGradient id="sgg" cx="50%" cy="50%" r="50%">
@@ -503,7 +501,6 @@ function makeScene(cfg) {
   const sun = cfg.hasSun ? `<ellipse cx="600" cy="${cfg.sunY}" rx="160" ry="70" fill="url(#sgg)" opacity="0.75"/>
     <circle cx="600" cy="${cfg.sunY}" r="22" fill="${cfg.sunColor}" opacity="0.9"/>` : '';
   const mist = cfg.mistOpacity > 0 ? `<rect x="0" y="295" width="1200" height="40" fill="white" opacity="${cfg.mistOpacity}"/>` : '';
-
   return `<svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">${skyStops}</linearGradient>
@@ -546,177 +543,55 @@ function makeScene(cfg) {
 }
 
 const SCENES = {
-  night: makeScene({
-    skyStops: [{offset:'0%',color:'#060814'},{offset:'40%',color:'#0d1428'},{offset:'75%',color:'#141e38'},{offset:'100%',color:'#1a2440'}],
-    waterStops: [{offset:'0%',color:'#0d1828'},{offset:'100%',color:'#080e18'}],
-    hillLeftColor:'#0e1218', hillRightColor:'#0c1016', bankLeft:'#121a10', bankRight:'#101610',
-    treeFill:'#080c08', mtnFar:'rgba(20,28,50,0.45)', mtnNear:'rgba(14,20,40,0.35)', hasMoon:true, hasStars:true, hasSun:false,
-    waterShimmerColor:'rgba(200,220,255,0.08)', duckReflect:'#c8b840', mistOpacity:0, titleColor:'rgba(200,220,255,0.7)'
-  }),
-  dawn: makeScene({
-    skyStops: [{offset:'0%',color:'#1a1030'},{offset:'25%',color:'#3a1a40'},{offset:'50%',color:'#c0607a'},{offset:'70%',color:'#e8a090'},{offset:'85%',color:'#f0c8a0'},{offset:'100%',color:'#c8a880'}],
-    waterStops: [{offset:'0%',color:'#4a3858'},{offset:'50%',color:'#3a2848'},{offset:'100%',color:'#2a1c38'}],
-    hillLeftColor:'#2a1e28', hillRightColor:'#221c20', bankLeft:'#2e2820', bankRight:'#2a2420',
-    treeFill:'#160e14', mtnFar:'rgba(90,55,85,0.32)', mtnNear:'rgba(65,42,72,0.28)', hasMoon:false, hasStars:true, hasSun:true,
-    sunColor:'#f0c0a0', sunGlowColor:'#e88070', sunY:320,
-    waterShimmerColor:'rgba(240,180,160,0.15)', duckReflect:'#c8b840', mistOpacity:0.07, titleColor:'rgba(255,220,200,0.8)'
-  }),
-  day: makeScene({
-    skyStops: [{offset:'0%',color:'#2878c8'},{offset:'40%',color:'#4898e0'},{offset:'75%',color:'#78b8f0'},{offset:'100%',color:'#a8d0f0'}],
-    waterStops: [{offset:'0%',color:'#2a6a8a'},{offset:'50%',color:'#1e5070'},{offset:'100%',color:'#143858'}],
-    hillLeftColor:'#3a5228', hillRightColor:'#304820', bankLeft:'#4a6a30', bankRight:'#405e28',
-    treeFill:'#1e3410', mtnFar:'rgba(130,165,200,0.28)', mtnNear:'rgba(105,145,182,0.2)', hasMoon:false, hasStars:false, hasSun:true,
-    sunColor:'#fff8c0', sunGlowColor:'#f0e080', sunY:180,
-    waterShimmerColor:'rgba(255,255,255,0.18)', duckReflect:'#c8b020', mistOpacity:0, titleColor:'rgba(18,50,80,0.6)'
-  }),
-  sunset: makeScene({
-    skyStops: [{offset:'0%',color:'#1a1230'},{offset:'18%',color:'#4a2040'},{offset:'38%',color:'#8b3a2a'},{offset:'55%',color:'#c96a2a'},{offset:'65%',color:'#e8943a'},{offset:'74%',color:'#f2b85a'},{offset:'82%',color:'#d4c870'},{offset:'100%',color:'#8aaa80'}],
-    waterStops: [{offset:'0%',color:'#3a4050'},{offset:'50%',color:'#2a3040'},{offset:'100%',color:'#12202a'}],
-    hillLeftColor:'#3a2a1a', hillRightColor:'#2a3020', bankLeft:'#3a4a2a', bankRight:'#2e3d22',
-    treeFill:'#1a1a0a', mtnFar:'rgba(85,52,42,0.38)', mtnNear:'rgba(62,42,32,0.3)', hasMoon:false, hasStars:false, hasSun:true,
-    sunColor:'#f2d060', sunGlowColor:'#e8943a', sunY:312,
-    waterShimmerColor:'rgba(242,184,90,0.15)', duckReflect:'#d4a820', mistOpacity:0, titleColor:'rgba(255,220,160,0.7)'
-  })
+  night: makeScene({skyStops:[{offset:'0%',color:'#060814'},{offset:'40%',color:'#0d1428'},{offset:'75%',color:'#141e38'},{offset:'100%',color:'#1a2440'}],waterStops:[{offset:'0%',color:'#0d1828'},{offset:'100%',color:'#080e18'}],hillLeftColor:'#0e1218',hillRightColor:'#0c1016',bankLeft:'#121a10',bankRight:'#101610',treeFill:'#080c08',mtnFar:'rgba(20,28,50,0.45)',mtnNear:'rgba(14,20,40,0.35)',hasMoon:true,hasStars:true,hasSun:false,waterShimmerColor:'rgba(200,220,255,0.08)',duckReflect:'#c8b840',mistOpacity:0,titleColor:'rgba(200,220,255,0.7)'}),
+  dawn: makeScene({skyStops:[{offset:'0%',color:'#1a1030'},{offset:'25%',color:'#3a1a40'},{offset:'50%',color:'#c0607a'},{offset:'70%',color:'#e8a090'},{offset:'85%',color:'#f0c8a0'},{offset:'100%',color:'#c8a880'}],waterStops:[{offset:'0%',color:'#4a3858'},{offset:'50%',color:'#3a2848'},{offset:'100%',color:'#2a1c38'}],hillLeftColor:'#2a1e28',hillRightColor:'#221c20',bankLeft:'#2e2820',bankRight:'#2a2420',treeFill:'#160e14',mtnFar:'rgba(90,55,85,0.32)',mtnNear:'rgba(65,42,72,0.28)',hasMoon:false,hasStars:true,hasSun:true,sunColor:'#f0c0a0',sunGlowColor:'#e88070',sunY:320,waterShimmerColor:'rgba(240,180,160,0.15)',duckReflect:'#c8b840',mistOpacity:0.07,titleColor:'rgba(255,220,200,0.8)'}),
+  day: makeScene({skyStops:[{offset:'0%',color:'#2878c8'},{offset:'40%',color:'#4898e0'},{offset:'75%',color:'#78b8f0'},{offset:'100%',color:'#a8d0f0'}],waterStops:[{offset:'0%',color:'#2a6a8a'},{offset:'50%',color:'#1e5070'},{offset:'100%',color:'#143858'}],hillLeftColor:'#3a5228',hillRightColor:'#304820',bankLeft:'#4a6a30',bankRight:'#405e28',treeFill:'#1e3410',mtnFar:'rgba(130,165,200,0.28)',mtnNear:'rgba(105,145,182,0.2)',hasMoon:false,hasStars:false,hasSun:true,sunColor:'#fff8c0',sunGlowColor:'#f0e080',sunY:180,waterShimmerColor:'rgba(255,255,255,0.18)',duckReflect:'#c8b020',mistOpacity:0,titleColor:'rgba(18,50,80,0.6)'}),
+  sunset: makeScene({skyStops:[{offset:'0%',color:'#1a1230'},{offset:'18%',color:'#4a2040'},{offset:'38%',color:'#8b3a2a'},{offset:'55%',color:'#c96a2a'},{offset:'65%',color:'#e8943a'},{offset:'74%',color:'#f2b85a'},{offset:'82%',color:'#d4c870'},{offset:'100%',color:'#8aaa80'}],waterStops:[{offset:'0%',color:'#3a4050'},{offset:'50%',color:'#2a3040'},{offset:'100%',color:'#12202a'}],hillLeftColor:'#3a2a1a',hillRightColor:'#2a3020',bankLeft:'#3a4a2a',bankRight:'#2e3d22',treeFill:'#1a1a0a',mtnFar:'rgba(85,52,42,0.38)',mtnNear:'rgba(62,42,32,0.3)',hasMoon:false,hasStars:false,hasSun:true,sunColor:'#f2d060',sunGlowColor:'#e8943a',sunY:312,waterShimmerColor:'rgba(242,184,90,0.15)',duckReflect:'#d4a820',mistOpacity:0,titleColor:'rgba(255,220,160,0.7)'})
 };
 
-const titleColors = { night:'rgba(200,220,255,0.7)', dawn:'rgba(255,220,200,0.8)', day:'rgba(18,50,80,0.6)', sunset:'rgba(255,220,160,0.7)' };
+const titleColors={night:'rgba(200,220,255,0.7)',dawn:'rgba(255,220,200,0.8)',day:'rgba(18,50,80,0.6)',sunset:'rgba(255,220,160,0.7)'};
 
-function getSceneBlend(hour, minute) {
-  const t = hour + minute / 60;
-  const phases = [{name:'night',start:0},{name:'dawn',start:5},{name:'day',start:10},{name:'sunset',start:18},{name:'night',start:23}];
-  const trans = 1.0;
-  for (let i = 0; i < phases.length - 1; i++) {
-    const a = phases[i], b = phases[i+1];
-    if (t >= a.start && t < b.start) {
-      const segLen = b.start - a.start;
-      const elapsed = t - a.start;
-      if (elapsed > segLen - trans) {
-        const blend = (elapsed - (segLen - trans)) / trans;
-        return { sceneA: a.name, sceneB: b.name, blend: Math.min(blend, 1) };
-      }
-      return { sceneA: a.name, sceneB: a.name, blend: 0 };
-    }
-  }
-  return { sceneA: 'night', sceneB: 'night', blend: 0 };
-}
+function getSceneBlend(hour,minute){const t=hour+minute/60;const phases=[{name:'night',start:0},{name:'dawn',start:5},{name:'day',start:10},{name:'sunset',start:18},{name:'night',start:23}];const trans=1.0;for(let i=0;i<phases.length-1;i++){const a=phases[i],b=phases[i+1];if(t>=a.start&&t<b.start){const segLen=b.start-a.start;const elapsed=t-a.start;if(elapsed>segLen-trans){const blend=(elapsed-(segLen-trans))/trans;return{sceneA:a.name,sceneB:b.name,blend:Math.min(blend,1)}}return{sceneA:a.name,sceneB:a.name,blend:0}}}return{sceneA:'night',sceneB:'night',blend:0}}
 
-function interpolateColor(c1, c2, t) {
-  const parse = h => {
-    h = h.replace(/^rgba?\(/,'').replace(/\)$/,'');
-    if (h.startsWith('#')) { const n=parseInt(h.slice(1),16); return [n>>16&255,n>>8&255,n&255,1]; }
-    const p=h.split(',').map(Number); return [p[0],p[1],p[2],p[3]??1];
-  };
-  const [r1,g1,b1,a1]=parse(c1), [r2,g2,b2,a2]=parse(c2);
-  return `rgba(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2-b1)*t)},${+(a1+(a2-a1)*t).toFixed(2)})`;
-}
+function interpolateColor(c1,c2,t){const parse=h=>{h=h.replace(/^rgba?\(/,'').replace(/\)$/,'');if(h.startsWith('#')){const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255,1]}const p=h.split(',').map(Number);return[p[0],p[1],p[2],p[3]??1]};const[r1,g1,b1,a1]=parse(c1),[r2,g2,b2,a2]=parse(c2);return`rgba(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2-b1)*t)},${+(a1+(a2-a1)*t).toFixed(2)})`}
 
-function applyScene() {
-  const now = new Date();
-  const { sceneA, sceneB, blend } = getSceneBlend(now.getHours(), now.getMinutes());
-  const layerA = document.getElementById('layer-a');
-  const layerB = document.getElementById('layer-b');
-  layerA.innerHTML = SCENES[sceneA];
-  layerA.style.opacity = '1';
-  if (blend === 0) {
-    layerB.style.opacity = '0';
-  } else {
-    layerB.innerHTML = SCENES[sceneB];
-    layerB.style.opacity = String(blend);
-  }
-  const titleColor = blend === 0 ? titleColors[sceneA] : interpolateColor(titleColors[sceneA], titleColors[sceneB], blend);
-  document.getElementById('pond-title').style.color = titleColor;
-}
+function applyScene(){const now=new Date();const{sceneA,sceneB,blend}=getSceneBlend(now.getHours(),now.getMinutes());const layerA=document.getElementById('layer-a');const layerB=document.getElementById('layer-b');layerA.innerHTML=SCENES[sceneA];layerA.style.opacity='1';if(blend===0){layerB.style.opacity='0'}else{layerB.innerHTML=SCENES[sceneB];layerB.style.opacity=String(blend)}const titleColor=blend===0?titleColors[sceneA]:interpolateColor(titleColors[sceneA],titleColors[sceneB],blend);document.getElementById('pond-title').style.color=titleColor}
 
-applyScene();
-setInterval(applyScene, 60000);
+applyScene();setInterval(applyScene,60000);
 
-function getRead() { try { return JSON.parse(localStorage.getItem('pond_read') || '{}'); } catch(e) { return {}; } }
-function saveRead(r) { try { localStorage.setItem('pond_read', JSON.stringify(r)); } catch(e) {} }
-function markRead(i) { const r = getRead(); r['s'+i] = true; saveRead(r); }
-function isRead(i) { return !!getRead()['s'+i]; }
-function getLikes() { try { return JSON.parse(localStorage.getItem('pond_likes') || '{}'); } catch(e) { return {}; } }
-function saveLikes(l) { try { localStorage.setItem('pond_likes', JSON.stringify(l)); } catch(e) {} }
-function getEntries() { try { return JSON.parse(localStorage.getItem('pond_guestbook') || '[]'); } catch(e) { return []; } }
-function saveEntries(e) { try { localStorage.setItem('pond_guestbook', JSON.stringify(e)); } catch(e) {} }
+function getRead(){try{return JSON.parse(localStorage.getItem('pond_read')||'{}')}catch(e){return{}}}
+function saveRead(r){try{localStorage.setItem('pond_read',JSON.stringify(r))}catch(e){}}
+function markRead(i){const r=getRead();r['s'+i]=true;saveRead(r)}
+function isRead(i){return!!getRead()['s'+i]}
+function getLikes(){try{return JSON.parse(localStorage.getItem('pond_likes')||'{}')}catch(e){return{}}}
+function saveLikes(l){try{localStorage.setItem('pond_likes',JSON.stringify(l))}catch(e){}}
+function getEntries(){try{return JSON.parse(localStorage.getItem('pond_guestbook')||'[]')}catch(e){return[]}}
+function saveEntries(e){try{localStorage.setItem('pond_guestbook',JSON.stringify(e))}catch(e){}}
 
-function toggleLike() {
-  const likes = getLikes();
-  const k = 's' + currentStoryIndex;
-  if (!likes[k]) likes[k] = { count: 0, liked: false };
-  likes[k].liked = !likes[k].liked;
-  likes[k].count = Math.max(0, likes[k].count + (likes[k].liked ? 1 : -1));
-  saveLikes(likes);
-  updateLikeUI();
-}
+function toggleLike(){const likes=getLikes();const k='s'+currentStoryIndex;if(!likes[k])likes[k]={count:0,liked:false};likes[k].liked=!likes[k].liked;likes[k].count=Math.max(0,likes[k].count+(likes[k].liked?1:-1));saveLikes(likes);updateLikeUI()}
+function updateLikeUI(){const likes=getLikes();const k='s'+currentStoryIndex;const liked=likes[k]&&likes[k].liked;const count=likes[k]?likes[k].count:0;const btn=document.getElementById('like-btn');const heart=document.getElementById('like-heart');const countEl=document.getElementById('like-count');if(btn)btn.classList.toggle('liked',liked);if(heart)heart.textContent=liked?'♥':'♡';if(countEl)countEl.textContent=count}
+function updateStampUI(){const stamp=document.getElementById('read-stamp');if(stamp)stamp.classList.toggle('stamped',isRead(currentStoryIndex))}
+function updateChar(){const ta=document.getElementById('gb-text');const el=document.getElementById('gb-char');if(ta&&el)el.textContent=300-ta.value.length}
+function submitEntry(){const name=(document.getElementById('gb-name').value||'').trim();const text=(document.getElementById('gb-text').value||'').trim();if(!name||!text)return;const entries=getEntries();entries.unshift({name,text,date:new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})});saveEntries(entries);document.getElementById('gb-name').value='';document.getElementById('gb-text').value='';updateChar();renderEntries()}
+function renderEntries(){const el=document.getElementById('gb-entries');if(!el)return;const entries=getEntries();if(!entries.length){el.innerHTML='<p style="font-family:serif;font-size:17px;font-style:italic;color:var(--text-light);">Nothing yet. Be the first.</p>';return}el.innerHTML=entries.map(e=>`<div class="guestbook-entry"><div class="entry-name">${e.name}</div><div class="entry-text">${e.text}</div><div class="entry-date">${e.date}</div></div>`).join('')}
 
-function updateLikeUI() {
-  const likes = getLikes();
-  const k = 's' + currentStoryIndex;
-  const liked = likes[k] && likes[k].liked;
-  const count = likes[k] ? likes[k].count : 0;
-  const btn = document.getElementById('like-btn');
-  const heart = document.getElementById('like-heart');
-  const countEl = document.getElementById('like-count');
-  if (btn) btn.classList.toggle('liked', liked);
-  if (heart) heart.textContent = liked ? '♥' : '♡';
-  if (countEl) countEl.textContent = count;
-}
-
-function updateStampUI() {
-  const stamp = document.getElementById('read-stamp');
-  if (stamp) stamp.classList.toggle('stamped', isRead(currentStoryIndex));
-}
-
-function updateChar() {
-  const ta = document.getElementById('gb-text');
-  const el = document.getElementById('gb-char');
-  if (ta && el) el.textContent = 300 - ta.value.length;
-}
-
-function submitEntry() {
-  const name = (document.getElementById('gb-name').value || '').trim();
-  const text = (document.getElementById('gb-text').value || '').trim();
-  if (!name || !text) return;
-  const entries = getEntries();
-  entries.unshift({ name, text, date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) });
-  saveEntries(entries);
-  document.getElementById('gb-name').value = '';
-  document.getElementById('gb-text').value = '';
-  updateChar();
-  renderEntries();
-}
-
-function renderEntries() {
-  const el = document.getElementById('gb-entries');
-  if (!el) return;
-  const entries = getEntries();
-  if (!entries.length) { el.innerHTML = '<p style="font-family:serif;font-size:17px;font-style:italic;color:var(--text-light);">Nothing yet. Be the first.</p>'; return; }
-  el.innerHTML = entries.map(e => `<div class="guestbook-entry"><div class="entry-name">${e.name}</div><div class="entry-text">${e.text}</div><div class="entry-date">${e.date}</div></div>`).join('');
-}
-
-let currentStoryIndex = 0;
+let currentStoryIndex=0;
 
 const stories = [
   {
     num: "001", title: "The Lemon to My Aid", date: "2026", type: "poem", note: "",
     content: `<div class="poem-stanza"><span class="poem-line">You're the flower to my stem, the bees to my knees.</span><span class="poem-line">The puzzle to my piece, the lemon to my squeeze.</span><span class="poem-line">And when life is bitter, you are my sweet.</span><span class="poem-line">The lemon to my aid.</span></div>`
   },
-
   {
     num: "002", title: "A Prison With an Open Door", date: "2026", type: "story", note: "",
     content: `<p>He heard it before he saw it. A crash. The heavy clang of cell doors swinging open, echoing off concrete like a starting gun.</p><p>He opened his eyes.</p><p>To his right, his neighbor was already gone, door wide open, man nowhere in sight. He turned left. Gerald was still sitting there, motionless, door hanging open like an invitation.</p><p>"Gerald." He grabbed the bars. "Gerald. RUN! RUN FOR IT!"</p><p>Gerald blinked. Looked at the door. Then something clicked and he was up and gone.</p><p>He listened to the footsteps fade down the corridor.</p><p>Then he sat back down on his bunk, never noticing his door was open too.</p>`
   },
-
   {
     num: "003", title: "White Wine Vinaigrette", date: "2026", type: "story", note: "",
     content: `<p>He sat content. Not anxious. Dinner had been made by a loving girlfriend just for him. Roasted potatoes, arugula with a white wine vinaigrette dressing, and cold ground beef. He found the meal delicious and nutritious. The loving girlfriend did apologize about the cold ground beef, but honestly... after the cardio they just did, that wasn't even on the radar. It was a level zero concern. He was present. Not worrying so much, knowing tomorrow will arrive on time, and today will be yesterday soon enough.</p>`
   },
   {
-    num: "004",
-    title: "Home Goods",
-    date: "2026",
-    type: "prose",
-    note: "",
+    num: "004", title: "Home Goods", date: "2026", type: "prose", note: "",
     content: `<p>When I moved, I had a re-realization. I won't commit to a thing if I try to go all in right away. What I mean by that is, I'm not the type of person that can go, "Okay, I'm going to make a workout regimen for all aspects of my health. I'm gonna go and train five days a week. This is my diet with all nutrients accounted for. Here's my sleeping schedule I'll stick to. Etc." And then actually follow through with that plan. Making big changes doesn't happen overnight for me. The only way I have found that gets the proverbial ball moving is to start small.</p>
     <p>So, I started to come home, go to my balcony, and take a picture of the Home Goods that's across the street one day after another. I did it as a fun, silly little project that didn't require much effort. My goal is to get a year of Home Goods photos. I've been doing it for probably eight or nine months now. Truth be told though, I haven't gotten a picture EVERY day, because of a week of travel or the handful of days I missed. But I've been pretty darn consistent. I don't know how many pictures I have, there's a folder on my phone that I could count. But in November it will be fun to scroll through the change of the seasons.</p>
     <p>I started there, and then I built on that. From there, I started doing push-ups every day as a way to stay consistent working out, because off days led to off weeks. Subsequently, I started working out more consistently and I was more focused. I began listening to people smarter than me who'd figured out things I haven't, every day. I started eating healthier more consistently. I started going to Church every week. Started working on my project every day. It's been a snowball effect, and definitely not all at once. But what I can say is that this most recent snowball was originally made out of pictures of Home Goods.</p>
@@ -726,49 +601,44 @@ const stories = [
     <p>The picture today is on the same balcony, of the same store, with the same red letters across the parking lot. And somewhere in that folder is a version of that same image behind a veil of blizzard, one where the sky is blazing behind it, and a couple hundred that look more or less the same. And tomorrow, I'll take another picture of the Home Goods across the street.</p>
     <p>P.S. There's also one with a car on fire. Everyone lived.</p>`
   },
-
   {
-    num: "005", title: "Joan", date: "2026", type: "story", note: "",
+    num: "005", title: "I Saw a Tree on a Walk Today", date: "2026", type: "prose", note: "",
+    content: `<p>Steadfast and ugly, limbs extended with gnarls everywhere. It had established its place in the earth. It remains here today and the next and the one after. Through freezes and heat waves. On the most extreme days. The tree remains. Steadfast and ugly. Always changing and also staying the same.</p>`
+  },
+  {
+    num: "006", title: "Joan", date: "2026", type: "story", note: "",
     content: `<p>There I was. Old enough to bear arms, yet too young to bear the weight of them. Orleans, mud to my boots, watching France bleed into the earth. The English had us cornered like dogs and I had made my peace with God, or tried to. I reckoned death was coming for me and I meant to meet it standing.</p><p>Then I heard her.</p><p>A girl on horseback, screaming toward the fortress like the wrath of Heaven itself had taken flesh. The hooves of her horse were swallowed by her war cries. It was not the grace of cherubim that came to mind, it was the fury of Saint Michael, sword drawn, cast from above. I had not believed the legend when it reached my ears. A maiden leading men of France? I thought it madness. I thought it heresy, even.</p><p>But I followed. God help me, I followed.</p><p>When she charged into the lion's den bearing nothing but her standard, something broke loose in my chest that I have no word for. The arrow found her between neck and shoulder. She did not fall. She did not weep. She pressed forward and so did every man around her, myself among them. We took the fortress. We won because she made us willing to die for something greater than ourselves.</p><p>Two years hence, Rouen. She was nineteen when they put the torch to her. I was twenty-two and still fool enough to believe the righteous were protected. It was as I imagined Calvary, not equal to it, God forgive me for the comparison, but of the same terrible spirit. The flames were slow. She clutched a cross fashioned from sticks and cried out the name of Jesus until her voice was taken from her. The crowd held its breath. The fire did not. I watched her mouth move in prayer long after sound had left her, and I felt something depart from me that day that I cannot name, faith, perhaps, or simply the belief that goodness is rewarded in this world.</p><p>But five and twenty years is a long road. Long enough to learn that peace is not the province of men. Long enough for the Church to confess its sin, to name her martyr, to call the trial a corruption, to declare her innocent before God and man. I was seven and forty when I gave my testimony. My hands trembled as I spoke of that April morning. The judge asked whether I believed. I told him plainly: I believe in her. And I believe in God enough to trust what I cannot see and leave the rest to Him. Whether that is faith or mere stubbornness, I cannot say with certainty. But it is all I have carried these long years. And it has not failed me yet.</p>`
   },
-
   {
-    num: "006", title: "Space", date: "2026", type: "prose", note: "",
+    num: "007", title: "Space", date: "2026", type: "prose", note: "",
     content: `<p>They say exploring the sea floor is as hard as space exploration.</p><p>But, is that actually true?</p><p>Or do the scientists at NASA just nod along like, "Okay dumbass, you can keep believing that... we'll worry about space."</p>`
   },
-
   {
-    num: "007", title: "Presence", date: "2026", type: "prose", note: "",
+    num: "008", title: "Presence", date: "2026", type: "prose", note: "",
     content: `<p>There are times in this world where you take pause and feel space moving around you without guilt or worry. No haste or thought of obligation.</p><p>It is lawful unavailability. The world has invited you to its communion. You seized it for yourself.</p><p>And so it comes to an end.</p>`
   },
-
   {
-    num: "008", title: "The Beast", date: "2026", type: "poem", note: "",
+    num: "009", title: "The Beast", date: "2026", type: "poem", note: "",
     content: `<div class="poem-stanza"><span class="poem-line">Gotta feed the beast.</span><span class="poem-line">The beast is always hungry.</span><span class="poem-line">The beast is picky too.</span><span class="poem-line">Sometimes the beast wants broccoli,</span><span class="poem-line">Sometimes the beast wants a potato too.</span></div><div class="poem-stanza"><span class="poem-line">Sometimes the beast wants waffle cut potato fries</span><span class="poem-line">fried in peanut oil with pink Himalayan sea salt,</span><span class="poem-line">rosemary, and a twist of lemon.</span></div><div class="poem-stanza"><span class="poem-line">The beast.</span><span class="poem-line">Gotta feed the beast.</span><span class="poem-line">The beast is always hungry.</span><span class="poem-line">The beast is picky too.</span><span class="poem-line">Sometimes the beast wants you.</span><span class="poem-line">You never know what the beast wants.</span><span class="poem-line">The appetite is always new.</span></div><div class="poem-stanza"><span class="poem-line">But there are things the beast consistently wants.</span><span class="poem-line">Beast wants everything all at once,</span><span class="poem-line">but you never know what the beast actually wants.</span></div><div class="poem-stanza"><span class="poem-line">And sometimes, you get lucky and you learn what the beast wants.</span><span class="poem-line">Then you feed the beast,</span><span class="poem-line">and you keep feeding the beast,</span><span class="poem-line">until the beast upchucks on you.</span></div>`
   },
-
   {
-    num: "009", title: "Luck", date: "2026", type: "prose", note: "",
+    num: "010", title: "Luck", date: "2026", type: "prose", note: "",
     content: `<p>And then Cade said, "I believe in luck. However, I don't believe luck is a reaction to inaction. I believe luck is a reaction to action. And so I find that the harder I work, the luckier I get."</p><p>Which, frankly, is yet another truth that has been passed down for centuries that he simply refused to understand until he failed badly enough he figured it out. A folly of this man, some may say. But I suppose it is better to learn from one's mistakes than to remain a fool.</p>`
   },
-
   {
-    num: "010", title: "The 87th Floor", date: "2026", type: "prose", note: "",
+    num: "011", title: "The 87th Floor", date: "2026", type: "prose", note: "",
     content: `<p>Like looking at the skyline on the 87th floor as a cloud passes. Sometimes the view is clear. Sometimes you can barely see past the glass. But the towers in front of you remain.</p><p>I'm still on the 87th floor. The clouds still pass. But lately, I'm catching more glimpses of the skyline than I used to.</p>`
   },
-
   {
-    num: "011", title: "Silks and Monkeys", date: "2026", type: "story", note: "",
+    num: "012", title: "Silks and Monkeys", date: "2026", type: "story", note: "",
     content: `<p>The official's chambers smelled of cedar and perfume. Mehmed spread the dasta of fabric across the low table with the care of a man who knew its worth — a deep crimson silk from Lyon, the kind that caught light like hot volcanic rock inside. The weave alone cost him three months of careful negotiation with his European contacts.</p><p>"You see how it moves," Mehmed said, letting the silk ripple under his fingers. "This is what the Sultan's wives wear in Venice. This is popular in the great houses."</p><p>The court official Kadir Bey, whose name Mehmed had learned meant little beyond a man with enough coin and enough access to matter, leaned forward. His fingers were soft, uncalloused. A bureaucrat's hands that were as soft as the silk he was going to purchase for his wife.</p><p>"The Sultan has no shortage of wives, or concubines, these days," Kadir Bey said, not quite a smile at the smallest corner of his mouth. "Have you heard? Some say he has one hundred children. One hundred. The man spends more time in the harem than in the throne room."</p><p>Mehmed laughed. The kind of laugh a merchant makes when a client says something that borders on criticism but hasn't quite crossed the line or worth throwing the sale for. "The Sultan has many duties. The harem is... one of them."</p><p>"One of them." Kadir Bey picked up the silk, held it to the light streaming through the latticed window. "My wife would love this. What do you want for it?"</p><p>They haggled as men had haggled in this city for centuries. The price came down, then up, then settled somewhere in the middle where Mehmed knew that Kadir felt he'd won. Mehmed wrapped the fabric in linen while Kadir Bey counted out 300 akçe.</p><p>"There is talk," Kadir Bey said as Mehmed packed the bolt and checked the payment briefly as not to offend, "that the religious men grow restless. The molla Abdülkerim has been preaching in the mosques. Speaking about corruption. About European influence poisoning the city."</p><p>Mehmed's gut tensed for just a moment. "Religious men always preach about corruption."</p><p>"Yes. But this one has the Sultan's ear. Or so they say." Kadir Bey smiled, thin, knowing and off-putting. "Be careful with your European silks, merchant. The mood is changing."</p><p>The streets were crowded as Mehmed made his way back through the market, the sale weighing pleasantly in his purse. The sun was high. He had made good akçe today. The silk had been admired. Kadir Bey's wife would be beautiful in it, and Kadir Bey would come back for more silks.</p><p>He was thinking about which contacts to reach out to for the next shipment when he noticed the running. Just a few people at first, moving with purpose through the crowd. Then more. Shouting. Not the shouting of the market, something different, it sounded like aggressive prayer. It brought Mehmed back to hearing his father pray when his brother died at 8 from drowning. But this was different.</p><p>Mehmed slowed his pace, observing his surroundings. A woman rushed past him, her veil askew. A young man carrying rope. What seemed like hundreds of pieces of rope. More than anyone needed for normal business.</p><p>Then he saw it: a figure hanging from a branch of the old fig tree near the fountain. Small. Struggling. Screeching.</p><p>A monkey.</p><p>Mehmed stopped walking entirely. Why would they hang a monkey? The thought was absurd enough that he almost laughed. But the look on the faces of the people around him — fervent, righteous, violent, told him this was conviction.</p><p>He continued down the street, telling himself it was nothing, just some local matter that didn't concern a silk merchant. But then he saw another. And another. From tree to tree, branch to branch, the monkeys hung. Some were already still. Others thrashed and screamed, their cries cutting through the noise of the crowd like something unholy.</p><p>The energy of the street had changed entirely. What had been the normal chaos of the market had become something darker. A mob that moved with a single purpose. The crowd wasn't thinking. It was acting.</p><p>People ran past shifting from prayer to shouting about the Europeans, about corruption, about wickedness and pleasure and sin. Mehmed caught fragments: "...their abominable purposes..." "...poison our city..." "...the Sultan's counselor commands it..."</p><p>His stomach tightened. This was about the Europeans. And immediately he thought about his business. About his clients. About his family. About the silk trade that was making him wealthy.</p><p>He stopped when he saw a man with rope, fashioning a noose with practiced hands. The face was familiar. Ismail. A textile trader, humble goods. Mehmed had seen him a hundred times in the market, nodded at him perhaps a dozen. Just another man making an honest living.</p><p>Another man standing close to Ismail held a screaming monkey against a wall, the animal's claws raking the air. They moved together like they had done this before. Swiftly Ismail prepared a noose and tightened the rope around the monkey's neck as it screamed. The monkey's shriek became something else.</p><p>Something that didn't sound like an animal at all.</p><p>Mehmed found himself stepping forward before he meant to.</p><p>"Ismail?" he called out. The word came out uncertain, questioning.</p><p>Ismail turned to him, rope still in his hands, eyes bright with something Mehmed couldn't name. Rage. Faith. Madness. Like he was under a spell.</p><p>For a moment there was no recognition. Then something shifted in his expression.</p><p>"Mehmed," Ismail said. It wasn't a greeting. It was a statement of fact, the way one might name a thing in passing.</p><p>"Why are you doing this?" Mehmed asked. "Why are you hanging these creatures?"</p><p>Ismail looked back at the rope in his hands as if he had forgotten it was there. "You still don't know?" he said quietly.</p><p>"The Europeans brought these creatures for abominable purposes. Unspeakable sins. They use them for... for things no Muslim should witness or dwell upon, even for a moment."</p><p>Mehmed felt something cold move through his chest. This was Ismail. A man he passed in the market. A man with a family.</p><p>"I don't understand," Mehmed said, though he was beginning to.</p><p>"The Europeans who come to our city, they bring these monkeys to satisfy their depravities. Their bestiality. They corrupt our streets, our people, our faith." The man's voice rose with each word, feeding a passion larger than his own. "The Sultan's own counselor, Molla Abdülkerim, declared it from the mosque. These creatures are instruments of European wickedness. They must be purged. Every one of them."</p><p>The monkey screamed again and again, each sound more faint than the last. The man turned back to his work.</p><p>Mehmed stood frozen. The akçe in his purse suddenly felt very heavy. His European contacts, his profitable relationships, his entire livelihood, all of it was being hung from the trees of Istanbul in the name of religious purity.</p><p>"This will not end with the monkeys," Mehmed heard himself say.</p><p>The man didn't even look at him. "No," he agreed. "It won't."</p>`
   },
-
   {
-    num: "012", title: "The Same Building", date: "2026", type: "prose", note: "",
+    num: "013", title: "The Same Building", date: "2026", type: "prose", note: "",
     content: `<p>He was sitting in his thinking chair, okay man relax, reminiscing back to the time when he was walking down his hallway when he lived in Nashville. He was selling insurance at the time, not well, and living in an expensive apartment he'd gotten along with his fancy truck because he had just acquired his first proverbial bag from a previous endeavor. Having had a little success, he thought he was going to make all this money in insurance like it was no problem. Unfortunately, he wasn't. Imagine that. Honestly though, it bummed him out. He saw the trope he fell into. Egg on his face. But he still wanted to make it work. He was still naive. He was so anxious at that job, working so hard and not knowing what to do. He remembers walking down his hallway after work one day and thinking: <em>Am I gonna die tomorrow? No. Am I gonna lose my house tomorrow? No. Then I'm fine.</em> That realization stuck with him.</p><p>There's another moment like that he thought about, now off his high horse and on the couch. Since freshman year of high school, he'd been struggling, it came and went through high school and college. To be honest, he didn't have much to struggle about, and that kind of made it worse, because he felt guilty for being guilty about being guilty. You get it. But through those dark times, there were also really fun, silly times he can still remember.</p><p>Then when college ended and he got a job out West, it felt like a rebirth. He felt success. He was really happy out there.</p><p>Then he remembers being in Utah, six or seven months later, after they had moved there for the snow season. He was in his room, getting up for the day and getting ready to go shred. He got up and stood on the left side of his bed, looking out the window. And he had a thought: <em>I don't want to die anymore. I want to continue to live.</em> He knew that sounded obvious, but he was genuine when he said it. It was true this time. He thought he would die by twenty-five and here he was at 24 yearning to live a real life.</p><p>That's the shift that happened.</p><p>That thought has stuck with him to this day. It was like a different lease on life, not a new one, just like moving to a different apartment in the same building. And even when he struggles now, he can think back to that moment, and those darker thoughts feel way more ridiculous.</p>`
   },
-
   {
-    num: "013", title: "Part 1: Ballad from the Badlands", date: "2026", type: "story", note: "",
+    num: "014", title: "Part 1: Ballad from the Badlands", date: "2026", type: "story", note: "",
     content: `<p>Flin had not planned on stopping in Gillette or at its Golden Arches. He had not planned much of anything, which was, as far as he was concerned, the whole point of the prolonged siesta. He did know what he wanted to accomplish. He wanted to go from the east coast to the west coast of The United States of America.</p><p>He was making pretty good time on his journey west and had semi-recently stepped foot into The Badlands as of 52 hours ago. The place had an effect on him like nothing back home had. These formations were older than Stonehenge and had more magic to them. He wasn't sure if it was made up or real but he felt it. He wasn't the kind of person who reached for words like spiritual, but he had stood at the edge of one of those formations on the second morning, and felt something he couldn't articulate even to himself. He was lighter. He stood there until his legs were stiff and the colors of the sky had settled in for the day. A fat family arrived and ruined the moment slightly by their unbothered presence. He went back to the Red Roof Inn in Wall, A place he had abandoned in 30 minutes on account of the crust in his room.</p><p>Breakfast the next morning was at one of the five places in Wall, South Dakota where a person could eat breakfast. It had eggs and bacon. It had black coffee that arrived before the water. It was fantastic.</p><p>A couple found him somewhere in the middle of chewing his food and taking a sip of his diner Folgers. They were friendly in the way that made Flin's shoulders rise toward his ears. That particular American midwest slight scary friendliness that came at you full speed with no warm up. They had no real reason to speak other than to speak.</p><p>They were heading west and told Flin all about it. More information than he knew could fit into 1 min and 47 seconds. He was watching the clock on the wall more than he was listening.</p><p>They let him know they had a great route. They had listened to a podcast about the route. They asked Flin if he had heard of their friend's podcast?</p><p>He answered "no, I have not heard of the Roadtrips to Glory: A Christian's Guide to the Western United States podcast."</p><p>"He should hear it." They said to each other, practically making out with their eyes. He could tell they were performing for him and for each other simultaneously, which was its own kind of exhausting to be the audience for.</p><p>He could caravan with them, they said, until their paths split somewhere in Wyoming or maybe further, they were flexible, it was totally up to him.</p><p>And Flin looked into the saucer sized pupils of the terrifyingly nice people, and said no.</p><p>He said it plainly. Not I'm not going that way. Not I actually think I'm staying here another day. Not some elaborate fiction he would have constructed 52 hours ago about something complicated and convoluted like a family situation and / or an illness.</p><p>Just, no.</p><p>He had other plans, he said, which was true because he just came up with them. He was planning to drive west until something stopped him. And he wanted to save his time dollars today. Other people had historically been very good at stealing his time dollars.</p><p>He paid his bill with regular dollars and carried his night bag back to the Yaris and sat behind the wheel for a moment. The 'no' felt good. The familiar weight of unwanted obligations and niceties lifted. He felt like he'd got away with something big.</p><p>Happy as a clam, he took 90 west.</p><p>As he approached the border of the Coyote State and thought back to the east side of it. He had decided, this state was beautiful in a way he had never seen. Starting in the east it's flat and wide and full of sky like Texas. He appreciated the grandness of it as an adult who briefly remembered how to be a child. The hills began to roll up and down and the road began to cut through the earth instead of just lying across it, and Flin found himself sitting up straighter in his seat the further west he went until he got to the Badlands. Then he had to get out.</p><p>As he drew closer to the border he pulled off on a side road. He hoped no one found this part of the world, he thought, taking in the view. He hoped it stayed like this. Unknown and a little inconvenient to get to. He prayed it didn't end up as a TV show.</p><p>He got back in his car and drove to cross the border into Wyoming. 15 minutes into Wyoming he had a realization in the car.</p><p>He had not eaten at a McDonald's yet.</p><p>Thirteen burgers, by his count. A smash place in Chicago on the 5th day driving across America that had made him understand Americans for the first time. A diner in Iowa where the patty was so thick he'd had to eat it with a fork and knife. He felt judged for doing so and he was correct in his assessment of the situation.</p><p>He had good ones and okay ones and one in Nebraska that he was trying to forget after peeling the bun back and seeing more hair than condiments on his grey patty.</p><p>He had not, however, had a McDonald's American Big Mac in America. He understood intellectually the McDonald's American Big Mac is likely more or less the same as every other Big Mac he has had. But, for some reason he felt strongly it couldn't possibly be the same. So at 12:37 in the afternoon in Gillette, Wyoming, he decided that this was as good a time as any.</p><p>He pulled into the Exxon first. Filled the tank of the Yaris, which he loved unreasonably as a rental and was seriously contemplating buying when he got home. However, it was a ridiculous car for these roads in America let alone out west. At any moment the wind could remind him exactly how small the car was. And every car that passed him looked like it could fit his car in it. But it was peppy and got extraordinary gas mileage. He had developed an affection for it the way you develop affection for someone you go through a trial of life with.</p><p>While he was filling up, he pulled the trash from the past day off the floor of the passenger seat. A receipt, a gas station bag and the wrapper from a thing he'd bought in a moment of curiosity, ate half of, and decided was not food.</p><p>He got back in his car with a full tank and drove over to the Golden Arches of Gillette. He considered the drive-through at McDonald's. It was right there.</p><p>"It would be an experience" he thought.</p><p>But the Exxon bathroom had made a strong case against itself, and he suspected the McDonald's bathroom might represent an improvement. He parked, grabbed his wallet and went in.</p><p>The restaurant was cleaner than he expected. His expectations had been low to be fair but this was a nice surprise. The floors had been mopped at some point today. Nothing was visibly broken, and all the people in the store were acting like human beings. He ordered at the large white iPad, which he found slightly incredible that Gillette, Wyoming, had touchscreen tech. He touched the Big Mac, the fries, the Coke. And because this was America, he made it all large.</p><p>He found the bathroom after taking his printed ticket to claim his food. He entered, took care of business, washed his hands, and pushed the bathroom door open. The blinding light that hit him was not the neon lights of the McDonald's Golden Arches in Gillette, Wyoming.</p>
     <div class="flin-map">
       <svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="background:#ede8df;">
@@ -779,113 +649,39 @@ const stories = [
         <line x1="420" y1="0" x2="420" y2="170" stroke="#d4cfc6" stroke-width="0.5" stroke-dasharray="3,4"/>
         <polyline points="540,115 470,108 400,108 355,115 310,112 275,104 245,92 215,95" fill="none" stroke="#c8a87a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         <polyline points="215,95 180,90 140,85 100,80 60,76" fill="none" stroke="#c8a87a" stroke-width="2" stroke-dasharray="5,5" stroke-linecap="round" opacity="0.4"/>
-        <circle cx="540" cy="115" r="4" fill="#2a5f7a"/>
-        <text x="514" y="109" font-family="Georgia,serif" font-size="9" fill="#5a5a52">New York</text>
-        <circle cx="470" cy="108" r="3" fill="#8a8a80"/>
-        <text x="474" y="102" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Chicago</text>
-        <circle cx="400" cy="108" r="3" fill="#8a8a80"/>
-        <text x="404" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Iowa</text>
-        <circle cx="355" cy="115" r="3" fill="#8a8a80"/>
-        <text x="359" y="110" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Nebraska</text>
-        <circle cx="295" cy="108" r="3" fill="#8a8a80"/>
-        <text x="299" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Badlands</text>
-        <circle cx="245" cy="92" r="5" fill="#c96a2a"/>
-        <text x="218" y="82" font-family="Georgia,serif" font-size="9" fill="#c96a2a" font-weight="bold">Gillette, WY</text>
-        <g transform="translate(232,82)">
-          <rect x="0" y="8" width="26" height="8" rx="2" fill="#c96a2a"/>
-          <path d="M4,8 Q5,2 8,1 L18,1 Q21,2 22,8 Z" fill="#c96a2a"/>
-          <rect x="1" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/>
-          <rect x="19" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/>
-          <rect x="6" y="3" width="14" height="5" rx="1" fill="#a8d0e8" opacity="0.7"/>
-        </g>
-        <circle cx="60" cy="76" r="4" fill="#c8a87a" opacity="0.3"/>
-        <text x="40" y="70" font-family="Georgia,serif" font-size="9" fill="#c8a87a" opacity="0.4">west coast</text>
+        <circle cx="540" cy="115" r="4" fill="#2a5f7a"/><text x="514" y="109" font-family="Georgia,serif" font-size="9" fill="#5a5a52">New York</text>
+        <circle cx="470" cy="108" r="3" fill="#8a8a80"/><text x="474" y="102" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Chicago</text>
+        <circle cx="400" cy="108" r="3" fill="#8a8a80"/><text x="404" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Iowa</text>
+        <circle cx="355" cy="115" r="3" fill="#8a8a80"/><text x="359" y="110" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Nebraska</text>
+        <circle cx="295" cy="108" r="3" fill="#8a8a80"/><text x="299" y="103" font-family="Georgia,serif" font-size="8" fill="#8a8a80">Badlands</text>
+        <circle cx="245" cy="92" r="5" fill="#c96a2a"/><text x="218" y="82" font-family="Georgia,serif" font-size="9" fill="#c96a2a" font-weight="bold">Gillette, WY</text>
+        <g transform="translate(232,82)"><rect x="0" y="8" width="26" height="8" rx="2" fill="#c96a2a"/><path d="M4,8 Q5,2 8,1 L18,1 Q21,2 22,8 Z" fill="#c96a2a"/><rect x="1" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/><rect x="19" y="14" width="6" height="3" rx="1.5" fill="#1a1a18"/><rect x="6" y="3" width="14" height="5" rx="1" fill="#a8d0e8" opacity="0.7"/></g>
+        <circle cx="60" cy="76" r="4" fill="#c8a87a" opacity="0.3"/><text x="40" y="70" font-family="Georgia,serif" font-size="9" fill="#c8a87a" opacity="0.4">west coast</text>
         <text x="16" y="210" font-family="Courier New,monospace" font-size="9" fill="#8a8a80" letter-spacing="0.08em">FLIN — PART 1</text>
-        <circle cx="390" cy="205" r="4" fill="#c96a2a"/>
-        <text x="398" y="209" font-family="Courier New,monospace" font-size="9" fill="#c96a2a">current position</text>
+        <circle cx="390" cy="205" r="4" fill="#c96a2a"/><text x="398" y="209" font-family="Courier New,monospace" font-size="9" fill="#c96a2a">current position</text>
       </svg>
     </div>
     <p class="map-caption">the route so far</p>`
-  }];
+  }
+];
 
-function buildCatalog() {
-  const list = document.getElementById('catalog-list');
-  list.innerHTML = stories.map((s, i) => `
+function buildCatalog(){const list=document.getElementById('catalog-list');list.innerHTML=stories.map((s,i)=>`
     <div class="catalog-item" onclick="showReader(${i})">
       <span class="catalog-num">${s.num}</span>
       <span class="catalog-title">${s.title}</span>
       <span class="catalog-date">${s.date}</span>
     </div>
-  `).join('');
-}
+  `).join('')}
 
-function enterPond(e) {
-  const ripple = document.createElement('div');
-  ripple.className = 'click-ripple';
-  ripple.style.left = e.clientX + 'px';
-  ripple.style.top = e.clientY + 'px';
-  document.body.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 800);
-  setTimeout(() => {
-    document.getElementById('page-home').style.display = 'none';
-    const p = document.getElementById('page-stories');
-    p.style.display = 'block';
-    p.classList.add('page-enter');
-    buildCatalog();
-  }, 200);
-}
+function enterPond(e){const ripple=document.createElement('div');ripple.className='click-ripple';ripple.style.left=e.clientX+'px';ripple.style.top=e.clientY+'px';document.body.appendChild(ripple);setTimeout(()=>ripple.remove(),800);setTimeout(()=>{document.getElementById('page-home').style.display='none';const p=document.getElementById('page-stories');p.style.display='block';p.classList.add('page-enter');buildCatalog()},200)}
 
-function showHome() {
-  cleanupExitIntent();
-  ['page-stories','page-reader','page-guestbook','page-projects','page-ottoman','page-course-landing'].forEach(id => document.getElementById(id).style.display = 'none');
-  document.getElementById('page-home').style.display = 'flex';
-}
+function showHome(){cleanupExitIntent();['page-stories','page-reader','page-guestbook','page-projects','page-ottoman','page-course-landing'].forEach(id=>document.getElementById(id).style.display='none');document.getElementById('page-home').style.display='flex'}
+function showStories(){['page-reader','page-guestbook'].forEach(id=>document.getElementById(id).style.display='none');const p=document.getElementById('page-stories');p.style.display='block';p.classList.add('page-enter');buildCatalog()}
+function showGuestbook(){document.getElementById('page-stories').style.display='none';const p=document.getElementById('page-guestbook');p.style.display='block';p.classList.add('page-enter');renderEntries()}
+function showReader(i){currentStoryIndex=i;const s=stories[i];document.getElementById('reader-meta').textContent=s.type+' · '+s.date;document.getElementById('reader-num').textContent=s.num;document.getElementById('reader-title').textContent=s.title;const noteEl=document.getElementById('reader-note');noteEl.style.display=s.note?'block':'none';if(s.note)noteEl.textContent=s.note;document.getElementById('reader-content').innerHTML=s.content;document.getElementById('nav-count').textContent=(i+1)+' / '+stories.length;document.getElementById('btn-prev').disabled=i===0;document.getElementById('btn-next').disabled=i===stories.length-1;['page-stories','page-guestbook'].forEach(id=>document.getElementById(id).style.display='none');const p=document.getElementById('page-reader');p.style.display='block';p.classList.add('page-enter');window.scrollTo(0,0);markRead(i);updateLikeUI();updateStampUI()}
+function navigate(dir){const next=currentStoryIndex+dir;if(next>=0&&next<stories.length)showReader(next)}
 
-function showStories() {
-  ['page-reader','page-guestbook'].forEach(id => document.getElementById(id).style.display = 'none');
-  const p = document.getElementById('page-stories');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-  buildCatalog();
-}
-
-function showGuestbook() {
-  document.getElementById('page-stories').style.display = 'none';
-  const p = document.getElementById('page-guestbook');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-  renderEntries();
-}
-
-function showReader(i) {
-  currentStoryIndex = i;
-  const s = stories[i];
-  document.getElementById('reader-meta').textContent = s.type + ' · ' + s.date;
-  document.getElementById('reader-num').textContent = s.num;
-  document.getElementById('reader-title').textContent = s.title;
-  const noteEl = document.getElementById('reader-note');
-  noteEl.style.display = s.note ? 'block' : 'none';
-  if (s.note) noteEl.textContent = s.note;
-  document.getElementById('reader-content').innerHTML = s.content;
-  document.getElementById('nav-count').textContent = (i + 1) + ' / ' + stories.length;
-  document.getElementById('btn-prev').disabled = i === 0;
-  document.getElementById('btn-next').disabled = i === stories.length - 1;
-  ['page-stories','page-guestbook'].forEach(id => document.getElementById(id).style.display = 'none');
-  const p = document.getElementById('page-reader');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-  window.scrollTo(0, 0);
-  markRead(i);
-  updateLikeUI();
-  updateStampUI();
-}
-
-function navigate(dir) {
-  const next = currentStoryIndex + dir;
-  if (next >= 0 && next < stories.length) showReader(next);
-}
-
-var ottomanStyles = `
+var ottomanStyles=`
 <style>
 *{box-sizing:border-box;}
 :root{--cream:#F5EDD6;--dark:#1A1510;--red:#8B1A1A;--gold:#C8A04A;}
@@ -931,7 +727,7 @@ var ottomanStyles = `
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 `;
 
-var ottomanHTML = `
+var ottomanHTML=`
 <div class="ot-wrap">
   <div class="ot-sub-nav">
     <a id="ot-nav-home" onclick="otShow('home')" class="active">Home</a>
@@ -966,149 +762,27 @@ var ottomanHTML = `
 </div>
 `;
 
-function initOttoman() {
-  var el = document.getElementById('ottoman-content');
-  if (el.innerHTML.trim()) return;
-  el.innerHTML = ottomanStyles + ottomanHTML;
-  var otEvents=[
-    {year:"1285",era:"rise",title:"It Begins with a Footnote",desc:"Osman I becomes sultan of a small Turkish tribal confederation in Anatolia. Nobody at the time would have predicted this particular group outlasting the Roman Empire, the Mongols, and every European power that tried to dislodge it. They were wrong to be complacent."},
-    {year:"1326",era:"rise",title:"First Capital, Immediate Death",desc:"After a long siege of Bursa in northwest Turkey, Osman I finally captures the city and makes it the empire's first capital. He then dies the same year, leaving his son Orhan to actually enjoy it. The empire keeps moving west."},
-    {year:"1453",era:"peak",title:"Constantinople Falls",desc:"The 21-year-old sultan Mehmed II lays siege to Constantinople, which had resisted every attacker for over a thousand years. After eight weeks, it does not resist him. Renamed Istanbul, it becomes the Ottoman capital and briefly the largest city in Europe. Mehmed rides a white horse into the Hagia Sophia to mark the occasion."},
-    {year:"1492",era:"peak",title:"Spain's Loss, Their Gain",desc:"When Spain expels its Jewish population during the Inquisition, Sultan Bayezid II dispatches a fleet to collect them. He reportedly remarked that Ferdinand of Spain had impoverished his own kingdom to enrich the Ottomans. Ottoman cities, particularly Thessaloniki, become major centers of Jewish scholarship and trade for centuries afterward."},
-    {year:"1517",era:"peak",title:"Selim the Grim Takes Egypt",desc:"Sultan Selim I, whose nickname was not ironic, conquers Egypt and ends four centuries of Mameluke rule in the Middle East. Control of Mecca and Medina follows, cementing the Ottoman sultan as the preeminent protector of Sunni Islam. Selim also executed two of his three sons and reportedly most of his own viziers. He was not easy to work for."},
-    {year:"1520",era:"peak",title:"Suleyman the Magnificent",desc:"Suleyman I takes power and pushes the empire to its greatest extent, from the gates of Vienna to the Persian Gulf. His European enemies called him the Magnificent. The Ottomans called him Kanuni, the Lawgiver, for a sweeping reform of the legal code. Both names were accurate. He is the high-water mark."},
-    {year:"1520",era:"peak",title:"The Imperial Harem",desc:"Deep inside Topkapi Palace lived hundreds of women organized into a strict hierarchy based entirely on how much the sultan liked them. Most were acquired through purchase or capture. One woman climbed the ranks further than anyone in history: Hurrem Sultan, a Ukrainian slave who arrived at the palace at fifteen, became the first concubine in two hundred years to legally marry a sultan, and effectively ran Ottoman foreign policy through correspondence while Suleyman was on campaign."},
-    {year:"1553",era:"peak",title:"Suleyman Kills His Best Heir",desc:"Convinced by his wife Hurrem Sultan that his eldest and most capable son Mustafa was plotting a coup, Suleyman orders him strangled. Most historians believe the accusation was fabricated. The empire lost its best-prepared successor. Hurrem's son Selim inherited instead. Selim II was known, not flatteringly, as Selim the Drunkard."},
-    {year:"1553",era:"peak",title:"The Law of Fratricide",desc:"The Ottomans did not practice primogeniture, meaning the eldest son had no guaranteed claim to the throne. When Mehmed the Conqueror took the throne, he codified fratricidal succession into law. Mehmed III, ascending in 1595, had all nineteen of his brothers strangled on a single day."},
-    {year:"1571",era:"peak",title:"The Great Monkey Purge",desc:"During the reign of Sultan Murad III, the empire's chief religious official delivered a sermon claiming the women of Istanbul were using their pet monkeys for abominable purposes. The crowd took to the streets. By nightfall, it was difficult to find a single tree branch in Istanbul without a hanged monkey."},
-    {year:"1571",era:"decline",title:"Lepanto",desc:"Selim II fails to hold Cyprus against a combined Spanish and Venetian fleet at the Battle of Lepanto. The Ottoman navy is destroyed. It is the empire's first major defeat at sea and the first clear signal that the military expansion has a ceiling."},
-    {year:"1683",era:"decline",title:"The Cage",desc:"Around 1603, the Ottomans replaced fratricide with the Kafes: all male relatives of the reigning sultan were locked inside a small wing of Topkapi Palace indefinitely. When a sultan died and a Kafes prince was summoned to rule, he might emerge after twenty or forty years with no experience and no firm grip on reality. Ibrahim I spent sixteen years in the Cage before becoming sultan. His reign was so erratic that history remembers him as Ibrahim the Mad."},
-    {year:"1683",era:"decline",title:"Vienna Does Not Fall",desc:"The Ottomans lay siege to Vienna and are routed by the combined forces of Holy Roman Emperor Leopold I and Polish King John III Sobieski. The defeat marks the permanent end of Ottoman expansion into Europe."},
-    {year:"1774",era:"decline",title:"Russia Gets a Foothold",desc:"The Treaty of Kuchuk Kainarji hands Crimea to Russia and gives the tsar a legal basis to intervene in Ottoman affairs on behalf of Orthodox Christians. It is a clause Russia will exploit with great enthusiasm for the next hundred years."},
-    {year:"1821",era:"decline",title:"The Death Race",desc:"The sultan's head gardener also commanded 3,000 soldiers and personally handled executions of senior officials. A curious custom: when a grand vizier was sentenced to death, he was allowed to run roughly 300 yards from Topkapi Palace to the Fish Market Gate. Arrive first: banishment. Arrive second: execution into the sea. The last man to successfully outrun his execution was Grand Vizier Haci Salih Pasha in November 1822."},
-    {year:"1821",era:"decline",title:"Greece Exits",desc:"Greece launches a rebellion against Ottoman rule. Britain, France, and Russia provide support. Greece achieves independence in 1830, the first of many nationalist movements that will, over the following ninety years, dismantle most of the empire's European holdings."},
-    {year:"1826",era:"decline",title:"The Janissaries and the Auspicious Incident",desc:"The Janissaries were the Ottoman Empire's elite soldiers, taken as boys from Christian families, converted to Islam, and trained to be warriors with no loyalty except to the sultan. By the 1600s they were effectively selecting and deposing sultans themselves. When Sultan Mahmud II finally abolished them in 1826, he launched a full military assault on their barracks, killing thousands. He declared the event the Auspicious Incident and had commemorative coins struck."},
-    {year:"1878",era:"decline",title:"The Congress of Berlin",desc:"The Congress of Berlin formally recognizes the independence of Serbia, Romania, Montenegro, and Bulgaria. The Ottoman Empire, which once stretched from Hungary to Yemen, is contracting rapidly."},
-    {year:"1914",era:"end",title:"Wrong Side, Wrong War",desc:"Weakened by the Balkan Wars and desperate for allies, the Ottoman Empire joins the Central Powers in World War I. Germany and Austria-Hungary lose. The empire is partitioned by the victorious powers. The Republic of Turkey is proclaimed in 1923. The Ottoman Empire, after 638 years, is over."}
-  ];
-  var eraLabels={rise:"Rise",peak:"Peak",decline:"Decline",end:"End"};
-  var track=document.getElementById("ot-tl-track");
-  otEvents.forEach(function(e){
-    var div=document.createElement("div");
-    div.className="ot-tl-item";
-    div.innerHTML='<div class="ot-tl-year-col"><span class="ot-tl-year">'+e.year+'</span></div><div class="ot-tl-dot-col"><div class="ot-tl-dot"></div></div><div class="ot-tl-content"><span class="ot-era era-'+e.era+'">'+eraLabels[e.era]+'</span><h3>'+e.title+'</h3><div class="ot-tl-desc">'+e.desc+'</div><span class="ot-tl-hint">tap to read</span></div>';
-    div.addEventListener("click",function(){
-      var was=div.classList.contains("open");
-      document.querySelectorAll(".ot-tl-item.open").forEach(function(x){x.classList.remove("open");});
-      if(!was)div.classList.add("open");
-    });
-    track.appendChild(div);
-  });
-}
+function initOttoman(){var el=document.getElementById('ottoman-content');if(el.innerHTML.trim())return;el.innerHTML=ottomanStyles+ottomanHTML;var otEvents=[{year:"1285",era:"rise",title:"It Begins with a Footnote",desc:"Osman I becomes sultan of a small Turkish tribal confederation in Anatolia. Nobody at the time would have predicted this particular group outlasting the Roman Empire, the Mongols, and every European power that tried to dislodge it. They were wrong to be complacent."},{year:"1326",era:"rise",title:"First Capital, Immediate Death",desc:"After a long siege of Bursa in northwest Turkey, Osman I finally captures the city and makes it the empire's first capital. He then dies the same year, leaving his son Orhan to actually enjoy it. The empire keeps moving west."},{year:"1453",era:"peak",title:"Constantinople Falls",desc:"The 21-year-old sultan Mehmed II lays siege to Constantinople, which had resisted every attacker for over a thousand years. After eight weeks, it does not resist him. Renamed Istanbul, it becomes the Ottoman capital and briefly the largest city in Europe. Mehmed rides a white horse into the Hagia Sophia to mark the occasion."},{year:"1492",era:"peak",title:"Spain's Loss, Their Gain",desc:"When Spain expels its Jewish population during the Inquisition, Sultan Bayezid II dispatches a fleet to collect them. He reportedly remarked that Ferdinand of Spain had impoverished his own kingdom to enrich the Ottomans. Ottoman cities, particularly Thessaloniki, become major centers of Jewish scholarship and trade for centuries afterward."},{year:"1517",era:"peak",title:"Selim the Grim Takes Egypt",desc:"Sultan Selim I, whose nickname was not ironic, conquers Egypt and ends four centuries of Mameluke rule in the Middle East. Control of Mecca and Medina follows, cementing the Ottoman sultan as the preeminent protector of Sunni Islam. Selim also executed two of his three sons and reportedly most of his own viziers. He was not easy to work for."},{year:"1520",era:"peak",title:"Suleyman the Magnificent",desc:"Suleyman I takes power and pushes the empire to its greatest extent, from the gates of Vienna to the Persian Gulf. His European enemies called him the Magnificent. The Ottomans called him Kanuni, the Lawgiver, for a sweeping reform of the legal code. Both names were accurate. He is the high-water mark."},{year:"1520",era:"peak",title:"The Imperial Harem",desc:"Deep inside Topkapi Palace lived hundreds of women organized into a strict hierarchy based entirely on how much the sultan liked them. Most were acquired through purchase or capture. One woman climbed the ranks further than anyone in history: Hurrem Sultan, a Ukrainian slave who arrived at the palace at fifteen, became the first concubine in two hundred years to legally marry a sultan, and effectively ran Ottoman foreign policy through correspondence while Suleyman was on campaign."},{year:"1553",era:"peak",title:"Suleyman Kills His Best Heir",desc:"Convinced by his wife Hurrem Sultan that his eldest and most capable son Mustafa was plotting a coup, Suleyman orders him strangled. Most historians believe the accusation was fabricated. The empire lost its best-prepared successor. Hurrem's son Selim inherited instead. Selim II was known, not flatteringly, as Selim the Drunkard."},{year:"1553",era:"peak",title:"The Law of Fratricide",desc:"The Ottomans did not practice primogeniture, meaning the eldest son had no guaranteed claim to the throne. When Mehmed the Conqueror took the throne, he codified fratricidal succession into law. Mehmed III, ascending in 1595, had all nineteen of his brothers strangled on a single day."},{year:"1571",era:"peak",title:"The Great Monkey Purge",desc:"During the reign of Sultan Murad III, the empire's chief religious official delivered a sermon claiming the women of Istanbul were using their pet monkeys for abominable purposes. The crowd took to the streets. By nightfall, it was difficult to find a single tree branch in Istanbul without a hanged monkey."},{year:"1571",era:"decline",title:"Lepanto",desc:"Selim II fails to hold Cyprus against a combined Spanish and Venetian fleet at the Battle of Lepanto. The Ottoman navy is destroyed. It is the empire's first major defeat at sea and the first clear signal that the military expansion has a ceiling."},{year:"1683",era:"decline",title:"The Cage",desc:"Around 1603, the Ottomans replaced fratricide with the Kafes: all male relatives of the reigning sultan were locked inside a small wing of Topkapi Palace indefinitely. When a sultan died and a Kafes prince was summoned to rule, he might emerge after twenty or forty years with no experience and no firm grip on reality. Ibrahim I spent sixteen years in the Cage before becoming sultan. His reign was so erratic that history remembers him as Ibrahim the Mad."},{year:"1683",era:"decline",title:"Vienna Does Not Fall",desc:"The Ottomans lay siege to Vienna and are routed by the combined forces of Holy Roman Emperor Leopold I and Polish King John III Sobieski. The defeat marks the permanent end of Ottoman expansion into Europe."},{year:"1774",era:"decline",title:"Russia Gets a Foothold",desc:"The Treaty of Kuchuk Kainarji hands Crimea to Russia and gives the tsar a legal basis to intervene in Ottoman affairs on behalf of Orthodox Christians. It is a clause Russia will exploit with great enthusiasm for the next hundred years."},{year:"1821",era:"decline",title:"The Death Race",desc:"The sultan's head gardener also commanded 3,000 soldiers and personally handled executions of senior officials. A curious custom: when a grand vizier was sentenced to death, he was allowed to run roughly 300 yards from Topkapi Palace to the Fish Market Gate. Arrive first: banishment. Arrive second: execution into the sea. The last man to successfully outrun his execution was Grand Vizier Haci Salih Pasha in November 1822."},{year:"1821",era:"decline",title:"Greece Exits",desc:"Greece launches a rebellion against Ottoman rule. Britain, France, and Russia provide support. Greece achieves independence in 1830, the first of many nationalist movements that will, over the following ninety years, dismantle most of the empire's European holdings."},{year:"1826",era:"decline",title:"The Janissaries and the Auspicious Incident",desc:"The Janissaries were the Ottoman Empire's elite soldiers, taken as boys from Christian families, converted to Islam, and trained to be warriors with no loyalty except to the sultan. By the 1600s they were effectively selecting and deposing sultans themselves. When Sultan Mahmud II finally abolished them in 1826, he launched a full military assault on their barracks, killing thousands. He declared the event the Auspicious Incident and had commemorative coins struck."},{year:"1878",era:"decline",title:"The Congress of Berlin",desc:"The Congress of Berlin formally recognizes the independence of Serbia, Romania, Montenegro, and Bulgaria. The Ottoman Empire, which once stretched from Hungary to Yemen, is contracting rapidly."},{year:"1914",era:"end",title:"Wrong Side, Wrong War",desc:"Weakened by the Balkan Wars and desperate for allies, the Ottoman Empire joins the Central Powers in World War I. Germany and Austria-Hungary lose. The empire is partitioned by the victorious powers. The Republic of Turkey is proclaimed in 1923. The Ottoman Empire, after 638 years, is over."}];
+var eraLabels={rise:"Rise",peak:"Peak",decline:"Decline",end:"End"};
+var track=document.getElementById("ot-tl-track");
+otEvents.forEach(function(e){var div=document.createElement("div");div.className="ot-tl-item";div.innerHTML='<div class="ot-tl-year-col"><span class="ot-tl-year">'+e.year+'</span></div><div class="ot-tl-dot-col"><div class="ot-tl-dot"></div></div><div class="ot-tl-content"><span class="ot-era era-'+e.era+'">'+eraLabels[e.era]+'</span><h3>'+e.title+'</h3><div class="ot-tl-desc">'+e.desc+'</div><span class="ot-tl-hint">tap to read</span></div>';div.addEventListener("click",function(){var was=div.classList.contains("open");document.querySelectorAll(".ot-tl-item.open").forEach(function(x){x.classList.remove("open")});if(!was)div.classList.add("open")});track.appendChild(div)})}
 
-function otShow(id){
-  document.querySelectorAll(".ot-page").forEach(function(p){p.classList.remove("active");});
-  document.querySelectorAll(".ot-sub-nav a").forEach(function(a){a.classList.remove("active");});
-  var page = document.getElementById("ot-page-"+id);
-  var nav = document.getElementById("ot-nav-"+id);
-  if(page) page.classList.add("active");
-  if(nav) nav.classList.add("active");
-}
+function otShow(id){document.querySelectorAll(".ot-page").forEach(function(p){p.classList.remove("active")});document.querySelectorAll(".ot-sub-nav a").forEach(function(a){a.classList.remove("active")});var page=document.getElementById("ot-page-"+id);var nav=document.getElementById("ot-nav-"+id);if(page)page.classList.add("active");if(nav)nav.classList.add("active")}
 
-function enterProjects(e) {
-  var ripple = document.createElement('div');
-  ripple.className = 'click-ripple';
-  ripple.style.left = e.clientX + 'px';
-  ripple.style.top = e.clientY + 'px';
-  document.body.appendChild(ripple);
-  setTimeout(function(){ ripple.remove(); }, 800);
-  setTimeout(function(){
-    document.getElementById('page-home').style.display = 'none';
-    var p = document.getElementById('page-projects');
-    p.style.display = 'block';
-    p.classList.add('page-enter');
-  }, 200);
-}
+function enterProjects(e){var ripple=document.createElement('div');ripple.className='click-ripple';ripple.style.left=e.clientX+'px';ripple.style.top=e.clientY+'px';document.body.appendChild(ripple);setTimeout(function(){ripple.remove()},800);setTimeout(function(){document.getElementById('page-home').style.display='none';var p=document.getElementById('page-projects');p.style.display='block';p.classList.add('page-enter')},200)}
 
-function showProjects() {
-  ['page-ottoman','page-stories','page-reader','page-guestbook','page-course-landing'].forEach(function(id){
-    document.getElementById(id).style.display = 'none';
-  });
-  var p = document.getElementById('page-projects');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-}
+function showProjects(){cleanupExitIntent();['page-ottoman','page-stories','page-reader','page-guestbook','page-course-landing'].forEach(function(id){document.getElementById(id).style.display='none'});var p=document.getElementById('page-projects');p.style.display='block';p.classList.add('page-enter')}
 
-function showOttoman() {
-  document.getElementById('page-projects').style.display = 'none';
-  var p = document.getElementById('page-ottoman');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-  window.scrollTo(0, 0);
-  initOttoman();
-}
-function showCourseLanding() {
-  document.getElementById('page-projects').style.display = 'none';
-  var p = document.getElementById('page-course-landing');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-  window.scrollTo(0, 0);
-  startLandingPageTimer();
-  if (window.innerWidth < 700) {
-    exitIntentFired = false;
-    document.addEventListener('mouseleave', handleExitIntent);
-  }
-}
+function showOttoman(){document.getElementById('page-projects').style.display='none';var p=document.getElementById('page-ottoman');p.style.display='block';p.classList.add('page-enter');window.scrollTo(0,0);initOttoman()}
 
-function cleanupExitIntent() {
-  document.removeEventListener('mouseleave', handleExitIntent);
-  exitIntentFired = false;
-  var overlay = document.getElementById('lp-exit-overlay');
-  if (overlay) {
-    overlay.classList.remove('active');
-    overlay.style.display = 'none';
-  }
-}
+function showCourseLanding(){document.getElementById('page-projects').style.display='none';var p=document.getElementById('page-course-landing');p.style.display='block';p.classList.add('page-enter');window.scrollTo(0,0);startLandingPageTimer();exitIntentFired=false;document.addEventListener('mouseleave',handleExitIntent)}
 
-function showProjects() {
-  cleanupExitIntent();
-  ['page-ottoman','page-stories','page-reader','page-guestbook','page-course-landing'].forEach(function(id){
-    document.getElementById(id).style.display = 'none';
-  });
-  var p = document.getElementById('page-projects');
-  p.style.display = 'block';
-  p.classList.add('page-enter');
-}
+function cleanupExitIntent(){document.removeEventListener('mouseleave',handleExitIntent);exitIntentFired=false;var overlay=document.getElementById('lp-exit-overlay');if(overlay)overlay.classList.remove('active')}
 
-function startLandingPageTimer() {
-  var end = Date.now() + (20 * 60 * 1000);
-  function tick() {
-    var remaining = Math.max(0, end - Date.now());
-    var m = Math.floor(remaining / 60000);
-    var s = Math.floor((remaining % 60000) / 1000);
-    var el = document.getElementById('lp-countdown');
-    if (el) el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ':00';
-    if (remaining > 0) setTimeout(tick, 1000);
-  }
-  tick();
-}
+function startLandingPageTimer(){var end=Date.now()+(20*60*1000);function tick(){var remaining=Math.max(0,end-Date.now());var m=Math.floor(remaining/60000);var s=Math.floor((remaining%60000)/1000);var el=document.getElementById('lp-countdown');if(el)el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+':00';if(remaining>0)setTimeout(tick,1000)}tick()}
 
-var exitIntentFired = false;
-
-function handleExitIntent(e) {
-  if (exitIntentFired) return;
-  var landingVisible = document.getElementById('page-course-landing').style.display !== 'none';
-  if (!landingVisible) { cleanupExitIntent(); return; }
-  if (e.clientY <= 0) {
-    exitIntentFired = true;
-    var overlay = document.getElementById('lp-exit-overlay');
-    if (overlay) {
-      overlay.classList.add('active');
-      overlay.style.display = 'flex';
-    }
-    document.removeEventListener('mouseleave', handleExitIntent);
-  }
-}
+var exitIntentFired=false;
+function handleExitIntent(e){if(exitIntentFired)return;var landingVisible=document.getElementById('page-course-landing').style.display!=='none';if(!landingVisible){cleanupExitIntent();return}if(e.clientY<=0){exitIntentFired=true;var overlay=document.getElementById('lp-exit-overlay');if(overlay)overlay.classList.add('active');document.removeEventListener('mouseleave',handleExitIntent)}}
 </script>
 </body>
 </html>
